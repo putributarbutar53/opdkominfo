@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+  <head>
+    {include file='header.html'}
+    <!-- ===============================================-->
+    <!--    Stylesheets-->
+    <!-- ===============================================-->
+    <link href="assets/lib/flatpickr/flatpickr.min.css" rel="stylesheet">
+
+    <script src="assets/js/config.navbar-vertical.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="assets/lib/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet">
+    <link href="assets/lib/prismjs/prism-okaidia.css" rel="stylesheet">
+    <link href="assets/lib/datatables-bs4/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="assets/lib/datatables.net-responsive-bs4/responsive.bootstrap4.css" rel="stylesheet">
+    <link href="assets/lib/dropzone/dropzone.min.css" rel="stylesheet">
+    <link href="assets/lib/fancybox/jquery.fancybox.min.css" rel="stylesheet">
+    <link href="assets/lib/select2/select2.min.css" rel="stylesheet">
+    <link href="assets/css/theme.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <!-- ===============================================-->
+    <!--    Main Content-->
+    <!-- ===============================================-->
+    <main class="main" id="top">
+
+      <div class="container-fluid" data-layout="container">
+        
+        {include file='left_menu.html'}
+
+        <div class="content">
+          
+          {include file='top_menu.html'}
+
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="{$admin_url}mycontent">News / Media</a></li>
+              <li class="breadcrumb-item active" aria-current="page">{$detailCategory.vCategory|no_value}</li>
+            </ol>
+          </nav>
+
+          <div class="card mb-3">
+            <div class="bg-holder d-none d-lg-block bg-card" style="background-image:url(assets/img/illustrations/corner-4.png);">
+            </div>
+            <!--/.bg-holder-->
+            <div class="card-body">
+              <div class="row">                
+                <div class="col-lg-8">
+                  <h3 class="mb-0">News / Media: <span class="text-info">{$detailCategory.vCategory|no_value}</span></h3>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card mb-3">
+            <div class="card-body bg-light">
+
+<span id="report_all"></span>
+
+<button class="btn btn-primary" type="button" onclick="adddata()"><i class="fas fa-plus-square"></i>&nbsp;Tambah {$detailCategory.vCategory|no_value}</button>
+<br /><br />
+
+{include file='modal-lg.html'}
+
+<table id="table_index" width="100%" class="table mb-0 table-bordered table-hover table-dashboard data-table border-bottom border-200">
+  <thead class="bg-200">
+  <tr>
+      <th class="w-25"><b>Status</b></th>
+      <th><b>Content</b></th>
+    </tr>
+    </thead>
+  </table>
+
+            </div>
+          </div>
+
+
+          {include file='footer.html'}
+
+        </div>
+      </div>
+    </main>
+    <!-- ===============================================-->
+    <!--    End of Main Content-->
+    <!-- ===============================================-->
+
+    {literal}
+    <!-- ===============================================-->
+    <!--    JavaScripts-->
+    <!-- ===============================================-->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/lib/@fortawesome/all.min.js"></script>
+    <script src="assets/lib/stickyfilljs/stickyfill.min.js"></script>
+    <script src="assets/lib/sticky-kit/sticky-kit.min.js"></script>
+    <script src="assets/lib/is_js/is.min.js"></script>
+    <script src="assets/lib/lodash/lodash.min.js"></script>
+    <script src="assets/lib/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:100,200,300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
+    <script src="assets/lib/prismjs/prism.js"></script>
+    <script src="assets/lib/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="assets/lib/datatables-bs4/dataTables.bootstrap4.min.js"></script>
+    <script src="assets/lib/datatables.net-responsive/dataTables.responsive.js"></script>
+    <script src="assets/lib/datatables.net-responsive-bs4/responsive.bootstrap4.js"></script>
+    <script src="assets/lib/flatpickr/flatpickr.min.js"></script>
+    <script src="assets/lib/dropzone/dropzone.min.js"></script>
+    <script src="assets/lib/fancybox/jquery.fancybox.min.js"></script>
+    <script src="assets/lib/tinymce/tinymce.min.js"></script>
+    <script src="assets/lib/select2/select2.min.js"></script>
+    <script src="assets/js/theme.js"></script>
+    
+    <script type="text/javascript">
+
+      function adddata(iddata)
+      {
+        $('#editor_add').load('{/literal}{$admin_url}mycontent/add?idcategory={$detailCategory.id}{literal}',function(){
+          $.fn.modal.Constructor.prototype._enforceFocus = function() {};
+          $('#add').modal({show:true});
+        });
+      }
+
+      function editdata(iddata)
+      {
+        $('#editor').load('{/literal}{$admin_url}mycontent/edit{literal}?id='+iddata,function(){
+          $.fn.modal.Constructor.prototype._enforceFocus = function() {};
+          $('#edit').modal({show:true});
+        });
+
+        //$('#edit').modal('toggle').find('.modal-content').load('{/literal}{$admin_url}mycontent/edit{literal}?id='+iddata);
+        //$("#edit").dialog();
+        // $.get("{/literal}{$admin_url}mycontent/edit{literal}?id="+iddata, function(data, status){
+        //   $("#editor").html(data);
+        //   $('#edit').modal('toggle');
+        //   // $('#myModal').modal('show');
+        //   // $('#myModal').modal('hide');
+        //   //alert(data);
+        //   // console.log(data);
+        // });		
+      }
+
+      function deletephoto(iddata)
+      {
+        $("#alert_modal").modal('toggle');
+        $("#click_yes").click(function()
+        {
+          $.get("{/literal}{$admin_url}mycontent/deletephoto{literal}?idcontent="+iddata, function(data, status){
+
+            var obj = jQuery.parseJSON(data);
+            if (obj.status=='success')
+            {
+              $('#report_all').html(obj.message);
+              $("#alert_modal").modal('hide');
+              dataindex();
+            }
+          });
+          //alert('delete this id: '+iddata);
+        });
+      }
+
+      function setstatus(istatus,iddata)
+      {
+        $.get("{/literal}{$admin_url}mycontent/status{literal}?id="+iddata+"&status="+istatus, function(data, status){
+          var obj = jQuery.parseJSON(data);
+          if (obj.status=='success')
+          {
+            $('#report_all').html(obj.message);
+            dataindex();
+          }
+        });
+      }
+
+      function deletedata(iddata)
+      {
+        $("#alert_modal").modal('toggle');
+        $("#click_yes").click(function()
+        {
+          $.get("{/literal}{$admin_url}mycontent/delete{literal}?id="+iddata, function(data, status){
+
+            var obj = jQuery.parseJSON(data);
+            if (obj.status=='success')
+            {
+              $('#report_all').html(obj.message);
+              $("#alert_modal").modal('hide');
+              dataindex();
+            }
+          });
+          //alert('delete this id: '+iddata);
+        });
+      }
+
+      function dataindex()
+      {
+        $('#table_index').DataTable({
+          'processing':true,
+          'serverSide':true,
+          'scrollX': true,
+          'serverMethod':'post',
+          'searchDelay':'350',
+          'responsive':false,
+          'lengthChange':true,
+          'autoWidth': true,
+          'sWrapper':'falcon-data-table-wrapper',
+
+          'ajax':{
+            'url':'{/literal}{$admin_url}mycontent/loaddata?idcategory={$detailCategory.id}{literal}'
+          },
+          'columns':[
+            {data:'dPublishDate'},
+            {data:'iStatus'},
+           ],
+          // 'dom':'Bfrtip',
+          // 'buttons':[
+          //   'copy','csv','excel','pdf','print'
+          // ],	
+          'language':
+            {'emptyTable': 'Belum ada data'},
+          'destroy':true,
+        });
+      }
+
+      $(document).ready(function(){
+        $('#table_index').DataTable().columns.adjust();
+        setTimeout(function () {
+          dataindex();
+        }, 100);
+      });
+      
+      $('#detail').on('hidden.bs.modal', function () {
+          dataindex();
+      });
+      
+      </script>
+{/literal}
+  </body>
+
+</html>

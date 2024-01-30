@@ -1,0 +1,41 @@
+{include file='header.html'}{include file='topmenu.html'}
+<!--================= Back Wrapper Start Here =================-->
+
+<div id="page-title" class="page-title page-title-style-no-background">
+  <div class="container">
+    <div class="h-100">
+      <h1 class="mb-0 text-center" data-animate="fadeInDown">
+        <span>Album Gallery </span>
+      </h1>
+      <ul
+        class="breadcrumb breadcrumb-style-01 justify-content-center"
+        data-animate="fadeInUp"
+      >
+        <li class="breadcrumb-item"><a href="{$base_url}{$index.php}">Home</a></li>
+        <li class="breadcrumb-item"><span>Album Gallery</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+{include file='marquee.html'} {include file='search-box.html'}
+<div class="container my-5">
+    <div class="row">
+        {section name=i loop=$listAlbum step=1}
+        <div class="col-md-3 mb-4" data-animate="zoomIn">
+            <div class="card border-0">
+            <a href="{$base_url}{$index_page}gallery/{$listAlbum[i].Item.vPermalink}" class="hover-scale">
+                <img  src="assets/images/gallery/gallery-album.png" alt="Album gallery" class="card-img-top image">
+                </a>
+            <div class="card-body px-0">
+                <h5 class="card-title lh-13 letter-spacing-25">
+                <a href="{$base_url}{$index_page}gallery/{$listAlbum[i].Item.vPermalink}"  class="link-hover-dark-primary text-capitalize">
+                    {$listAlbum[i].Item.vAlbum|no_value}</a>
+                </h5>
+                </div>
+            </div>
+        </div> 
+        {/section}
+    </div>
+</div>
+
+{include file='footer.html'}

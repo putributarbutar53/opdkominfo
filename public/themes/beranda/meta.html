@@ -1,0 +1,41 @@
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+<!-- FAVICON AND TOUCH ICONS  -->
+<link rel="shortcut icon" href="{$base_url}{$pageDir}{$OPTIONAL.FAVICON.lbPicture}" type="image/x-icon">
+<link rel="icon" href="{$base_url}{$pageDir}{$OPTIONAL.FAVICON.lbPicture}" type="image/x-icon">
+        
+{if $METADESC != ''}<meta name="description" content="{$METADESC|strip_tags}" />{/if}
+{if $METAKEYWORD != ''}<meta name="keyword" content="{$METAKEYWORD}" />{/if}
+
+{if $SIGNATURE == 'home'}
+<meta property="og:url" content="{$base_url}{$index_page}" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="{if $METATITLE != ''}{$METATITLE}{else}{$TITLE}{/if}" />
+<meta property="og:image" content="{if $LOGO == ''}{$base_url}{$pageDir}{$OPTIONAL.HOMEICON.lbPicture}{else}{$base_url}{$pageDir}{$LOGO}{/if}" />
+<meta property="og:site_name" content="{$TITLE}" />
+<meta property="og:description" content="{$METADESC|strip_tags}" />
+<link rel="canonical" href="{$base_url}{$index_page}" />
+<link rel="dns-prefetch" href="twitter.com">
+{/if}
+
+{if $SIGNATURE == 'pages'}
+<meta property="og:url" content="{if $Detail.vPermalink == ''}{$base_url}{$index_page}{else}{$base_url}{$index_page}pages/{$Detail.vPermalink}.html{/if}" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="{if $Detail.vPageName == ''}{if $METATITLE != ''}{$METATITLE}{else}{$TITLE}{/if}{else}{$Detail.vPageName}{/if}" />
+{if $Detail.lbPicture != ''}<meta property="og:image" content="{$base_url}{$pageDir}{$Detail.lbPicture}" />{/if}
+<meta property="og:site_name" content="{$TITLE}" />
+<meta property="og:description" content="{if $METADESC != ''}{$METADESC|strip_tags}{else}{$Detail.tContent|strip_tags|truncate:"250":"..."}{/if}" />
+<link rel="canonical" href="{if $Detail.vPermalink == ''}{$base_url}{$index_page}{else}{$base_url}{$index_page}pages/{$Detail.vPermalink}.html{/if}" />
+<link rel="dns-prefetch" href="twitter.com">
+{/if}
+
+{if $SIGNATURE == 'content' AND $Detail.id != ''}
+<meta property="og:url" content="{if $Detail.vPermalink == ''}{$base_url}{$index_page}{else}{$base_url}{$index_page}content/{$detailCategory.vPermalink}/{$Detail.vPermalink}.html{/if}" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="{if $Detail.vTitle == ''}{if $METATITLE != ''}{$METATITLE}{else}{$TITLE}{/if}{else}{$Detail.vTitle}{/if}" />
+{if $Detail.vGambar != ''}<meta property="og:image" content="{$base_url}{$dirContent}{$Detail.vGambar}" />{/if}
+<meta property="og:site_name" content="{$TITLE}" />
+<meta property="og:description" content="{if $METADESC != ''}{$METADESC|strip_tags}{else}{$Detail.tDetail|strip_tags|truncate:"250":"..."}{/if}" />
+<link rel="canonical" href="{if $Detail.vPermalink == ''}{$base_url}{$index_page}{else}{$base_url}{$index_page}content/{$detailCategory.vPermalink}/{$Detail.vPermalink}.html{/if}" />
+<link rel="dns-prefetch" href="twitter.com">
+{/if}

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+  <head>
+    {include file='header.html'}
+
+    {literal}
+    <!-- ===============================================-->
+    <!--    Stylesheets-->
+    <!-- ===============================================-->
+    <script src="assets/js/config.navbar-vertical.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="assets/lib/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet">
+    <link href="assets/css/theme.css" rel="stylesheet">
+    {/literal}
+
+  </head>
+
+
+  <body>
+
+    <!-- ===============================================-->
+    <!--    Main Content-->
+    <!-- ===============================================-->
+    <main class="main" id="top">
+
+      <div class="container-fluid" data-layout="container">
+
+        {include file='top_menu.html'}
+
+        <div class="content">
+      
+<!-- Content -->
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item"><a class="nav-link active" id="home-tab" data-toggle="tab" href="#tab-dashboard" role="tab" aria-controls="tab-dashboard" aria-selected="true">Dashboard</a></li>
+  {* <li class="nav-item"><a class="nav-link" id="profile-tab" data-toggle="tab" href="#tab-home" role="tab" aria-controls="tab-home" aria-selected="false">Home Template</a></li> *}
+  {* <li class="nav-item"><a class="nav-link" id="contact-tab" data-toggle="tab" href="#tab-page" role="tab" aria-controls="tab-page" aria-selected="false">Page Template</a></li> *}
+</ul>
+<div class="tab-content border-x border-bottom p-3 bg-light" id="myTabContent">
+  <div class="tab-pane fade show active" id="tab-dashboard" role="tabpanel" aria-labelledby="home-tab">
+    
+  {include file='dashboard_link.html'}
+
+  </div>
+  {*
+  <div class="tab-pane fade" id="tab-home" role="tabpanel" aria-labelledby="profile-tab">
+    <center>
+    <img src="assets/shortcut/home-1.jpg" border="0" usemap="#home_1" /><br />
+    <img src="assets/shortcut/home-2.jpg" border="0" usemap="#home_2" /><br />
+    <img src="assets/shortcut/home-3.jpg" border="0" usemap="#home_3" /><br />
+    <img src="assets/shortcut/home-4.jpg" border="0" usemap="#home_4" /><br />
+    <img src="assets/shortcut/home-5.jpg" border="0" usemap="#home_5" /><br />
+    </center>
+
+    <map name="home_1">
+    <area target="_blank" alt="" title="" href="{$admin_url}mypage/page?id=3" coords="44,5,178,47" shape="rect">
+    <area target="_blank" alt="" title="" href="{$admin_url}mypage/page?id=1" coords="535,26,748,62" shape="rect">
+    <area target="_blank" alt="" title="" href="{$admin_url}mybanner/banner?id=1" coords="318,217,594,256" shape="rect">
+    <area target="_blank" alt="" title="" href="{$admin_url}mypage/page?id=3" coords="563,366,747,413" shape="rect">
+    <area target="_blank" alt="" title="" href="{$admin_url}mypage/page?id=3" coords="568,516,751,557" shape="rect">
+    <area target="_blank" alt="" title="" href="{$admin_url}mypage/page?id=3" coords="514,852,699,891" shape="rect">
+    </map>
+
+    <map name="home_2">
+      <area target="_blank" alt="" title="" href="{$admin_url}mypage/page?id=3" coords="584,26,773,76" shape="rect">
+      <area target="_blank" alt="" title="" href="{$admin_url}mycontent/content?id=6" coords="283,487,774,537" shape="rect">
+    </map>
+
+    <map name="home_3">
+      <area target="_blank" alt="" title="" href="{$admin_url}mycontent/content?id=1" coords="394,25,778,74" shape="rect">
+      <area target="_blank" alt="" title="" href="{$admin_url}mypage/page?id=3" coords="565,946,754,986" shape="rect">
+    </map>
+
+    <map name="home_4">
+      <area target="_blank" alt="" title="" href="{$admin_url}mypage/page?id=3" coords="564,55,756,103" shape="rect">
+      <area target="_blank" alt="" title="" href="{$admin_url}mypage/page?id=3" coords="561,919,747,967" shape="rect">
+    </map>
+
+    <map name="home_5">
+      <area target="_blank" alt="" title="" href="{$admin_url}mycontent/content?id=8" coords="373,54,730,102" shape="rect">
+      <area target="_blank" alt="" title="" href="{$admin_url}mypage/page?id=3" coords="572,766,766,811" shape="rect">
+      <area target="_blank" alt="" title="" href="{$admin_url}mypage/page?id=3" coords="248,1166,422,1211" shape="rect">
+      <area target="_blank" alt="" title="" href="{$admin_url}mypage/page?id=3" coords="518,1253,761,1291" shape="rect">
+    </map>
+
+  </div>
+  *}
+  
+  {* <div class="tab-pane fade" id="tab-page" role="tabpanel" aria-labelledby="contact-tab">Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork.</div> *}
+</div>
+
+
+<!-- eof Content -->
+
+
+          {include file='footer.html'}
+
+        </div>
+
+      </div>
+    </main>
+    <!-- ===============================================-->
+    <!--    End of Main Content-->
+    <!-- ===============================================-->
+
+    {literal}
+    <!-- ===============================================-->
+    <!--    JavaScripts-->
+    <!-- ===============================================-->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/lib/@fortawesome/all.min.js"></script>
+    <script src="assets/lib/stickyfilljs/stickyfill.min.js"></script>
+    <script src="assets/lib/sticky-kit/sticky-kit.min.js"></script>
+    <script src="assets/lib/is_js/is.min.js"></script>
+    <script src="assets/lib/lodash/lodash.min.js"></script>
+    <script src="assets/lib/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:100,200,300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
+    <script src="assets/js/theme.js"></script>
+    {/literal}
+
+  </body>
+
+</html>

@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="id">
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pemerintahan Kabupaten Toba</title>
+    {literal}
+    <link rel="shortcut icon" href="assets/images/setting/logo-disdukcasip-kab-toba.png" type="image/png" />
+    <!-- Styles -->
+    <link href="assets/libs/semantic/semantic.min.css" rel="stylesheet">
+    <link href="assets/libs/plugins/icon/icon.min.css" rel="stylesheet">
+    <link href="assets/css/app49004900.css?id=931f20a5812b52186cb7" rel="stylesheet">
+    <link href="assets/css/calendar.min.css" rel="stylesheet">
+    <link href="assets/css/jquery-ui.css" rel="stylesheet">
+    <link href="assets/css/landing-page-red.css" rel="stylesheet">
+    <link href="assets/libs/ajax/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/libs/ajax/animate.css/4.1.1/animate.min.css" />
+    <style>
+        [wire\:loading] {
+            display: none;
+        }
+
+        [wire\:offline] {
+            display: none;
+        }
+
+        [wire\:dirty]:not(textarea):not(input):not(select) {
+            display: none;
+        }
+    </style>
+    <!-- Livewire Scripts -->
+
+    <script src="assets/libs/livewire/livewire5dd7.js?id=d7d975b5d122717a1ee0" data-turbolinks-eval="false"></script>
+    <script data-turbolinks-eval="false">
+        if (window.livewire) {
+            console.warn('Livewire: It looks like Livewire\'s @livewireScripts JavaScript assets have already been loaded. Make sure you aren\'t loading them twice.')
+        }
+
+        window.livewire = new Livewire();
+        window.livewire_app_url = '';
+        window.livewire_token = 'Ev61TDc3JIOmHIJlqVr1PD8i9OJdtEfqfislCWPy';
+
+        /* Make Alpine wait until Livewire is finished rendering to do its thing. */
+        window.deferLoadingAlpine = function (callback) {
+            window.addEventListener('livewire:load', function () {
+                callback();
+            });
+        };
+
+        document.addEventListener("DOMContentLoaded", function () {
+            window.livewire.start();
+        });
+
+        var firstTime = true;
+        document.addEventListener("turbolinks:load", function () {
+            /* We only want this handler to run AFTER the first load. */
+            if (firstTime) {
+                firstTime = false;
+                return;
+            }
+
+            window.livewire.restart();
+        });
+
+        document.addEventListener("turbolinks:before-cache", function () {
+            document.querySelectorAll('[wire\\:id]').forEach(function (el) {
+                const component = el.__livewire;
+
+                const dataObject = {
+                    data: component.data,
+                    events: component.events,
+                    children: component.children,
+                    checksum: component.checksum,
+                    locale: component.locale,
+                    name: component.name,
+                    errorBag: component.errorBag,
+                    redirectTo: component.redirectTo,
+                };
+
+                el.setAttribute('wire:initial-data', JSON.stringify(dataObject));
+            });
+        });
+    </script>
+    <style type="text/css">
+        .se-action i {
+            color: white !important;
+        }
+
+        .se-action:hover i {
+            color: grey !important;
+        }
+
+        .ui.table.se>tbody>tr>td {
+            border-top: 1px solid rgba(34, 36, 38, .1);
+        }
+
+        .select2-container {
+            width: 100% !important;
+        }
+
+        .select2-container .select2-selection--single {
+            height: 40px;
+        }
+
+        .select2-container .select2-selection--single .select2-selection__rendered {
+            padding-left: 13px;
+            padding-top: 4px;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            top: 7px;
+            right: 9px;
+        }
+
+        .select2-container--default .select2-selection--multiple .select2-selection__rendered li input {
+            width: 9.75em !important;
+            margin-top: 5px;
+        }
+
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            padding: 8px 5px;
+        }
+
+        .ui.segment>div.sixteen.wide.column {
+            margin-bottom: 20px
+        }
+
+        .ui.menu.landing-sidebar {
+            background-color: #da1616;
+        }
+
+        ul#menu {
+            padding-left: 4%;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            max-height: 100vh;
+        }
+
+        #cyclist-boy {
+            position: absolute;
+            bottom: 5%;
+            width: 30%;
+            left: 20%;
+            height: auto;
+        }
+
+        .bg-wrapper {
+            position: absolute;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        #city-animate {
+            height: 100%;
+            position: absolute;
+            width: 100%;
+            left: 0;
+            bottom: 0;
+            margin: 0;
+            background-size: cover !important;
+            opacity: 0.8;
+            /* filter: blur(0.21px); */
+        }
+
+        .city-animate {
+            animation: 64s linear 0s normal none infinite running bg_slide;
+            max-height: 100vh !important;
+            background-size: 40% !important;
+            background-position: left bottom;
+            background-repeat: repeat-x !important;
+        }
+
+        @keyframes bg_slide {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: -1440px 0;
+            }
+        }
+
+        .svg-section {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+
+        #character {
+            -webkit-animation: bike 1s ease-in-out 0s infinite alternate;
+            animation: bike 1s ease-in-out 0s infinite alternate;
+            transform-origin: bottom;
+            transform-box: fill-box;
+
+        }
+
+        @-webkit-keyframes bike {
+            0% {
+                -webkit-transform: rotateX(0deg);
+                transform: rotateX(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotateX(20deg);
+                transform: rotateX(20deg);
+            }
+        }
+
+        @keyframes bike {
+            0% {
+                -webkit-transform: rotateX(0deg);
+                transform: rotateX(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotateX(20deg);
+                transform: rotateX(20deg);
+            }
+        }
+
+        #cloud1 {
+            position: absolute;
+            left: 20%;
+            width: 10%;
+            top: 10%;
+            opacity: 0.8;
+            height: auto;
+            animation: cloud 3s ease-in-out 0s infinite alternate;
+
+        }
+
+        @keyframes cloud {
+            from {
+                left: 20%;
+            }
+
+            to {
+                left: 22%;
+            }
+        }
+
+        svg#cloud2 {
+            position: absolute;
+            left: 50%;
+            width: 20%;
+            top: 20%;
+            height: auto;
+            animation: cloud2 4s ease-in-out 0s infinite alternate;
+
+        }
+
+        @keyframes cloud2 {
+            from {
+                left: 50%;
+            }
+
+            to {
+                left: 45%;
+            }
+        }
+
+        svg#cloud3 {
+            position: absolute;
+            right: 10%;
+            width: 15%;
+            top: 15%;
+            opacity: 0.7;
+            height: auto;
+        }
+
+        #right-wheel {
+            -webkit-animation: wheel-rotation 1.5s linear 0s infinite forwards;
+            animation: wheel-rotation 1.5s linear 0s infinite forwards;
+            -webkit-transform-origin: center;
+            transform-origin: center;
+            transform-box: fill-box;
+        }
+
+        @keyframes wheel-rotation {
+            0% {
+                -webkit-transform: rotateZ(0deg);
+                transform: rotateZ(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotateZ(360deg);
+                transform: rotateZ(360deg);
+            }
+        }
+
+
+        @import url("https://fonts.googleapis.com/css?family=Comfortaa|Ubuntu");
+
+        body {
+            font-family: "Comfortaa";
+            font-size: 12px;
+        }
+
+        /*tooltip Box*/
+        .con-tooltip {
+            position: relative;
+            background: #FFFFFF;
+            border-radius: 9px;
+            padding: 0 40px;
+            margin: 10px;
+            display: inline-block;
+            transition: all 0.3s ease-in-out;
+            cursor: default;
+            z-index: 1000;
+        }
+
+        /*tooltip */
+        .tooltip {
+            visibility: hidden;
+            z-index: 1000;
+            opacity: 0.4;
+            width: 180%;
+            padding: 5px 9px;
+            color: #FFFFFF;
+            position: absolute;
+            display: block;
+            bottom: 100%;
+            left: -37%;
+            border-radius: 9px;
+            transform: translateY(9px);
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 0 3px rgb(56 54 54 / 86%);
+            background: #df0303;
+            font-size: 15px;
+        }
+
+        /* tooltip  after*/
+        .tooltip::after {
+            content: " ";
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 12px 12.5px 0 12.5px;
+            border-color: #df0303 transparent transparent transparent;
+            position: absolute;
+            left: 40%;
+        }
+
+        .con-tooltip:hover .tooltip {
+            visibility: visible;
+            transform: translateY(-10px);
+            opacity: 1;
+            transition: 0.3s linear;
+            animation: odsoky 1s ease-in-out infinite alternate;
+        }
+
+        @keyframes odsoky {
+            0% {
+                transform: translateY(6px);
+            }
+
+            100% {
+                transform: translateY(1px);
+            }
+        }
+
+        /*hover ToolTip*/
+        .top:hover {
+            transform: translateY(-6px);
+        }
+
+        .bottom:hover {
+            transform: translateY(6px);
+        }
+
+        .bottom .tooltip {
+            top: 115%;
+            left: -20%;
+        }
+
+        .bottom .tooltip::after {
+            top: -25%;
+            left: 40%;
+            transform: rotate(180deg);
+        }
+
+        .bg-video-wrap {
+            position: absolute;
+            overflow: hidden;
+            width: 100%;
+            height: 100vh;
+            background: url(assets/images/setting/20181014.png) no-repeat center center/cover;
+        }
+
+        video {
+            min-width: 100%;
+            min-height: 100vh;
+            z-index: 1;
+        }
+
+        .overlay {
+            width: 100%;
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-image: linear-gradient(45deg, rgba(0, 0, 0, .3) 50%, rgba(0, 0, 0, .7) 50%);
+            background-size: 3px 3px;
+            z-index: 2;
+        }
+        @media all and (min-width:320px) and (max-width: 480px) {
+  .logo-text {
+    width: 300px;
+  }
+  .tooltip {
+            width: 120%;
+            bottom: 100%;
+            left: -12%;
+            font-size: 10px;
+        }
+}
+        @media all and (min-width:0px) and (max-width: 319px) {
+  .logo-text {
+    width: 200px;
+  }
+    .bg-wrapper {
+                position: absolute;
+                overflow: hidden;
+                width: 100%;
+                height: 100vh;
+            }
+    video {
+               min-width: 100%;
+               min-height: 100vh;
+                z-index: 1;
+            }
+    }
+
+    </style>
+    {/literal}
+</head>
+
+<body>
+    <!--================= Preloader Section Start Here =================-->        
+    <div id="back__preloader">
+        <div class="loader">
+            <div class="face">
+                <div class="circle"></div>
+            </div>
+            <div class="face">
+                <div class="circle"></div>
+            </div>
+        </div>
+        <div class="back__loader_logo"><img src="{$base_url}{$pageDir}{$OPTIONAL.PRELOAD.lbPicture}" alt="{$TITLE}" width="70"></div>
+    </div>        
+    <!--================= Preloader Section End Here =================-->
+    <div id="app" class="pusher">
+        <div class="bg-wrapper row">
+           <div class="bg-video-wrap">
+             <video src="assets/images/setting/intro_toba.mp4" loop muted autoplay/>
+              <div class="overlay">
+              </div>
+            </div>
+        </div>
+        <div class="ui container">
+            <div class="search-box row">
+                <div class="ui left icon input">
+                    <!--<input type="text" placeholder="Cari" class="search" id="search">-->
+                    <!--<i class="search icon"></i>-->
+                </div>
+            </div>
+        </div> 
+        <div class="container">
+            <div class="text-center">
+                <img src="assets/images/setting/logo-disdukcasip-kab-toba.png"
+                    class="compact animate__animated animate__zoomIn animate__slow" width="150px" >
+                <img src="assets/images/setting/intro-toba.png"
+                    class="compact animate__animated animate__zoomIn animate__slow logo-text">
+            </div>
+            <div class="mycontainer__position">
+                <div class="position__left">
+                    <img src="assets/images/setting/bupati.png"
+                        class="img-bupati">
+                </div>
+                <div class="position__right">
+                    <img src="assets/images/setting/wakil-bupati.png"
+                    class="img-wabup">
+                </div>
+            </div>
+            {$OPTIONAL.SCROLING_TEXT.tContent}
+            <div class="menu-bar row" style="text-align: center; width: 850px;">
+                <ul id="menu">
+                    {PLUGIN NAME='LIST_PAGEALL' VAR1='HOME' VAR3='../home/list.html'}
+                </ul>
+            </div>
+            <div class="ui container center aligned" style="margin-top: 3rem;">
+                <a href="{$web_url}/beranda" target="_blank"
+                    class="huge ui white basic button very padded animate__animated animate__flipInX animate__delay-3s">Halaman
+                    Beranda</a>
+            </div>
+
+        <div class="container-radio" style="margin: 3rem 0 3rem 0;">
+            <div class="row justify-content-center mt-5">
+                <div class="col-12">
+                    <div class="title-radio">
+                       <h3 style="font-family: Arial, Helvetica, sans-serif;">Radio Tobasa FM 100.7 MHz, Pemkab Toba</h3>
+                    </div>
+                    <div class="radio-pemkabtoba">
+                        <!-- <iframe src="https://radio.tobakab.go.id/radio.html" style="width:23rem;padding:0;" frameborder="0" ></iframe> -->
+                        <!-- <iframe src="http://radio.tobakab.go.id:8000/;?type=http&nocache=9" style="width:16em;padding:0;" frameborder="0" ></iframe> -->
+                        <div class="row mb-3">
+                            <div class="col"  style="display: flex; justify-content: center;">
+                                <audio id="audio_1" controls="" preload="none" style="width:16em;padding:0;"><source src="https://radio.tobakab.go.id/;?type=http&nocache=9" type="audio/mpeg"></audio> <br>
+                            </div>
+                        </div>
+                        <div class="row" style="display: block;">
+                            <div class="col"  style="display: flex; justify-content: center;">
+                                <h5 id="judul_lagu_radio"></h5>
+                            </div>
+                        </div>
+                        <!-- <audio id="audio_1" controls="" preload="none" style="width:16em;padding:0;"><source src="http://radio.tobakab.go.id:8000/;?type=http&nocache=9" type="audio/mpeg"></audio> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        
+
+    </div>
+    <footer>
+        <div class="row p-3 text-center" style="background-color: black; padding: 1rem; margin-top: 3rem;">
+          <div class="col">
+            <p class="mb-0" style="color: #fff;">
+              <b
+                >&nbsp;{$COPYRIGHT}</b
+              >
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+{literal}
+    <script src="assets/libs/ajax/jquery/3.2.1/jquery.min.js"></script>
+    <script src="assets/js/jquery-ui.js"></script>
+    <script src="assets/libs/semantic/semantic.min.js"></script>
+    <script src="assets/js/libs66546654.js?id=0c59281098d639f507c8"></script>
+    <script src="assets/js/visibility.js"></script>
+    <script src="assets/js/sidebar.min.js"></script>
+    <script src="assets/js/jquery.zoom.min.js"></script>
+    <script src="assets/js/appd949d949.js?id=752d7b64ead23e946b92"></script>
+    <script src="assets/js/custom.js"></script>
+    <script src="assets/libs/ajax/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script type="text/javascript" src="assets/js/collapse.js"></script>
+    <script type="text/javascript" src="assets/js/jquery.bpopup.min.js"></script>
+    <script src="assets/js/app.js"></script>
+
+    <script type="text/javascript">
+        setInterval(function() {
+            $.getJSON('https://radio.tobakab.go.id/statistics?json=1', function(data) {
+                // lakukan tindakan pada data JSON di sini
+                $('#judul_lagu_radio').text(data.streams[0].songtitle);
+            });
+            }, 10000);
+  $(window).on( 'load', function() {
+      $("#back__preloader").delay(1000).fadeOut(400);
+  })
+        window.baseURL = 'index-2.html';
+        $('.ui.dropdown').dropdown();
+        $(".zoom").zoom();
+
+        $('ul[id="submenu"] a').on('click', function () {
+            if ($(this).attr('href') === '#maintenancePSE') {
+                $('#NotifikasiBox').bPopup();
+            }
+        });
+
+        $('.ui.sidebar').sidebar('attach events', '.landing-sidebar');
+
+        $('.menubar.parent').click(function () {
+
+            if (!$(this).next().hasClass('in')) {
+                $('.content.column-full').removeClass('in');
+                $('.content.column-full').prop('aria-expanded', false);
+            }
+
+            if (matchMedia("(max-width: 500px)").matches) {
+                a = parseInt($(this).position().left)+20;
+            } else {
+                a = parseInt($(this).position().left)+13;
+            }
+            addRule(".well#callouts--top:after", "left: " + a + "px;")
+
+        });
+        $(window).scroll(function () {
+            $(".menubar.shrink").show();
+            if (matchMedia("(max-width: 500px)").matches) {
+                if ($(window).scrollTop() >= 80) {
+                    $(".menubar.shrink").hide();
+                }
+            } else {
+                if ($(window).scrollTop() >= 100) {
+                    $(".menubar.shrink").hide();
+                }
+            }
+        });
+
+    </script>
+    {/literal}
+</body>
+
+</html>

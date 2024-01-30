@@ -1,0 +1,83 @@
+{include file='header.html'}{include file='topmenu.html'}
+
+<div id="page-title" class="page-title page-title-style-no-background">
+    <div class="container">
+      <div class="h-100">
+        
+    <h1 class="mb-0 text-white" data-animate="fadeInDown">
+        <span>{$Detail.vPageName} </span>
+        <h1 class="mb-0 text-center" data-animate="fadeInDown">
+          <span>{$TITLE}</span>
+        </h1>
+      </div>
+    </div>
+  </div>
+{include file='marquee.html'}
+
+{include file='search-box.html'}
+
+
+
+<div id="wrapper-content" class="wrapper-content pb-13">
+    <div class="container">
+      <div class="page-container row">
+        <div class="page-content col-lg-8 mb-8 mb-lg-0">
+          
+
+          <h3>{$METATITLE}</h3>
+										
+          {if $list[0].Item.id != ''}
+
+          {section name=i loop=$list step=1}
+           <div class="blog-post wow fadeInUp" data-wow-delay="0.1s">
+              {if $list[i].type == 'content'}
+              <!-- BLOG POST TEXT -->
+              <div class="blog-post-txt">
+                  <!-- Post Title -->
+                  <h5 class="h5-xl">
+                      <a class="rose-hover" target="_blank" href="{$base_url}{$index_page}{$list[i].Category.vPermalink}/{$list[i].Item.vPermalink}.html">
+                          {$list[i].Item.vTitle}
+                      </a>
+                  </h5>
+                  <hr />
+              </div>
+              {/if}
+
+              {if $list[i].type == 'page'}
+              <!-- BLOG POST TEXT -->
+              <div class="blog-post-txt">
+                  <!-- Post Title -->
+                  <h5 class="h5-xl">
+                      <a class="rose-hover" target="_blank" href="{if $list[i].Item.vURL == ''}{$base_url}{$index_page}pages/{$list[i].Item.vPermalink}.html{else}{$list[i].Item.vURL}{/if}">
+                          {$list[i].Item.vPageName}
+                      </a>
+                  </h5>
+                  <hr />
+              </div>
+              {/if}
+
+          </div>	<!-- END BLOG POST #1 -->
+          {/section}
+          {else}
+          <div class="blog-post wow fadeInUp" data-wow-delay="0.1s">
+
+              <!-- BLOG POST TEXT -->
+              <div class="blog-post-txt">
+
+                  <!-- Post Title -->
+                  <h5 class="h5-xl">Maaf, data yang anda cari tidak tersedia</h5>
+
+                  <!-- Post Text -->
+                  <p>Tidak ada hasil pencarian</p>
+
+              </div>
+
+          </div>	<!-- END BLOG POST #1 -->
+          {/if}
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+{include file='footer.html'}

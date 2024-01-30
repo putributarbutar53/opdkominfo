@@ -1,0 +1,54 @@
+
+<div class="card mb-3">
+  <div class="card-body bg-light">
+    <ol class="breadcrumb">
+      {$DirectoryList}
+    </ol>
+
+    <div class="row">
+      {section name=i loop=$listPile step=1} {if $listPile[i].type eq 'dir'}
+      <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
+        <a
+          href="javascript:getfilemanager('{$dirName}{$listPile[i].fileName}');"
+          ><i class="fa fa-folder fa-4x"></i></a
+        ><br />
+        <a
+          href="javascript:getfilemanager('{$dirName}{$listPile[i].fileName}');"
+          >{$listPile[i].fileName}</a
+        >
+        {if $listPile[i].totalFile == 0} &nbsp;
+        <a
+          href="javascript:deletefolder('{$dirReal}','{$listPile[i].fileName}');"
+          title="Hapus"
+          ><i class="fa fa-trash h6 text-danger"></i></a
+        ><br /><br />
+        {else}
+        <i><span class="fs--1">({$listPile[i].totalFile} Files)</span></i>
+        {/if}
+      </div>
+      {else}
+      <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
+        <a href="{$uploadURL}{$dirName}{$listPile[i].fileName}" target="_blank"
+          ><i class="fa fa-file-alt fa-4x"></i></a
+        ><br />
+        <a href="{$uploadURL}{$dirName}{$listPile[i].fileName}" target="_blank"
+          >{$listPile[i].fileName}</a
+        >
+        {if $listPile[i].totalFile == 0} &nbsp;
+        <a
+          href="javascript:deletefile('{$dirReal}','{$listPile[i].fileName}');"
+          title="Hapus"
+          ><i class="fa fa-trash h6 text-danger"></i></a
+        ><br /><br />
+        {else}
+        <i><span class="fs--1">({$listPile[i].totalFile} Files)</span></i>
+        {/if}
+      </div>
+      {/if} {/section}
+    </div>
+  </div>
+</div>
+{literal}
+<script>
+</script>
+{/literal}

@@ -1,0 +1,48 @@
+{include file='header.html'}{include file='topmenu.html'}
+<!--================= Back Wrapper Start Here =================-->
+
+<div id="page-title" class="page-title page-title-style-no-background">
+  <div class="container">
+    <div class="h-100">
+      <h1 class="mb-0 text-center" data-animate="fadeInDown">
+        <span>Category Document </span>
+      </h1>
+      <ul
+        class="breadcrumb breadcrumb-style-01 justify-content-center"
+        data-animate="fadeInUp"
+      >
+        <li class="breadcrumb-item"><a href="{$base_url}{$index_page}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{$base_url}{$index_page}download">Category Document</a></li>
+        <li class="breadcrumb-item"><span>Category Document</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+{include file='marquee.html'} {include file='search-box.html'}
+<div class="container mt-3">
+    <table class="table shadow">
+        <thead class="thead-dark text-white" style="background-color: rgb(56, 33, 49);">
+          <tr>
+            <td scope="col"><b>Category</b></td>
+            <td scope="col"><b>Total Document</b></td>
+            <td scope="col"><b>Download</b></td>
+          </tr>
+        </thead>
+        <tbody>
+            {section name=i loop=$listCategory step=1}
+            <tr>
+                <td>
+                   {$listCategory[i].Item.vCategory|no_value}
+                </td>
+                <td>
+                   {$listCategory[i].Count.total|number_format}
+                </td>
+                <td>
+                        <a href="{$base_url}{$index_page}download/{$listCategory[i].Item.vPermalink}" class="btn btn-hero btn-sm rounded-2 py-3 w-50 h-75" title="Category">Check File</a>
+                </td>
+            </tr>
+            {/section}
+        </tbody>
+      </table>
+</div>
+{include file='footer.html'}

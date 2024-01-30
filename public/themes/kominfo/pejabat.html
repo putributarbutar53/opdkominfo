@@ -1,0 +1,54 @@
+{include file='header.html'}{include file='topmenu.html'}
+        <!--================= Back Wrapper Start Here =================-->
+        
+<div id="page-title" class="page-title page-title-style-background">
+    <div class="container">
+    <div class="h-100 d-flex align-items-center">
+    <div class="mb-2">
+        <h3>
+            <span class="font-weight-light fs-2">{$TITLE}</span>
+        </h3>
+    <h1 class="mb-0" data-animate="fadeInDown">
+    <span>{$Detail.vPageName} </span>
+    </h1>
+    </div>
+    </div>
+</div>
+</div>
+{include file='marquee.html'}
+
+{include file='search-box.html'}
+
+
+
+<div id="wrapper-content" class="wrapper-content pb-13">
+    <div class="container">
+      <div class="page-container row">
+        <div class="page-content mb-8 mb-lg-0">
+            <div class="row">
+                <div class="col-xxl-7 offset-xxl-2 col-xl-7 offset-xl-2 col-lg-7 offset-lg-2">
+                    <div class="instructor__title-content text-center pb-20">
+                        {$OPTIONAL.SECTION_6.tContent}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {section name=i loop=$OPTIONAL.SECTION_6.listsetting step=1}  
+                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-sm-6">
+                    <div class="instructor__content">
+                        <div class="instructor__content-1">
+                            <img src="{$base_url}{$pageDir}{$OPTIONAL.SECTION_6.listsetting[i].Item.vPicture}" alt="">
+                        </div>
+                        {$OPTIONAL.SECTION_6.listsetting[i].Item.vData}
+                    </div>
+                </div>
+                {/section}
+
+            </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+{include file='footer.html'}

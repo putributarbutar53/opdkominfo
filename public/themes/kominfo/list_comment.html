@@ -1,0 +1,20 @@
+{section name=i loop=$listComment step=1}
+<div class="media mb-6">
+  <a href="#" class="image d-inline-block mr-4"><img src="assets/images/gallery/no_picture.png"
+      alt="Daniel Vandaft"></a>
+  <div class="media-body border-top px-3">
+    <ul class="list-inline pt-3 mb-3">
+      <li class="list-inline-item mr-0">
+        <a href="#" class="link-hover-dark-primary font-weight-semibold d-inline-block mr-1">{$listComment[i].Item.vName}</a>
+      </li>
+      <li class="list-inline-item mr-0">
+        <span class="font-weight-semibold">-</span>
+      </li>
+      <li class="list-inline-item">
+        <span class="text-uppercase"> {$listComment[i].date}</span>
+      </li>
+    </ul>
+    <p class="mb-3">{$listComment[i].Item.tComment}</p>
+  </div>
+</div>
+{/section}

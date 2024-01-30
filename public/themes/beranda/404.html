@@ -1,0 +1,31 @@
+{include file='header-2.html'}
+{include file='topmenu.html'}
+<div class="site-wrapper page-404">
+<div class="wrapper-content pt-0 pb-0">
+    <div class="container">
+        <div class="page-container text-center">
+            <div class="mb-7">
+                <svg class="icon icon-map-marker-crossed">
+                    <use xlink:href="#icon-map-marker-crossed"></use>
+                </svg>
+            </div>
+            <div class="mb-7">
+                <h3 class="mb-7">Ops! Page Not Found</h3>
+                <div class="text-gray">Tampaknya kami tidak dapat menemukan apa yang Anda cari. Kembali ke <a href="{$base_url}{$index_page}beranda"
+                        class="text-primary text-decoration-underline">Beranda</a>.
+                </div>
+            </div>
+            <div class="form-search">
+                <form action="{$base_url}{$index_page}search" method="post">
+                    <input type="hidden" name="submit" value="yes" />
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search again...">
+                        <button class="btn btn-link input-group-append text-dark pr-3" type="submit"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{include file='footer.html'}

@@ -1,0 +1,190 @@
+<div class="modal-header">
+  <h5 class="modal-title" id="add">Tambah Banner</h5>
+  <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
+</div>
+<div class="modal-body text-left">
+
+        <form id="add_submit" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="action" value="add" />
+        <input type="hidden" name="idcategory" value="{$idCategory}" />
+
+        Nama:<br />
+        <input type="text" name="vBannerName" value="{$Detail.vBannerName}" class="form form-control form-50" size="40" />
+        <br />
+        
+        Gambar:<br />
+        {literal}
+        <div id="drop_image" class="dropzone dropzone-single p-0" data-dropzone>
+        {/literal}
+          <div class="fallback">
+            <input type="file" name="vBannerFile">
+          </div>
+          <div class="dz-preview dz-preview-single">
+            <div class="dz-preview-cover dz-complete"><img class="dz-preview-img" src="..." alt="" data-dz-thumbnail="">
+              <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress=""></span></div>
+            </div>
+          </div>
+          <div class="dz-message" data-dz-message>
+            <div class="dz-message-text"><img class="mr-2" src="assets/img/icons/cloud-upload.svg" width="25" alt="">Drop File Banner Anda Disini</div>
+          </div>
+        </div>
+        {if $Detail.vBannerFile != ''}
+        <p><img src="{$base_url}{$dirBanner}{$Detail.vBannerFile}" class="img-fluid" width="350" /></p>
+        {/if}      
+        <br />
+    
+        URL File (Link gambar jika gambar ada pada website lain):<br />
+        <input type="text" name="vFileURL" value="{$Detail.vFileURL}" class="form form-control form-50" size="40" />
+        <br />
+    
+        URL Banner:<br />
+        <input type="text" name="vBannerURL" value="{$Detail.vBannerURL}" class="form form-control form-50" size="40" />
+        <br />
+    
+        Detail Tambahan:<br />
+        <textarea cols="80" rows="2" class="form form-control form-50" name="tDetail">{$Detail.tDetail}</textarea>
+        <br />
+                  
+        Status:<br />
+        <select name="iStatus" class="form form-control form-30">
+          <option{if $Detail.iStatus == '0'} selected{/if} value="0">Draft</option>
+          <option{if $Detail.iStatus == '1'} selected{/if} value="1">Published</option>
+        </select>
+        <br />    
+
+          <span id="report"></span>
+
+          <input type="submit" name="submit" value="Tambah Data" class="btn btn-primary" />
+        </form>
+      </div>
+
+      {literal}
+      <script>
+
+        var request;
+        $("#add_submit").submit(function(event){
+            
+            // Prevent default posting of form - put here to work in case of errors
+            event.preventDefault();
+            // Abort any pending request
+            if (request) {
+                request.abort();
+            }
+
+            var formData = new FormData(this);
+            formData.append('vBannerFile', $('#drop_image')[0].dropzone.getAcceptedFiles()[0]); // attach dropzone image element
+
+            // Fire off the request to /form.php
+            request = $.ajax({
+                url: "{/literal}{$admin_url}mybanner/submit{literal}",
+                type: "post",
+                //data: serializedData,
+                data: formData,
+                cache: false, 
+                contentType: false, 
+                processData: false, 
+                //data: new FormData($inputs),
+                // xhr: function () {
+                //       var myXhr = $.ajaxSettings.xhr();
+                //       if (myXhr.upload) {
+                //         // For handling the progress of the upload
+                //         myXhr.upload.addEventListener('progress', function (e) {
+                //           if (e.lengthComputable) {
+                //             $('progress').attr({
+                //               value: e.loaded,
+                //               max: e.total,
+                //             });
+                //           }
+                //         }, false);
+                //       }
+                //       return myXhr;
+                //     }
+            });
+
+            // Callback handler that will be called on success
+            request.done(function (response, textStatus, jqXHR){
+                // Log a message to the console
+                console.log(response);
+                var obj = jQuery.parseJSON(response);
+                //alert(response);
+                if (obj.status=='success')
+                {
+                  //$('#report_all').html(obj.message);
+                  $("#report_modal").html(obj.message);
+                  $('#add').modal('hide');
+                  $('#add_submit input[type="text"]').val('');
+                  $('#add_submit textarea').val('');
+                  success_notify();
+                }
+                else
+                  $('#report').html(obj.message);
+            });
+
+            // Callback handler that will be called on failure
+            request.fail(function (jqXHR, textStatus, errorThrown){
+                // Log the error to the console
+                console.error(
+                    "The following error occurred: "+
+                    textStatus, errorThrown
+                );
+                $('#report').html('Connection Failed');
+            });
+
+            // Callback handler that will be called regardless
+            // if the request failed or succeeded
+            request.always(function () {
+                // Reenable the inputs
+              // $inputs.prop("disabled", false);
+            });
+
+        });
+
+        $('#add').on('hidden.bs.modal', function () {
+            $('#report').html('');
+        });
+
+        function success_notify()
+        {
+          $("#notify_modal").modal('toggle');
+          $("#notify_yes").click(function()
+          {
+            location.reload();
+            //alert('delete this id: '+iddata);
+          });
+        }
+
+        $('#notify_modal').on('hidden.bs.modal', function () {
+            location.reload();
+        });
+
+        $(document).ready(function(){
+            $(".editdatetimepicker").flatpickr({
+                'enableTime':true,
+                'dateFormat':"Y-m-d H:i:s"
+            });
+
+            $(".editdatepicker").flatpickr({
+                'dateFormat':"Y-m-d"
+            });
+
+            $(".selectpicker").select2({
+                dropdownParent: $("#add")
+            });
+
+            $(".dropzone").dropzone({
+              'url':'valid/url',
+              'maxFiles':'1',
+              'dictDefaultMessage':'Upload file gambar anda disini',
+              'addRemoveLinks':true,
+              'dictRemoveFile':'<span class="badge badge-danger"><i class="fas fa-trash-alt"></i></span>',
+              'acceptedFiles':'image/*',
+            });
+
+            tinymce.init({
+                selector: '.tinymce',
+                height: "350",
+            });
+        });
+
+      </script>
+      {/literal}

@@ -1,0 +1,217 @@
+{include file='header.html'} {include file='topmenu.html'}
+
+<div id="page-title" class="page-title page-title-style-no-background bg-danger">
+  <div class="container">
+    <div class="h-100">
+      <h1 class="mb-0 text-center text-white" data-animate="fadeInDown">
+        {$Detail.vTitle}
+      </h1>
+      <ul class="breadcrumb breadcrumb-style-01 justify-content-center" data-animate="fadeInUp">
+        <li class="breadcrumb-item">
+          <a href="{$base_url}{$index_page}/beranda"><span class="text-white">Home</span></a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="{$base_url}{$index_page}{$detailCategory.vPermalink}"><span class="text-white">{$detailCategory.vCategory}</span></a>
+        </li>
+        <li class="breadcrumb-item text-white font-weight-bold">
+          <span>{$Detail.vTitle}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+{include file='marquee.html'}
+
+{include file='search-box.html'}
+<div id="wrapper-content" class="wrapper-content pb-13">
+  <div class="container">
+    <div class="page-container row">
+      <div class="page-content col-lg-8 mb-8 mb-lg-0">
+        {$alert}
+        <div class="row post-style-3">
+          <div class="col-12 mb-6">
+            <div class="card border-0">
+              {if $detailCategory.vPermalink != 'video'}
+              <a href="{$base_url}{$index_page}{$detailCategory.vPermalink}/{$Detail.vPermalink}.html"
+                class="hover-scale">
+                <img src="{$base_url}{$contentDir}/{$Detail.vGambar}" alt="{$Detail.vTitle}"
+                  class="card-img-top image" />
+              </a>
+              {/if}
+              <div class="card-body px-0">
+                <h5 class="card-title lh-13 letter-spacing-25">
+                  <a href="{$base_url}{$index_page}{$detailCategory.vPermalink}/{$Detail.vPermalink}.html"
+                    class="link-hover-dark-primary text-capitalize">
+                    {$Detail.vTitle}</a>
+                </h5>
+                <ul class="list-inline">
+                  <li class="list-inline-item mr-0">
+                    <span class="text-gray">{$Detail.dPublishDate|date_format:"%A, %e %B %Y"}</span>
+                  </li>
+                  <li class="list-inline-item">
+                    <a href="{$base_url}" class="link-hover-dark-primary">Kabupaten Toba</a>
+                  </li>
+                </ul>
+                {$Detail.tDetail}
+                <div class="row">
+                  <div class="col">
+                    {$listModule.video.vData}
+                    {$listModule.maps.vData}
+                  </div>
+                </div>
+                
+        <div class="blog-tags mt-3">
+          <div class="row align-items-center">
+            <div class="col-md-6">
+              <div class="social-icon text-dark">
+                <ul class="list-inline">
+                  <li class="list-inline-item">Share Di Social Media Anda:</li>
+                  <li class="list-inline-item mr-5">
+                    <a target="_blank" title="Twitter"
+                      href="https://twitter.com/intent/tweet?text={$Detail.vTitle}%20%3A%20{$base_url}{$index_page}{$detailCategory.vPermalink}/{$Detail.vPermalink}.html">
+                      <i class="fab fa-twitter"> </i>
+                      <span>Twitter</span>
+                    </a>
+                  </li>
+                  <li class="list-inline-item mr-5">
+                    <a target="_blank" title="Facebook"
+                      href="https://www.facebook.com/sharer/sharer.php?u={$base_url}{$index_page}{$detailCategory.vPermalink}/{$Detail.vPermalink}.html">
+                      <i class="fab fa-facebook-f"> </i>
+                      <span>Facebook</span>
+                    </a>
+                  </li>
+                  <li class="list-inline-item mr-5">
+                    <a target="_blank" title="Whatsapp"
+                      href="https://api.whatsapp.com/send?text={$Detail.vTitle}%20{$base_url}{$index_page}{$detailCategory.vPermalink}/{$Detail.vPermalink}.html">
+                      <i class="fab fa-whatsapp-square"></i>
+                      <span>Whatsapp</span>
+                    </a>
+                  </li>
+                  <li class="list-inline-item mr-5">
+                    <a target="_blank" title="Linkedin"
+                      href="https://www.linkedin.com/shareArticle?mini=true&url={$base_url}{$index_page}{$detailCategory.vPermalink}/{$Detail.vPermalink}.html&title={$Detail.vTitle}&summary=&source=">
+                      <i class="fab fa-linkedin"></i>
+                      <span>Linkedin</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+                <div class="py-8 d-flex align-items-center border-top border-bottom">
+                  {if $beforeContent.id != ""}
+                  <div class="mr-6 mb-2">
+                    <a href="{$base_url}{$index_page}{$beforeContent.category.vPermalink}/{$beforeContent.vPermalink}.html" class="font-size-h4 link-hover-gray-primary">
+                      <span class="d-inline-block mr-3"><i class="fal fa-arrow-left"></i></span>
+                      <span>Older</span>
+                    </a>
+                    <a href="{$base_url}{$index_page}{$beforeContent.category.vPermalink}/{$beforeContent.vPermalink}.html"
+                      class="d-none d-sm-block link-hover-dark-primary font-weight-semibold font-size-md">
+                      {$beforeContent.title}
+                    </a>
+                  </div>
+                  {/if}
+                  {if $nextContent.id !=''}
+                  <div class="ml-auto text-right mb-2">
+                    <a href="{$base_url}{$index_page}{$nextContent.category.vPermalink}/{$nextContent.vPermalink}.html" class="font-size-h4 link-hover-gray-primary">
+                      <span>Newer</span>
+                      <span class="d-inline-block ml-3"><i class="fal fa-arrow-right"></i></span>
+                    </a>
+                    <a href="{$base_url}{$index_page}{$nextContent.category.vPermalink}/{$nextContent.vPermalink}.html"
+                    class="d-none d-sm-block link-hover-dark-primary font-weight-semibold font-size-md">
+                    {$nextContent.title}
+                  </a>
+                </div>
+                  {/if}
+                </div>
+                {if $detailCategory.iComment == '1'} 
+                {if $countComment.total != '0'}
+                <div class="comments mb-9 mt-11">
+                  <h3 class="h4 mb-6 text-center">{$countComment.total} Comments</h3>
+                  <div id="_container_message"></div>
+                </div>
+                {/if}
+                <div class="form-comment" id="form-comment">
+                  <div class="mb-6 text-center">
+                    <h3 class="mb-0">Tinggalkan komentar</h3>
+                  </div>
+                  <form id="message_submit">
+                    <input type="hidden" name="action" value="add">
+                    <input type="hidden" name="idContent" value="{$Detail.id}">
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <input type="text" name="vName" class="form-control bg-transparent" placeholder="Name *" required>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <input type="text" class="form-control bg-transparent" placeholder="Email *" name="vEmail">
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div class="form-group">
+                      <input class="form-control bg-transparent" name="vSubject" type="text" placeholder="Subject (Optinal)">
+                    </div> -->
+                    <div class="form-group">
+                      <textarea class="form-control" name="tComment" required placeholder="Message"></textarea>
+                    </div>
+                    <span id="report_edit"></span>
+                    <div class="text-center">
+                      <input type="submit" name="submit" value="Post Comment" class="btn btn-primary text-uppercase px-5">
+                    </div>
+                  </form>
+                </div>
+                {/if}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar col-lg-4 primary-sidebar sidebar-sticky" id="sidebar">
+        <div class="primary-sidebar-inner sidebar-inner">
+          <div class="card border-0 mb-7 search">
+            <h5 class="card-title mb-6">Search</h5>
+            <div class="card-body p-0">
+              <form action="{$base_url}{$index_page}search" method="post">
+                <input type="hidden" name="submit" value="yes" />
+                <label for="search" class="sr-only">Search</label>
+                <input type="text" id="search" name="txtSearch" value="{$txtSearch}" class="form-control"
+                  placeholder="Search..." />
+              </form>
+            </div>
+          </div>
+
+          <div class="card border-0 mb-7 recent-posts">
+            <h5 class="card-title mb-3">Info lainnya</h5>
+            <div class="card-body px-0 bg-transparent">
+              <ul class="list-group list-group-flush list-group-borderless">
+                {section name=i loop=$listContent step=1}
+                <li class="list-group-item bg-transparent p-0 mb-4">
+                  <div class="card border-0 m-0">
+                    <a href="{$listContent[i].URL}" class="hover-scale">
+                      <img
+                        src="{if $listContent[i].Item.vGambar != ''}{$base_url}{$contentDir}/{$listContent[i].Item.vGambar}{else}assets/images/gallery/no_picture.jpg{/if}"
+                        alt="{$listContent[i].Item.vTitle}" class="image">
+                    </a>
+                    <div class="card-body">
+
+                      <a href="{$base_url}{$index_page}{$detailCategory.vPermalink}/{$listContent[i].Item.vPermalink}.html"
+                        class="font-size-md font-weight-semibold link-hover-dark-primary">{$listContent[i].Item.vTitle}</a><br>
+                      <span class="text-gray">{$listContent[i].Item.dPublishDate|date_format:"%A, %e %B %Y"}</span>
+                    </div>
+                  </div>
+                </li>
+                {/section}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--================= Back Wrapper End Here =================-->
+{include file='footer.html'}

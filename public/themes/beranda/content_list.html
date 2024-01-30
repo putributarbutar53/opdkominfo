@@ -1,0 +1,21 @@
+{section name=i loop=$list step=1}
+<div class="box" data-animate="zoomIn">
+    <div class="card border-0">
+    <a href="{$list[i].URL}" class="hover-scale">
+        <img  src="{if $list[i].Item.vGambar != ''}{$base_url}{$dirContent}{$list[i].Item.vGambar}{else}assets/images/course-filter/1.jpg{/if}" alt="{$list[i].Item.vTitle}" class="card-img-top image">
+        </a>
+    <div class="card-body px-0">
+        <h5 class="card-title lh-13 letter-spacing-25">
+        <a href="{$list[i].URL}" title="{$list[i].Item.vTitle}" class="link-hover-dark-primary text-capitalize">
+            {$list[i].Item.vTitle|truncate:"100":"...":"true"}</a>
+        </h5>
+        <ul class="list-inline">
+        <li class="list-inline-item mr-0">
+        <span class="text-gray fs--1"><i class="fa fa-eye" aria-hidden="true"></i>  {$list[i].Eye}x</span>
+        <span class="text-gray fs--1"><i class="fa fa-calendar" aria-hidden="true"></i> {$list[i].Item.dPublishDate|date_format:"%A, %e %B %Y"}</span>
+        </li>
+        </ul>
+        </div>
+    </div>
+</div> 
+{/section}

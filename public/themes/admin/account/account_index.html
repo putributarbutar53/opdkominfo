@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+  <head>
+    {include file='header.html'}
+
+    {literal}
+    <!-- ===============================================-->
+    <!--    Stylesheets-->
+    <!-- ===============================================-->
+    <script src="assets/js/config.navbar-vertical.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="assets/lib/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet">
+    <link href="assets/css/theme.css" rel="stylesheet">
+    {/literal}
+
+  </head>
+
+
+  <body>
+
+    <!-- ===============================================-->
+    <!--    Main Content-->
+    <!-- ===============================================-->
+    <main class="main" id="top">
+
+
+      <div class="container-fluid" data-layout="container">
+
+        {include file='top_menu.html'}
+
+        <div class="card mb-3">
+          <div class="bg-holder d-none d-lg-block bg-card" style="background-image:url(assets/img/illustrations/corner-4.png);">
+          </div>
+          <!--/.bg-holder-->
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-8">
+                <h3 class="mb-0"><i class="fas fa-key"></i>&nbsp;Ubah Password</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <span id="report_all"></span>
+
+        <div class="content">
+          <div class="card">
+            <div class="card-body overflow-hidden">
+
+                <form id="password_submit">
+                <input type="hidden" name="submit" value="yes" />
+                <input type="hidden" name="action" value="changepass" />
+                
+                  Password Lama:<br />
+                  <input type="password" name="oPassword" class="form form-control" size="40" />
+                  <br />
+                
+                  Password Baru:<br />
+                  <input type="password" name="nPassword" class="form form-control" size="40" />
+                  <br />
+                
+                  Ulang Password Baru:<br />
+                  <input type="password" name="rPassword" class="form form-control" size="40" />
+                  <br />
+                
+                  <input type="submit" name="submit" value="Ubah Password" class="btn btn-danger" />
+                
+                </form>
+                                
+            </div>
+          </div>
+
+          {include file='footer.html'}
+
+        </div>
+
+      </div>
+    </main>
+    <!-- ===============================================-->
+    <!--    End of Main Content-->
+    <!-- ===============================================-->
+
+    {literal}
+    <!-- ===============================================-->
+    <!--    JavaScripts-->
+    <!-- ===============================================-->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/lib/@fortawesome/all.min.js"></script>
+    <script src="assets/lib/stickyfilljs/stickyfill.min.js"></script>
+    <script src="assets/lib/sticky-kit/sticky-kit.min.js"></script>
+    <script src="assets/lib/is_js/is.min.js"></script>
+    <script src="assets/lib/lodash/lodash.min.js"></script>
+    <script src="assets/lib/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:100,200,300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
+    <script src="assets/js/theme.js"></script>
+
+    <script type="text/javascript">
+
+      var request;
+      $("#password_submit").submit(function(event){
+      
+          // Prevent default posting of form - put here to work in case of errors
+          event.preventDefault();
+          // Abort any pending request
+          if (request) {
+              request.abort();
+          }
+          // setup some local variables
+          var $form = $(this);
+
+          // Let's select and cache all the fields
+          var $inputs = $form.find("input, select, button, textarea");
+
+          // Serialize the data in the form
+          var serializedData = $form.serialize();
+
+          // Let's disable the inputs for the duration of the Ajax request.
+          // Note: we disable elements AFTER the form data has been serialized.
+          // Disabled form elements will not be serialized.
+          $inputs.prop("disabled", true);
+
+          // Fire off the request to /form.php
+          request = $.ajax({
+              url: "{/literal}{$admin_url}myaccount/changepassword{literal}",
+              type: "post",
+              data: serializedData
+          });
+
+          // Callback handler that will be called on success
+          request.done(function (response, textStatus, jqXHR){
+              // Log a message to the console
+              console.log("Hooray, it worked!");
+              var obj = jQuery.parseJSON(response);
+              //alert(obj.data);
+              if (obj.status=='success')
+              {
+                $('#report_all').html(obj.message);
+                $('#password_submit input[type="text"]').val('');
+                $('#password_submit textarea').val('');
+              }
+              else
+                $('#report_all').html(obj.message);
+          });
+
+          // Callback handler that will be called on failure
+          request.fail(function (jqXHR, textStatus, errorThrown){
+              // Log the error to the console
+              console.error(
+                  "The following error occurred: "+
+                  textStatus, errorThrown
+              );
+              $('#report_all').html('Connection Failed');
+          });
+
+          // Callback handler that will be called regardless
+          // if the request failed or succeeded
+          request.always(function () {
+              // Reenable the inputs
+              $inputs.prop("disabled", false);
+          });
+
+      });
+
+    </script>
+
+    {/literal}
+
+  </body>
+
+</html>

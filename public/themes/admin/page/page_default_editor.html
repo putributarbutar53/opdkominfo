@@ -1,0 +1,20 @@
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Live Editor</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="assets/cssbuilder/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body class="builderjs-layout">
+    {if $detailPage.tContent|trim == ''}
+    <div builder-element="BlockElement" builder-container="" builder-wrapper="" class="container container-_blank builder-class-element-selected" style="padding: 0px;">
+    </div>
+    {else}
+    <div builder-element="BlockElement" builder-container="" builder-wrapper="" class="container"><div builder-element="" builder-draggable="" class="image-container" f-role="placeholder" id="oOspT" style="">
+        {$detailPage.tContent}
+    </div>
+    {/if}
+</body>
+</html>

@@ -1,0 +1,174 @@
+<div class="modal-header">
+  <h5 class="modal-title" id="add">Perbaharui Photo</h5>
+  <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
+</div>
+<div class="modal-body text-left">        
+  <form id="edit_submit" method="post" enctype="multipart/form-data">
+
+    <input type="hidden" name="action" value="update" />
+    <input type="hidden" name="id" value="{$Detail.id}" />
+
+    Caption:<br />
+    <input type="text" name="vPhotoTitle" value="{$Detail.vPhotoTitle}" class="form form-control form-50" size="40" />
+    <br />
+
+    Detail Caption:<br />
+    <textarea cols="80" rows="2" class="form form-control form-50" name="mtDesc">{$Detail.mtDesc}</textarea>
+    <br />
+
+    Permalink:<br />
+    <input type="text" name="vPermalink" value="{$Detail.vPermalink}" class="form form-control form-50" size="40" />
+    <br />
+
+    Photo:<br />
+    {literal}
+    <div id="drop_image" class="dropzone dropzone-single p-0" data-dropzone>
+    {/literal}
+      <div class="fallback">
+        <input type="file" name="vPhotoName" id="vPhotoName">
+      </div>
+      <div class="dz-preview dz-preview-single">
+        <div class="dz-preview-cover dz-complete"><img class="dz-preview-img" src="..." alt="" data-dz-thumbnail="">
+          <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress=""></span></div>
+        </div>
+      </div>
+      <div class="dz-message" data-dz-message>
+        <div class="dz-message-text"><img class="mr-2" src="assets/img/icons/cloud-upload.svg" width="25" alt="">Drop Photo Anda Disini</div>
+      </div>
+    </div>          
+    {if $Detail.vPhotoName != ''}
+    <p><img src="{$base_url}{$photoDir}{$Detail.vPhotoName}" class="img-fluid" width="350" /></p>
+    {/if}
+    <br />
+
+    <span id="report_edit"></span>
+
+    <input type="submit" name="submit" value="Simpan" class="btn btn-primary" />
+  </form>
+</div>
+
+  {literal}
+  <script>
+
+      var request;
+      $("#edit_submit").submit(function(event){
+          
+          // Prevent default posting of form - put here to work in case of errors
+          event.preventDefault();
+          // Abort any pending request
+          if (request) {
+              request.abort();
+          }
+
+          var formData = new FormData(this);
+          formData.append('vPhotoName', $('#drop_image')[0].dropzone.getAcceptedFiles()[0]); // attach dropzone image element
+
+          // Fire off the request to /form.php
+          request = $.ajax({
+              url: "{/literal}{$admin_url}mygallery/submit{literal}",
+              type: "post",
+              //data: serializedData,
+              data: formData,
+              cache: false, 
+              contentType: false, 
+              processData: false, 
+              // xhr: function () {
+              //   var xhr = new window.XMLHttpRequest();
+              //   xhr.upload.addEventListener("progress",
+              //       uploadProgressHandler,
+              //       false
+              //   );
+              //   xhr.addEventListener("load", loadHandler, false);
+              //   xhr.addEventListener("error", errorHandler, false);
+              //   xhr.addEventListener("abort", abortHandler, false);
+              //   return xhr;
+              // }
+          });
+
+          // Callback handler that will be called on success
+          request.done(function (response, textStatus, jqXHR){
+              // Log a message to the console
+              console.log(response);
+              var obj = jQuery.parseJSON(response);
+              //alert(response);
+              if (obj.status=='success')
+              {
+                //$('#report_all').html(obj.message);
+                $("#report_modal").html(obj.message);
+                $('#edit').modal('hide');
+                $('#edit_submit input[type="text"]').val('');
+                $('#edit_submit textarea').val('');
+                success_notify();
+              }
+              else
+                $('#report_edit').html(obj.message);
+          });
+
+          // Callback handler that will be called on failure
+          request.fail(function (jqXHR, textStatus, errorThrown){
+              // Log the error to the console
+              console.error(
+                  "The following error occurred: "+
+                  textStatus, errorThrown
+              );
+              $('#report_edit').html('Connection Failed');
+          });
+
+          // Callback handler that will be called regardless
+          // if the request failed or succeeded
+          request.always(function () {
+              // Reenable the inputs
+            // $inputs.prop("disabled", false);
+          });
+
+      });
+
+      $('#edit').on('hidden.bs.modal', function () {
+          $('#report_edit').html('');
+      });
+      
+      function success_notify()
+      {
+        $("#notify_modal").modal('toggle');
+        $("#notify_yes").click(function()
+        {
+          location.reload();
+          //alert('delete this id: '+iddata);
+        });
+      }
+
+      $('#notify_modal').on('hidden.bs.modal', function () {
+          location.reload();
+      });
+
+      $(document).ready(function(){
+          $(".editdatetimepicker").flatpickr({
+              'enableTime':true,
+              'dateFormat':"Y-m-d H:i:s"
+          });
+
+          $(".editdatepicker").flatpickr({
+              'dateFormat':"Y-m-d"
+          });
+
+          $(".selectpicker").select2({
+              dropdownParent: $("#edit")
+          });
+
+          $(".dropzone").dropzone({
+            'url':'valid/url',
+            'maxFiles':'1',
+            'dictDefaultMessage':'Upload file gambar anda disini',
+            'addRemoveLinks':true,
+            'dictRemoveFile':'<span class="badge badge-danger"><i class="fas fa-trash-alt"></i></span>',
+            'acceptedFiles':'image/*',
+          });
+
+          tinymce.init({
+              selector: '.tinymce',
+              height: "350",
+          });
+      });
+
+  </script>
+  {/literal}

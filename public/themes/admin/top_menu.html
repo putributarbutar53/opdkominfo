@@ -1,0 +1,289 @@
+<nav
+  class="navbar navbar-light navbar-glass navbar-top sticky-kit navbar-expand-lg"
+>
+  <button
+    class="btn navbar-toggler-humburger-icon navbar-toggler mr-1 mr-sm-3"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarStandard"
+    aria-controls="navbarStandard"
+    aria-expanded="false"
+    aria-label="Toggle Navigation"
+  >
+    <span class="navbar-toggle-icon"><span class="toggle-line"></span></span>
+  </button>
+  <a class="navbar-brand mr-1 mr-sm-3" href="../index.html">
+    <div class="d-flex align-items-center">
+      <img class="mr-2" src="assets/img/logos/logo.png" alt="" height="40" />
+    </div>
+  </a>
+  <div class="collapse navbar-collapse" id="navbarStandard">
+    <ul class="navbar-nav">
+      <li class="nav-item{if $Signature == ''} active{/if}">
+        <a
+          class="nav-link"
+          id="navbarDropdownHome"
+          href="{$admin_url}dashboard"
+          role="button"
+          aria-haspopup="true"
+          aria-expanded="false"
+          >Dashboard</a
+        >
+      </li>
+
+      {if in_array('page', $DetailAdminAuth) || $DetailAdmin.vUsername ==
+      'admin'}
+      <li class="nav-item{if $Signature == 'page'} active{/if}">
+        <a
+          class="nav-link"
+          id="navbarDropdownHome"
+          href="{$admin_url}mypage"
+          role="button"
+          aria-haspopup="true"
+          aria-expanded="false"
+          >Page</a
+        >
+      </li>
+      {/if} {if in_array('content', $DetailAdminAuth) || $DetailAdmin.vUsername
+      == 'admin'}
+      <li class="nav-item{if $Signature == 'content'} active{/if}">
+        <a
+          class="nav-link"
+          id="navbarDropdownHome"
+          href="{$admin_url}mycontent"
+          role="button"
+          aria-haspopup="true"
+          aria-expanded="false"
+          >News / Media</a
+        >
+      </li>
+      {/if} {if in_array('banner', $DetailAdminAuth) || $DetailAdmin.vUsername
+      == 'admin'}
+      <li class="nav-item{if $Signature == 'banner'} active{/if}">
+        <a
+          class="nav-link"
+          id="navbarDropdownHome"
+          href="{$admin_url}mybanner"
+          role="button"
+          aria-haspopup="true"
+          aria-expanded="false"
+          >Banner</a
+        >
+      </li>
+      {/if} {if in_array('album', $DetailAdminAuth) || $DetailAdmin.vUsername ==
+      'admin'}
+      <li class="nav-item{if $Signature == 'photo'} active{/if}">
+        <a
+          class="nav-link"
+          id="navbarDropdownHome"
+          href="{$admin_url}mygallery"
+          role="button"
+          aria-haspopup="true"
+          aria-expanded="false"
+          >Album</a
+        >
+      </li>
+      {/if} {if in_array('filemanager', $DetailAdminAuth) ||
+      $DetailAdmin.vUsername == 'admin'}
+      <li class="nav-item{if $Signature == 'file'} active{/if}">
+        <a
+          class="nav-link"
+          id="navbarDropdownHome"
+          href="{$admin_url}myfile"
+          role="button"
+          aria-haspopup="true"
+          aria-expanded="false"
+          >File Manager</a
+        >
+      </li>
+      {/if} {if in_array('document', $DetailAdminAuth) || $DetailAdmin.vUsername
+      == 'admin'}
+      <li class="nav-item{if $Signature == 'document'} active{/if}">
+        <a
+          class="nav-link"
+          id="navbarDropdownHome"
+          href="{$admin_url}mydocument"
+          role="button"
+          aria-haspopup="true"
+          aria-expanded="false"
+          >Document</a
+        >
+      </li>
+      {/if} {if in_array('message', $DetailAdminAuth) || $DetailAdmin.vUsername
+      == 'admin'}
+      <li class="nav-item{if $Signature == 'message'} active{/if}">
+        <a
+          class="nav-link"
+          id="navbarDropdownHome"
+          href="{$admin_url}mymessage"
+          role="button"
+          aria-haspopup="true"
+          aria-expanded="false"
+          >Pesan</a
+        >
+      </li>
+      {/if} {if in_array('polling', $DetailAdminAuth) || $DetailAdmin.vUsername
+      == 'admin'}
+      <li class="nav-item{if $Signature == 'polling'} active{/if}">
+        <a
+          class="nav-link"
+          id="navbarDropdownHome"
+          href="{$admin_url}mypolling"
+          role="button"
+          aria-haspopup="true"
+          aria-expanded="false"
+          >Polling</a
+        >
+      </li>
+      {/if}
+    </ul>
+  </div>
+  <ul class="navbar-nav navbar-nav-icons ml-auto flex-row align-items-center">
+    <li class="nav-item dropdown dropdown-on-hover">
+      <a
+        class="nav-link notification-indicator notification-indicator-primary px-0 icon-indicator"
+        id="navbarDropdownNotification"
+        href="#"
+        role="button"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+        ><span class="fas fa-bell fs-4" data-fa-transform="shrink-6"></span
+      ></a>
+      <div
+        class="dropdown-menu dropdown-menu-right dropdown-menu-card"
+        aria-labelledby="navbarDropdownNotification"
+      >
+        <div
+          class="card card-notification shadow-none"
+          style="max-width: 20rem"
+        >
+          <div class="card-header">
+            <div class="row justify-content-between align-items-center">
+              <div class="col-auto">
+                <h6 class="card-header-title mb-0">Notifications</h6>
+              </div>
+            </div>
+          </div>
+
+          {*
+          <div class="list-group list-group-flush font-weight-normal fs--1">
+            <div class="list-group-title border-bottom">NEW</div>
+            <div class="list-group-item">
+              <a class="notification notification-flush bg-200" href="#!">
+                <div class="notification-avatar">
+                  <div class="avatar avatar-2xl mr-3">
+                    <img
+                      class="rounded-circle"
+                      src="assets/img/team/avatar.png"
+                      alt=""
+                    />
+                  </div>
+                </div>
+                <div class="notification-body">
+                  <p class="mb-1">
+                    <strong>Emma Watson</strong> replied to your comment :
+                    "Hello world 😍"
+                  </p>
+                  <span class="notification-time"
+                    ><span class="mr-1" role="img" aria-label="Emoji">💬</span
+                    >Just now</span
+                  >
+                </div>
+              </a>
+            </div>
+            <div class="list-group-item">
+              <a class="notification notification-flush bg-200" href="#!">
+                <div class="notification-avatar">
+                  <div class="avatar avatar-2xl mr-3">
+                    <div class="avatar-name rounded-circle">
+                      <span>AB</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="notification-body">
+                  <p class="mb-1">
+                    <strong>Albert Brooks</strong> reacted to
+                    <strong>Mia Khalifa's</strong> status
+                  </p>
+                  <span class="notification-time"
+                    ><span class="mr-1 fab fa-gratipay text-danger"></span
+                    >9hr</span
+                  >
+                </div>
+              </a>
+            </div>
+            <div class="list-group-title">EARLIER</div>
+            <div class="list-group-item">
+              <a class="notification notification-flush" href="#!">
+                <div class="notification-avatar">
+                  <div class="avatar avatar-2xl mr-3">
+                    <img
+                      class="rounded-circle"
+                      src="assets/img/icons/weather-sm.jpg"
+                      alt=""
+                    />
+                  </div>
+                </div>
+                <div class="notification-body">
+                  <p class="mb-1">
+                    The forecast today shows a low of 20&#8451; in California.
+                    See today's weather.
+                  </p>
+                  <span class="notification-time"
+                    ><span class="mr-1" role="img" aria-label="Emoji">🌤️</span
+                    >1d</span
+                  >
+                </div>
+              </a>
+            </div>
+          </div>
+          *}
+
+          <div class="card-footer text-center border-top">
+            <a class="card-link d-block" href="../pages/notifications.html"
+              >View all</a
+            >
+          </div>
+        </div>
+      </div>
+    </li>
+    <li class="nav-item dropdown dropdown-on-hover">
+      <a
+        class="nav-link pr-0"
+        id="navbarDropdownUser"
+        href="#"
+        role="button"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <div class="avatar avatar-xl">
+          <img class="rounded-circle" src="assets/img/team/avatar.png" alt="" />
+        </div>
+      </a>
+      <div
+        class="dropdown-menu dropdown-menu-right py-0"
+        aria-labelledby="navbarDropdownUser"
+      >
+        <div class="bg-white rounded-soft py-2">
+          <a class="dropdown-item"
+            >Hello, {$DetailAdmin.vName|no_value}
+            ({$DetailAdmin.vUsername|no_value})</a
+          >
+          <div class="dropdown-divider"></div>
+          {if $DetailAdmin.vUsername == 'admin'}
+          <a class="dropdown-item" href="{$admin_url}myaccount/admin"
+            >List Administrator</a
+          >
+          <div class="dropdown-divider"></div>
+          {/if}
+          <a class="dropdown-item" href="{$admin_url}myaccount"
+            >Ubah Password</a
+          >
+          <a class="dropdown-item" href="{$admin_url}index/logout">Logout</a>
+        </div>
+      </div>
+    </li>
+  </ul>
+</nav>

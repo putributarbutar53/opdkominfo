@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<head>
+    {include file='header.html'}
+    <!-- ===============================================-->
+    <!--    Stylesheets-->
+    <!-- ===============================================-->
+    <link href="assets/lib/flatpickr/flatpickr.min.css" rel="stylesheet">
+
+    <script src="assets/js/config.navbar-vertical.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="assets/lib/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet">
+    <link href="assets/lib/prismjs/prism-okaidia.css" rel="stylesheet">
+    <link href="assets/lib/datatables-bs4/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="assets/lib/datatables.net-responsive-bs4/responsive.bootstrap4.css" rel="stylesheet">
+    <link href="assets/lib/dropzone/dropzone.min.css" rel="stylesheet">
+    <link href="assets/lib/fancybox/jquery.fancybox.min.css" rel="stylesheet">
+    <link href="assets/css/theme.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- ===============================================-->
+    <!--    Main Content-->
+    <!-- ===============================================-->
+    <main class="main" id="top">
+
+        <div class="container-fluid" data-layout="container">
+            {include file='left_menu.html'}
+
+            <div class="content">
+
+                {include file='top_menu.html'}
+                <div class="card mb-3">
+                    <div class="bg-holder d-none d-lg-block bg-card"
+                        style="background-image:url(assets/img/illustrations/corner-4.png);">
+                    </div>
+                    <!--/.bg-holder-->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <h3 class="mb-0">Pesan</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-body bg-light border-top">
+                        <button class="btn btn-warning mb-3" type="button" onclick="adddata()"><i
+                                class="fas fa-plus-square"></i>&nbsp;Pesan</button>
+                        <table id="table_index" width="100%"
+                            class="table mb-0 table-striped table-dashboard data-table border-bottom border-200">
+                            <thead class="bg-200">
+                                <tr>
+                                    <th><b>Tanggal</b></th>
+                                    <th><b>Nama</b></th>
+                                    <th><b>Email</b></th>
+                                    <th><b>No.HP</b></th>
+                                    <th><b>Subject</b></th>
+                                    <th style="width: 30%;"><b>Pesan</b></th>
+                                    <th><b>#</b></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+                {include file='footer.html'}
+
+            </div>
+        </div>
+    </main>
+    <!-- ===============================================-->
+    <!--    End of Main Content-->
+    <!-- ===============================================-->
+
+    {literal}
+    <!-- ===============================================-->
+    <!--    JavaScripts-->
+    <!-- ===============================================-->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/lib/@fortawesome/all.min.js"></script>
+    <script src="assets/lib/stickyfilljs/stickyfill.min.js"></script>
+    <script src="assets/lib/sticky-kit/sticky-kit.min.js"></script>
+    <script src="assets/lib/is_js/is.min.js"></script>
+    <script src="assets/lib/lodash/lodash.min.js"></script>
+    <script src="assets/lib/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:100,200,300,400,500,600,700,800,900&amp;display=swap"
+        rel="stylesheet">
+    <script src="assets/lib/prismjs/prism.js"></script>
+    <script src="assets/lib/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="assets/lib/datatables-bs4/dataTables.bootstrap4.min.js"></script>
+    <script src="assets/lib/datatables.net-responsive/dataTables.responsive.js"></script>
+    <script src="assets/lib/datatables.net-responsive-bs4/responsive.bootstrap4.js"></script>
+    <script src="assets/lib/flatpickr/flatpickr.min.js"></script>
+    <script src="assets/lib/dropzone/dropzone.min.js"></script>
+    <script src="assets/lib/fancybox/jquery.fancybox.min.js"></script>
+    <script src="assets/js/theme.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#table_index').DataTable().columns.adjust();
+            setTimeout(function () {
+                dataindex();
+            }, 100);
+        });
+
+        function dataindex() {
+            $('#table_index').DataTable({
+                'processing': true,
+                'serverSide': true,
+                'scrollX': true,
+                'serverMethod': 'post',
+                'searchDelay': '350',
+                'sWrapper': 'falcon-data-table-wrapper',
+                'autoWidth': false,
+
+                'ajax': {
+                    'url': '{/literal}{$admin_url}mymessage/loaddata{literal}'
+                },
+                'columns': [
+                    { data: 'created_at' },
+                    { data: 'name' },
+                    { data: 'email' },
+                    { data: 'phone' },
+                    { data: 'subject' },
+                    { data: 'message' },
+                    { data: 'navButton' },
+                ],
+                // 'dom':'Bfrtip',
+                // 'buttons':[
+                //   'copy','csv','excel','pdf','print'
+                // ],	
+                'language':
+                    { 'emptyTable': 'Belum ada data' },
+                'destroy': true,
+            });
+        }
+
+        function deletedata(iddata) {
+            if (confirm('Pesan ini akan di hapus ?')) {
+                $.get("{/literal}{$admin_url}mymessage/delete{literal}?id=" + iddata, function (data, status) {
+                    var obj = jQuery.parseJSON(data);
+                    if (obj.status == 'success') {
+                        $('#report_comment').html(obj.message);
+                        dataindex();
+                    }
+                });
+            }
+        }
+
+        function editmodule(iddata) {
+            $.get("{/literal}{$admin_url}mymessage/edit{literal}?id=" + iddata, function (data, status) {
+                $("#module_editor").html(data);
+                $('#module_edit').modal('toggle');
+            });
+        }
+
+    </script>
+    {/literal}
+</body>
+
+</html>

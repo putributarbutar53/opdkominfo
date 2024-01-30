@@ -1,0 +1,262 @@
+{include file='header.html'} {include file='topmenu.html'}
+<div class="content-wrap p-0">
+  <section class="home-main-intro">
+    <div class="home-main-intro-container">
+  <div class="slick-slider"
+     data-slick-options='{literal}{"slidesToShow": 1, "autoplay":true,"infinite":true,"dots":false,"arrows":true, "speed":4000, "infinite":true}{/literal}'>
+       {section name=i loop=$listBanner} 
+       {if $listBanner[i].Item.iStatus =='1'}
+       <div class="box d-flex justify-content-center m-0">
+            <img class="card-img-top" src="{if $listBanner[i].Item.vBannerFile != ''}{$base_url}{$dirBanner}{$listBanner[i].Item.vBannerFile}{else}{$listBanner[i].Item.vFileURL}{/if}" alt="{$listBanner[i].Item.vBannerName}" style="height: 565px; width: 100%; object-fit: fill;">
+       </div>
+       {/if}
+       {/section}        
+</div>
+  {$OPTIONAL.SECTION_1.tContent}
+</div>
+</section>
+  {include file='marquee.html'}
+  
+	<section class="mag-posts-area d-flex flex-wrap">
+		<div class="post-sidebar-area left-sidebar mt-3 mb-30 bg-white box-shadow">
+			{if $OPTIONAL.BANNER_LEFT.lbPicture !=''}
+			<div class="single-sidebar-widget">
+				<a href="{$OPTIONAL.BANNER_LEFT.vURL}" target="{$OPTIONAL.BANNER_LEFT.cURLTarget}">
+					<img src="{$base_url}{$pageDir}{$OPTIONAL.BANNER_LEFT.lbPicture}" alt="{$OPTIONAL.BANNER_LEFT.tContent}" style="width: 100%; height: 300px; object-fit: fill;">
+				</a>
+			</div>
+			{/if}
+			<div class="single-sidebar-widget p-3">
+				<div class="section-heading">
+					<h5 class="text-white">Video Terbaru</h5>
+				</div>
+				{section name=i loop=$listVideo}
+				<div class="single-blog-post d-flex">
+					<div class="post-thumbnail">
+						<img src="{if $listVideo[i].module.thumbnail.vPicture !=''}{$base_url}{$dirContent}{$listVideo[i].Item.vGambar}{elseif $listVideo[i].thumbnail.vPicture == '' && $listVideo[i].Item.vGambar !=''}{$base_url}{$dirContent}{$listVideo[i].Item.vGambar}{/if}" alt="{$TITLE}" width="100px">
+					</div>
+					<div class="post-content">
+						<a href="{$base_url}{$index_page}{$listVideo[i].category.vPermalink}/{$listVideo[i].Item.vPermalink}.html"
+							class="post-title"
+							title="{$listVideo[i].Item.vTitle}">{$listVideo[i].title}</a>
+						<div class="post-meta d-flex justify-content-between">
+							<span class="text-gray" style="font-size: small;"><i class="fa fa-eye" aria-hidden="true"></i> {$listVideo[i].view.iView|number_format}x</span>
+							<span class="text-gray" style="font-size: small;"><i class="fa fa-calendar" aria-hidden="true"></i> {$listVideo[i].Item.dPublishDate|date_format}</span>
+						</div>
+					</div>
+				</div>
+				{/section}	
+			</div>
+			<div class="single-sidebar-widget">
+				<div id="gpr-kominfo-widget-container"></div>
+			</div>
+		</div>
+		<div class="mag-posts-content mb-30 p-3 mt-3 box-shadow">
+			{include file='search-box.html'}
+			<div class="trending-now-posts mb-30 mt-3">
+				<div class="d-flex align-items-center section-heading">
+					<h5 class="text-white">Berita Terkini</h5>
+				</div>
+				
+				<div class="trending-post-slides owl-carousel slick-slider pt-3 testimonials-slider" data-slick-options='{literal}{"slidesToShow": 2,"autoplay":true,"infinite":true,"dots":false,"responsive":[{"breakpoint": 992,"settings": {"slidesToShow": 2,"arrows":false}}]}{/literal}'>
+					{section name=i loop=$listTerkini}
+					<div class="box single-trending-post">
+						<img src="{if $listTerkini[i].Item.vGambar !=''}{$base_url}{$dirContent}{$listTerkini[i].Item.vGambar}{else}assets/images/gallery/gallery-album.png{/if}" alt="{$listTerkini[i].Item.vTitle}" style="height: 190px; object-fit: cover;">
+						<div class="post-content">
+							<span class="d-flex justify-content-end"><span class="bg-secondary fs--2 text-white px-1 rounded">{$listTerkini[i].Item.dPublishDate|date_format}</span></span>
+							<a href="{$base_url}{$listTerkini[i].category.vPermalink}" class="post-cata">{$listTerkini[i].category.vCategory}</a>
+
+							<a href="{$base_url}{$index_page}{$listTerkini[i].category.vPermalink}{$listTerkini[i].Item.vPermalink}.html"
+								class="text-white font-bold">{$listTerkini[i].title}</a>
+						</div>
+					</div>
+					{/section}
+				</div>
+			</div>
+			{if $listPemerintah[0].Item.id !=''}
+			<div class="feature-video-posts mb-30">
+				<div class="section-heading">
+					<h5 class="text-white">Pemerintahan</h5>
+				</div>
+				<div class="slick-slider pt-3 testimonials-slider" data-slick-options='{literal}{"slidesToShow": 1,"autoplay":true,"infinite":true,"dots":false,"responsive":[{"breakpoint": 992,"settings": {"slidesToShow": 1,"arrows":false}}]}{/literal}'>
+					{PLUGIN NAME='LIST_CONTENT' VAR1='pemerintah' VAR2='20'
+					VAR3='content_list.html'}
+				</div>
+			</div>
+			{/if}
+			<div class="most-viewed-videos">
+				<div class="section-heading">
+					<h5 class="text-white">Daerah</h5>
+				</div>
+				<div class="slick-slider pt-3 testimonials-slider mb-n5" data-slick-options='{literal}{"slidesToShow": 2,"autoplay":true,"infinite":true,"dots":false,"responsive":[{"breakpoint": 992,"settings": {"slidesToShow": 1,"arrows":false}}]}{/literal}'>
+					{PLUGIN NAME='LIST_CONTENT' VAR1='daerah' VAR2='20'
+					VAR3='content_list.html'}
+				</div>
+			</div>
+		</div>
+		<div class="post-sidebar-area right-sidebar mt-3 mb-30 box-shadow">
+			{if $OPTIONAL.BANNER_RIGHT.lbPicture !=''}
+			<div class="single-sidebar-widget">
+				<a href="{$OPTIONAL.BANNER_RIGHT.vURL}" target="{$OPTIONAL.BANNER_RIGHT.cURLTarget}">
+					<img src="{$base_url}{$pageDir}{$OPTIONAL.BANNER_RIGHT.lbPicture}" alt="{$OPTIONAL.BANNER_RIGHT.tContent}"  style="width: 100%; height: 300px; object-fit: fill;">
+				</a>
+			</div>
+			{/if}
+			<div class="single-sidebar-widget p-3 perfect-scrollbar">
+				<div class="section-heading">
+					<h5 class="text-white">Berita Populer</h5>
+				</div>
+				{section name=i loop=$listPopuler}
+				<div class="single-blog-post d-flex">
+					<div class="post-thumbnail">
+						<img src="{$base_url}{$dirContent}{$listPopuler[i].content.vGambar}" alt="{$TITLE}" width="100px">
+					</div>
+					<div class="post-content">
+						<a href="{$base_url}{$index_page}{$listPopuler[i].category.vPermalink}/{$listPopuler[i].content.vPermalink}.html"
+							class="post-title"
+							title="{$listPopuler[i].content.vTitle}">{$listPopuler[i].title}</a>
+						<div class="post-meta d-flex justify-content-between">
+							<span class="text-gray" style="font-size: small;"><i class="fa fa-eye" aria-hidden="true"></i> {$listPopuler[i].Item.iView|number_format}x</span>
+							<span class="text-gray" style="font-size: small;"><i class="fa fa-calendar" aria-hidden="true"></i> {$listPopuler[i].content.dPublishDate|date_format}</span>
+						</div>
+					</div>
+				</div>
+				{/section}
+			</div>
+		</div>
+	</section>
+  <section class="pb-8 feature-destination pt-85 box-shadow mb-30">
+    <div class="container">
+      <div class="mb-8 section-heading">
+        <h2 class="mb-0">{$OPTIONAL.SECTION_3.tContent}</h2>
+      </div>
+      <div
+        class="slick-slider arrow-center"
+        data-slick-options='{literal}{"slidesToShow": 5,"autoplay":true,"infinite":true,"dots":false,"responsive":[{"breakpoint": 992,"settings": {"slidesToShow": 3,"arrows":false,"dots":false,"autoplay":true,"infinite":true}},{"breakpoint": 768,"settings": {"slidesToShow": 2,"arrows":false,"dots":false,"autoplay":true,"infinite":true}},{"breakpoint": 400,"settings": {"slidesToShow": 1,"arrows":false,"dots":false,"autoplay":true,"infinite":true}}]}{/literal}'
+      >
+	  {section name=i loop=$listKliping step=1}
+		<div class="box" data-animate="zoomIn">
+			<div class="card border-0">
+				<!-- <img src="assets/images/blog/blog-4.jpg" alt=""> -->
+			<a href="{$base_url}{$index_page}{$listKliping[i].category.vPermalink}/{$listKliping[i].Item.vPermalink}.html" class="hover-scale d-flex justify-content-center">
+				<img  src="{if $listKliping[i].Item.vGambar != ''}{$base_url}{$dirContent}{$listKliping[i].Item.vGambar}{else}assets/images/gallery/no_picture.jpg{/if}" alt="{$listKliping[i].Item.vTitle}" class="card-img-top image" style="width: 190px; height: 240px; object-fit: cover;">
+			</a>
+			<div class="card-body px-0 d-flex justify-content-center">
+				<a href="{$base_url}{$index_page}{$listKliping[i].category.vPermalink}/{$listKliping[i].Item.vPermalink}.html" title="{$listKliping[i].Item.vTitle}" class="link-hover-dark-primary text-capitalize">
+					{$listKliping[i].Item.vTitle|truncate:"100":"...":"true"}</a>
+				</div>
+			</div>
+		</div> 
+{/section}
+      </div>
+    </div>
+  </section>
+  <section id="section-03" class="pb-8 our-directory box-shadow mb-30">
+    <div class="container ">
+      <div class="mb-7 section-heading rounded text-white">
+        {$OPTIONAL.SECTION_5.tContent}
+      </div>
+    </div>
+    <div class="container container-1720">
+      <div class="tab-content">
+        <div
+          class="tab-pane fade show active"
+          id="all"
+          role="tabpanel"
+          aria-labelledby="all"
+        >
+          <div
+            class="slick-slider arrow-top full-slide custom-nav equal-height"
+            data-slick-options='{literal}{"slidesToShow": 5,"autoplay":false,"dots":false,"arrows":false,"responsive":[{"breakpoint": 2000,"settings": {"slidesToShow": 4}},{"breakpoint": 1500,"settings": {"slidesToShow": 3}},{"breakpoint": 1000,"settings": {"slidesToShow": 2}},{"breakpoint": 770,"settings": {"slidesToShow": 1}}]}{/literal}'
+          >
+          
+	  {section name=i loop=$listEvent step=1}
+	  <div class="box" data-animate="fadeInUp">
+		<div class="store card border-0 rounded-0">
+		  <div class="position-relative store-image">
+			<a href="{$base_url}{$index_page}{$listEvent[i].category.vPermalink}/{$listEvent[i].Item.vPermalink}.html">
+			  <img
+				src="{if $listEvent[i].Item.vGambar != ''}{$base_url}{$dirContent}{$listEvent[i].Item.vGambar}{else}assets/images/gallery/no_picture.jpg{/if}" alt="{$listEvent[i].Item.vTitle}" style="height: 200px; width: 370px; object-fit: cover;"
+				alt="{$TITLE}"
+				class="card-img-top rounded-0"
+			  />
+			</a>
+			<div
+			  class="image-content position-absolute d-flex align-items-center"
+			>
+			  <div class="content-left">
+				{$listEvent[i].Module.status.vData}
+			  </div>
+			</div>
+		  </div>
+		  <div class="card-body px-0 pb-0 pt-3">
+			<a
+			  href="{$base_url}{$index_page}{$listEvent[i].category.vPermalink}/{$listEvent[i].Item.vPermalink}.html"
+			  class="card-title h5 text-dark d-inline-block mb-2"
+			  ><span class="letter-spacing-25"
+				>{$listEvent[i].Item.vTitle}</span
+			  ></a
+			>
+			<div class="media">
+			  <div class="media-body lh-14 font-size-sm">
+				{$listEvent[i].description}
+			  </div>
+			</div>
+		  </div>
+		  <ul
+			class="list-inline card-footer rounded-0 border-top pt-3 mt-5 bg-transparent px-0 store-meta d-flex align-items-center"
+		  >
+			<li class="list-inline-item">
+			  <span class="d-inline-block mr-1">
+				<i class="fal fa-map-marker-alt"> </i>
+			  </span>
+			  <a
+				href="{if $listEvent[i].Module.address_link.vData !=''}{$listEvent[i].Module.address_link.vData}{else}#{/if}" target="_blank"
+				class="text-secondary text-decoration-none link-hover-secondary-blue"
+			  >{$listEvent[i].Module.address.vData}</a
+			  >
+			</li>
+			<li class="list-inline-item separate"></li>
+			<li class="list-inline-item">
+			  <span class="text-green"><span class="fas fa-calendar-week"></span> {$listEvent[i].Module.date.vData}</span>
+			</li>
+		  </ul>
+		</div>
+	  </div>
+		{/section}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="pb-8 feature-destination pt-85 box-shadow mb-30">
+    <div class="container">
+      <div class="mb-8 section-heading rounded">
+        <h2 class="mb-0 text-white">{$OPTIONAL.SECTION_2.tContent}</h2>
+      </div>
+      <div
+        class="slick-slider arrow-center"
+        data-slick-options='{literal}{"slidesToShow": 4,"autoplay":true,"infinite":true,"dots":false,"responsive":[{"breakpoint": 992,"settings": {"slidesToShow": 3,"arrows":false,"dots":false,"autoplay":true,"infinite":true}},{"breakpoint": 768,"settings": {"slidesToShow": 2,"arrows":false,"dots":false,"autoplay":true,"infinite":true}},{"breakpoint": 400,"settings": {"slidesToShow": 1,"arrows":false,"dots":false,"autoplay":true,"infinite":true}}]}{/literal}'
+      >
+        {section name=i loop=$OPTIONAL.SECTION_2.listsetting step=1}
+        <div class="box" data-animate="zoomIn">
+          <div class="card module-border mb-3">
+              <img
+                src="{$base_url}{$pageDir}{$OPTIONAL.SECTION_2.listsetting[i].Item.vPicture}"
+                alt="{$TITLE}"
+              />
+            <div class="card-body px-0 pt-4">
+                {$OPTIONAL.SECTION_2.listsetting[i].Item.vData}
+            </div>
+          </div>
+        </div>
+        {/section}
+      </div>
+    </div>
+  </section>
+
+{$OPTIONAL.SECTION_4.tContent}
+{$OPTIONAL.SECTION_6.tContent}
+</div>
+
+{include file='footer.html'}

@@ -1,0 +1,33 @@
+{section name=i loop=$list step=1}
+{if $list[i].Sub == 'yes'}
+{if $list[i].Item.iShow == '1'}
+<li class="nav-item">
+	<a href="{$list[i].URL}" title="{$list[i].Item.vPageName}" class="nav-link">{$list[i].Item.vPageName}<span
+			class="caret"><i class="fas fa-angle-down"></i></span></a>
+	<ul class="sub-menu x-animated x-fadeInUp">
+		{section name=j loop=$list[i].listSub step=1}
+		{if $list[i].listSub[j].Item.iShow == '1'}
+		<li class="nav-item"><a href="{$list[i].listSub[j].URL}" title="{$list[i].listSub[j].Item.vPageName}"
+				class="nav-link">{$list[i].listSub[j].Item.vPageName}{if $list[i].listSub[j].Sub == 'yes'}<span
+					class="caret"><i class="fas fa-angle-down"></i></span>{/if}</a>
+			{if $list[i].listSub[j].Sub == 'yes'}
+			<ul class="sub-menu x-animated x-fadeInUp">
+				{section name=k loop=$list[i].listSub[j].listSub step=1}
+				{if $list[i].listSub[j].listSub[k].Item.iShow == '1'}
+				<li class="nav-item"><a class="nav-link" href="{$list[i].listSub[j].listSub[k].URL}"
+						title="{$list[i].listSub[j].listSub[k].Item.vPageName}">{$list[i].listSub[j].listSub[k].Item.vPageName}</a>
+				</li> {/if}
+				{/section}
+			</ul>
+			{/if}
+		</li>
+		{/if}
+		{/section}
+	</ul>
+</li>
+{/if}
+{else}
+{if $list[i].Item.iShow == '1'}<li class="nav-item"><a href="{$list[i].URL}" title="{$list[i].Item.vPageName}"
+		class="nav-link">{$list[i].Item.vPageName}</a></li>{/if}
+{/if}
+{/section}

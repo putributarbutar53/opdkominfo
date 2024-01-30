@@ -1,0 +1,28 @@
+<header class="site-header">
+  <div id="header-wrap">
+    <div class="container">
+      <div class="row">
+        <!--menu start-->
+        <div class="col">
+          <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand logo text-dark h2 mb-0" href="index.html">
+              Kominfo<span class="text-primary fw-bold">Toba</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+              aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="{$base_url}{$index_page}beranda">Beranda</a>
+                </li>
+                {PLUGIN NAME='LIST_PAGEALL' VAR1='TOPMENU' VAR3='topmenu_list.html'}
+              </ul>
+            </div>
+          </nav>
+        </div>
+        <!--menu end-->
+      </div>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,64 @@
+{include file='header.html'}{include file='topmenu.html'}
+<!--================= Back Wrapper Start Here =================-->
+
+<div id="page-title" class="page-title page-title-style-no-background">
+  <div class="container">
+    <div class="h-100">
+      <h1 class="mb-0 text-center" data-animate="fadeInDown">
+        <span>Category Document </span>
+      </h1>
+      <ul
+        class="breadcrumb breadcrumb-style-01 justify-content-center"
+        data-animate="fadeInUp"
+      >
+        <li class="breadcrumb-item"><a href="{$base_url}{$index.php}">Home</a></li>
+        <li class="breadcrumb-item"><span>Category Document</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+{include file='marquee.html'} {include file='search-box.html'}
+<div class="container mt-3">
+    <table class="table shadow">
+        <thead class="thead-dark text-white" style="background-color: rgb(56, 33, 49);">
+            <tr>
+                <th>Document</th>
+                <th>Category</th>
+                <th>Download</th>
+            </tr>
+        </thead>
+        <tbody>
+            {section name=i loop=$listDoc step=1}
+            <tr>
+                <td>{$listDoc[i].Item.vDocument|no_value}</td>
+                <td>{$detailCategory.vCategory}</td>
+                <td>
+                    {if $listDoc[i].Item.vFile == ''}
+                        {if $listDoc[i].Item.vFileURL|strstr:".pdf"}
+                            <a class="btn btn-warning btn-sm" href="javascript:openpdf('{$listDoc[i].Item.vFileURL}')"><span>Live Pdf</span></a>&nbsp;&nbsp;
+                        {/if}
+
+                        {if $listDoc[i].Item.vFileURL|strstr:".doc" || $listDoc[i].Item.vFile|strstr:".docx" || $listDoc[i].Item.vFile|strstr:".xls" || $listDoc[i].Item.vFile|strstr:".xlsx"}
+                            <a class="btn btn-primary btn-sm" href="https://docs.google.com/viewer?url={$listDoc[i].Item.vFileURL}" target="_blank"><span>Live Doc</span></a>&nbsp;&nbsp;
+                        {/if}
+
+                        <a href="{$listDoc[i].Item.vFileURL}" class="btn btn-info btn-sm" target="_blank">Download</a>
+                    {else}
+                        {if $listDoc[i].Item.vFile|strstr:".pdf"}
+                            <a class="btn btn-warning btn-sm" href="javascript:openpdf('{$base_url}{$docDir}{$listDoc[i].Item.vFile}')"><span>Live Pdf</span></a>&nbsp;&nbsp;
+                        {/if}
+
+                        {if $listDoc[i].Item.vFile|strstr:".doc" || $listDoc[i].Item.vFile|strstr:".docx" || $listDoc[i].Item.vFile|strstr:".xls" || $listDoc[i].Item.vFile|strstr:".xlsx"}
+                            <a class="btn btn-primary btn-sm" href="https://docs.google.com/viewer?url={$base_url}{$docDir}{$listDoc[i].Item.vFile}" target="_blank"><span>Live Doc</span></a>&nbsp;&nbsp;
+                        {/if}
+
+                        <a href="{$base_url}{$docDir}{$listDoc[i].Item.vFile}" class="btn btn-info btn-sm" target="_blank">Download</a>
+                    {/if}
+                </td>
+            </tr>
+            {/section}
+        </tbody>
+      </table>
+</div>
+
+{include file='footer.html'}

@@ -1,0 +1,183 @@
+      <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Administrator</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            
+            <div class="card mb-3">
+                <div class="card-body bg-light border-top">
+                  <div class="row">
+                    <div class="col-lg col-xxl-5">
+                      <h6 class="font-weight-semi-bold ls mb-3 text-uppercase">Informasi Admin</h6>
+                      <div class="row">
+                        <div class="col-5 col-sm-4">
+                          <p class="font-weight-semi-bold mb-1">Nama</p>
+                        </div>
+                        <div class="col">{$Detail.vName|no_value}</div>
+                      </div>
+                      <div class="row">
+                        <div class="col-5 col-sm-4">
+                          <p class="font-weight-semi-bold mb-1">Username</p>
+                        </div>
+                        <div class="col">{$Detail.vUsername|no_value}</div>
+                      </div>
+                    </div>
+                    <div class="col-lg col-xxl-5 mt-4 mt-lg-0 offset-xxl-1">
+                      <h6 class="font-weight-semi-bold ls mb-3 text-uppercase">&nbsp;</h6>
+                      <div class="row">
+                        <div class="col-5 col-sm-4">
+                          <p class="font-weight-semi-bold mb-1">Email</p>
+                        </div>
+                        <div class="col">{$Detail.vEmail|no_value}</div>
+                      </div>
+                      <div class="row">
+                        <div class="col-5 col-sm-4">
+                          <p class="font-weight-semi-bold mb-1">Last Login</p>
+                        </div>
+                        <div class="col">
+                          <p class="mb-1">{$Detail.dLastlogin|no_value}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            
+            {if $Detail.vUsername != 'admin'}
+            <div class="card mb-3">
+              <div class="card-body bg-light border-top">
+                <div class="row">
+
+                  <div class="col-lg col-xxl-5">
+                    <h6 class="font-weight-semi-bold ls mb-3 text-uppercase">Role Access</h6>
+                    
+                    <span id="report_admin"></span>
+
+                    <form id="role_submit">
+                    <input type="hidden" name="id" value="{$Detail.id}" />
+                    <div class="row">
+                      <div class="col">
+                        
+                        <strong><input type="checkbox"{if in_array('page', $vAuth)} checked{/if} value="yes" name="page" />&nbsp;Module Page:</strong><br />
+                        {section name=i loop=$listPage step=1}
+                        <i class="fas fa-ellipsis-h"></i>&nbsp;<input type="checkbox"{if in_array($dummy|cat:'page_'|cat:$listPage[i].Item.id, $vDir)} checked{/if} value="yes" name="page_{$listPage[i].Item.id}" /> {$listPage[i].Item.vCategory|no_value}<br />
+                        {/section}
+                        <br />
+
+                        <strong><input type="checkbox"{if in_array('content', $vAuth)} checked{/if} value="yes" name="content" />&nbsp;Module Content:</strong><br />
+                        {section name=i loop=$listContent step=1}
+                        <i class="fas fa-ellipsis-h"></i>&nbsp;<input type="checkbox"{if in_array($dummy|cat:'content_'|cat:$listContent[i].Item.id, $vDir)} checked{/if} value="yes" name="content_{$listContent[i].Item.id}" /> {$listContent[i].Item.vCategory|no_value}<br />
+                        {/section}
+                        <br />
+
+                        <strong><input type="checkbox"{if in_array('banner', $vAuth)} checked{/if} value="yes" name="banner" />&nbsp;Module Banner:</strong><br />
+                        {section name=i loop=$listBanner step=1}
+                        <i class="fas fa-ellipsis-h"></i>&nbsp;<input type="checkbox"{if in_array($dummy|cat:'banner_'|cat:$listBanner[i].Item.id, $vDir)} checked{/if} value="yes" name="banner_{$listBanner[i].Item.id}" /> {$listBanner[i].Item.vCategory|no_value}<br />
+                        {/section}
+                        <br />
+
+                        <strong><input type="checkbox"{if in_array('album', $vAuth)} checked{/if} value="yes" name="album" />&nbsp;Module Photo Album:</strong><br />
+                        {section name=i loop=$listAlbum step=1}
+                        <i class="fas fa-ellipsis-h"></i>&nbsp;<input type="checkbox"{if in_array($dummy|cat:'photo_'|cat:$listAlbum[i].Item.id, $vDir)} checked{/if} value="yes" name="photo_{$listAlbum[i].Item.id}" /> {$listAlbum[i].Item.vAlbum|no_value}<br />
+                        {/section}
+                        <br />
+
+                        <input type="checkbox"{if in_array('filemanager', $vAuth)} checked{/if} value="yes" name="filemanager" />&nbsp;Module File Manager<br /><br />
+
+                        <strong><input type="checkbox"{if in_array('document', $vAuth)} checked{/if} value="yes" name="document" />&nbsp;Module Document:</strong><br />
+                        {section name=i loop=$listDocument step=1}
+                        <i class="fas fa-ellipsis-h"></i>&nbsp;<input type="checkbox"{if in_array($dummy|cat:'doc_'|cat:$listDocument[i].Item.id, $vDir)} checked{/if} value="yes" name="doc_{$listDocument[i].Item.id}" /> {$listDocument[i].Item.vCategory|no_value}<br />
+                        {/section}
+                        <br />
+
+                      </div>
+                      <div class="col"><br />
+                        <input type="submit" name="submit" value="Perbaharui Role" class="btn btn-primary" />
+                      </div>
+                    </div>
+                    </form>
+
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+            {/if}
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+          </div>
+        </div>
+
+{literal}
+<script>
+      
+      var request;
+      $("#role_submit").submit(function(event){
+      
+          // Prevent default posting of form - put here to work in case of errors
+          event.preventDefault();
+          // Abort any pending request
+          if (request) {
+              request.abort();
+          }
+          // setup some local variables
+          var $form = $(this);
+
+          // Let's select and cache all the fields
+          var $inputs = $form.find("input, select, button, textarea, file");
+
+          // Serialize the data in the form
+          var serializedData = $form.serialize();
+
+          // Let's disable the inputs for the duration of the Ajax request.
+          // Note: we disable elements AFTER the form data has been serialized.
+          // Disabled form elements will not be serialized.
+          $inputs.prop("disabled", true);
+
+          // Fire off the request to /form.php
+          request = $.ajax({
+              url: "{/literal}{$admin_url}myaccount/updaterole{literal}",
+              type: "post",
+              data: serializedData
+          });
+
+          // Callback handler that will be called on success
+          request.done(function (response, textStatus, jqXHR){
+              // Log a message to the console
+              console.log("Hooray, it worked!");
+              var obj = jQuery.parseJSON(response);
+              //alert(obj.data);
+              if (obj.status=='success')
+              {
+                $('#report_admin').html(obj.message);
+              }
+              else
+                $('#report_admin').html(obj.message);
+          });
+
+          // Callback handler that will be called on failure
+          request.fail(function (jqXHR, textStatus, errorThrown){
+              // Log the error to the console
+              console.error(
+                  "The following error occurred: "+
+                  textStatus, errorThrown
+              );
+              $('#report_admin').html('Connection Failed');
+          });
+
+          // Callback handler that will be called regardless
+          // if the request failed or succeeded
+          request.always(function () {
+              // Reenable the inputs
+              $inputs.prop("disabled", false);
+          });
+
+      });
+
+</script>
+{/literal}

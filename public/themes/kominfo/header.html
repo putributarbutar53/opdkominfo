@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- meta tags -->
+    <link
+      rel="apple-touch-icon"
+      href="{$base_url}{$pageDir}{$OPTIONAL.FAVICON.lbPicture}"
+    />
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="{$base_url}{$pageDir}{$OPTIONAL.FAVICON.lbPicture}"
+    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{if $METATITLE != ''}{$METATITLE}{else}{$TITLE}{/if}</title>
+    {include file='meta.html'}
+    <!-- Favicon Icon -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="{$base_url}favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="{$base_url}favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="{$base_url}favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="{$base_url}favicon/site.webmanifest" />
+    <!--== bootstrap -->
+    <link
+      href="assets/css/bootstrap.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <!--== animate -->
+    <link href="assets/css/animate.css" rel="stylesheet" type="text/css" />
+
+    <!--== line-awesome -->
+    <link
+      href="assets/css/line-awesome.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <!--== themify-icons -->
+    <link
+      href="assets/css/themify-icons.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <!--== magnific-popup -->
+    <link
+      href="assets/css/magnific-popup.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <!--== owl.carousel -->
+    <link href="assets/css/owl.carousel.css" rel="stylesheet" type="text/css" />
+
+    <!--== lightslider -->
+    <link
+      href="assets/css/lightslider.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <!--== spacing -->
+    <link href="assets/css/spacing.css" rel="stylesheet" type="text/css" />
+
+    <!--== theme.min -->
+    <link href="assets/css/theme.min.css" rel="stylesheet" />
+
+    <!-- inject css end -->
+  </head>
+
+  <body>
+    <!-- page wrapper start -->
+
+    <div class="page-wrapper">{include file='preload.html'}</div>
+  </body>
+</html>

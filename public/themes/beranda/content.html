@@ -1,0 +1,113 @@
+{include file='header.html'}
+{include file='topmenu.html'}
+ 
+<div id="page-title" class="page-title page-title-style-no-background">
+    <div class="container">
+      <div class="h-100">
+        <h1 class="mb-0 text-center" data-animate="fadeInDown">
+          <span>{$detailCategory.vCategory}  </span>
+        </h1>
+        <ul
+          class="breadcrumb breadcrumb-style-01 justify-content-center"
+          data-animate="fadeInUp"
+        >
+        <li class="breadcrumb-item"><a href="{$base_url}{$index_page}" class="link-hover-dark-primary">Home</a></li>
+        <li class="breadcrumb-item"><span>{$detailCategory.vCategory}</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+{include file='marquee.html'}
+            
+{include file='search-box.html'}
+      <div id="wrapper-content" class="wrapper-content pb-13">
+        <div class="container">
+          <div class="page-container row">
+            <div class="page-content col-lg-8 mb-8 mb-lg-0">
+                <div class="row post-style-3">
+                    
+                  {section name=i loop=$listContent step=1}
+                <div class="col-md-6 mb-6">
+                    <div class="card border-0 post">
+                      <div class="feature-image">
+                        <div
+                          class="slick-slider"
+                          data-slick-options='{literal}{"slidesToShow": 1, "autoplay":false,"dots":false}{/literal}'
+                        >
+                          <div class="box hover-scale">
+                            <a href="blog-single-image.html">
+                              <img src="{if $listContent[i].Item.vGambar != ''}{$base_url}{$contentDir}/{$listContent[i].Item.vGambar}{else}assets/images/gallery/no_picture.jpg{/if}" alt="{$listContent[i].Item.vTitle}"
+                                class="image"
+                              />
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card-body px-0">
+                        <h5 class="card-title lh-13 letter-spacing-25">
+                            <a
+                            href="{$base_url}{$index_page}{$detailCategory.vPermalink}/{$listContent[i].Item.vPermalink}.html"
+                            class="font-size-md font-weight-semibold link-hover-dark-primary"
+                            >{$listContent[i].Item.vTitle}</a>
+                        </h5>
+                        <span class="text-gray">{$listContent[i].Item.dPublishDate|date_format:"%A, %e %B %Y"}</span>
+                      </div>
+                    </div>
+                  </div>
+                {/section}
+            </div>
+            </div>
+            <div
+              class="sidebar col-lg-4 primary-sidebar sidebar-sticky"
+              id="sidebar"
+            >
+              <div class="primary-sidebar-inner sidebar-inner">
+                <div class="card border-0 mb-6 category">
+                  <h5 class="card-title mb-0">Categories</h5>
+                  <div class="card-body px-0 bg-transparent">
+                    <ul class="list-group list-group-flush">
+                      {section name=i loop=$listCategory step=1}
+                      {if $listCategory[i].Item.vPermalink != 'kliping'}
+                      <li class="list-group-item px-0 py-1">
+                        <a href="{$base_url}{$index_page}{$listCategory[i].Item.vPermalink}" class="link-hover-dark-primary">{$listCategory[i].Item.vCategory}</a>
+                      </li>
+                      {/if}
+                      {/section}
+                    </ul>
+                  </div>
+                </div>
+                <div class="card border-0 mb-7 recent-posts">
+                  <h5 class="card-title mb-3">Recent Posts</h5>
+                  <div class="card-body px-0 bg-transparent">
+                    <ul
+                      class="list-group list-group-flush list-group-borderless"
+                    >
+                    
+                    {section name=i loop=$listContent step=1}
+                    {if $listContent[i].No <=5}
+                    <li class="list-group-item bg-transparent p-0 mb-4">
+                            <div class="card border-0 m-0">
+                            <a href="{$listContent[i].URL}" class="hover-scale">
+                                <img  src="{if $listContent[i].Item.vGambar != ''}{$base_url}{$contentDir}/{$listContent[i].Item.vGambar}{else}assets/images/gallery/no_picture.jpg{/if}" alt="{$listContent[i].Item.vTitle}" class="image">
+                                </a>
+                                <div class="card-body">
+
+                                    <a
+                                    href="{$base_url}{$index_page}{$detailCategory.vPermalink}/{$listContent[i].Item.vPermalink}.html"
+                                    class="font-size-md font-weight-semibold link-hover-dark-primary"
+                                    >{$listContent[i].Item.vTitle}</a><br>
+                                    <span class="text-gray">{$listContent[i].Item.dPublishDate|date_format:"%A, %e %B %Y"}</span>
+                                </div>
+                            </div>
+                    </li>
+                    {/if}
+                    {/section}  
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+{include file='footer.html'}

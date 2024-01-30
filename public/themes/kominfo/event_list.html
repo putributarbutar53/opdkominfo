@@ -1,0 +1,54 @@
+{section name=i loop=$list step=1}
+<div class="box" data-animate="fadeInUp">
+    <div class="store card border-0 rounded-0">
+      <div class="position-relative store-image">
+        <a href="{$list[i].URL}">
+          <img
+            src="{if $list[i].Item.lbPicture != ''}{$base_url}{$pageDir}{$list[i].Item.lbPicture}{else}assets/images/gallery/gallery-album.png{/if}"
+            alt="{$TITLE}"
+            class="card-img-top rounded-0"
+          />
+        </a>
+        <div
+          class="image-content position-absolute d-flex align-items-center"
+        >
+          <div class="content-left">
+            {$list[i].Detail_Sub.status}
+          </div>
+        </div>
+      </div>
+      <div class="card-body px-0 pb-0 pt-3">
+        <a
+          href="{$list[i].URL}"
+          class="card-title h5 text-dark d-inline-block mb-2"
+          ><span class="letter-spacing-25"
+            >{$list[i].Item.vPageName}</span
+          ></a
+        >
+        <div class="media">
+          <div class="media-body lh-14 font-size-sm">
+            {$list[i].Detail_Sub.description}
+          </div>
+        </div>
+      </div>
+      <ul
+        class="list-inline card-footer rounded-0 border-top pt-3 mt-5 bg-transparent px-0 store-meta d-flex align-items-center"
+      >
+        <li class="list-inline-item">
+          <span class="d-inline-block mr-1">
+            <i class="fal fa-map-marker-alt"> </i>
+          </span>
+          <a
+            href="{if $list[i].Detail_Sub.address_link !=''}{$list[i].Detail_Sub.address_link}{else}#{/if}" target="_blank"
+            class="text-secondary text-decoration-none link-hover-secondary-blue"
+          >{$list[i].Detail_Sub.address}</a
+          >
+        </li>
+        <li class="list-inline-item separate"></li>
+        <li class="list-inline-item">
+          <span class="text-green"><span class="fas fa-calendar-week"></span> {$list[i].Detail_Sub.date}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+{/section}

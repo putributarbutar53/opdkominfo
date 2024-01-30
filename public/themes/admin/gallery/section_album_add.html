@@ -1,0 +1,25 @@
+  <div class="modal fade" id="add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+    
+      <div class="modal-header">
+        <h5 class="modal-title" id="add">Tambah Album</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body text-left">        
+        <form id="add_submit">
+        <input type="hidden" name="action" value="add" />
+
+          Album Photo:<br />
+          <input type="text" name="vAlbum" value="{$Detail.vAlbum}" class="form form-control form-50" size="40" />
+          <br />
+          
+          <span id="report"></span>
+
+          <input type="submit" name="submit" value="Tambah Album" class="btn btn-primary" />
+        </form>
+      </div>
+      
+      </div>
+    </div>
+</div>

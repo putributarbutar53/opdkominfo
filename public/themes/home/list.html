@@ -1,0 +1,25 @@
+{section name=i loop=$list}
+<li class="menubar parent con-tooltip top animate__animated animate__backInDown">
+    <a class="delay-demo" {if $list[i].Sub=='yes' } data-parent="#menu" href="#wadah_{$list[i].Item.id}"
+        data-toggle="collapse" {else} href="{$list[i].Item.vURL}" target="{$list[i].Item.cURLTarget}" {/if}>
+        <img src="{if $list[i].Item.lbPicture !=''}{$base_url}{$pageDir}{$list[i].Item.lbPicture}{else}assets/images/setting/logo-disdukcasip-kab-toba.png{/if}"
+            alt=""></a>
+    <span class="title">{$list[i].Item.vPageName}</span>
+    <div class="tooltip">
+        <p>{$list[i].Item.tContent}</p>
+    </div>
+</li>
+{if $list[i].Sub == 'yes'}
+<div id="wadah_{$list[i].Item.id}" class="content collapse column-full">
+    <div id="callouts--top" class="well">
+        <ul id="submenu">
+            {section name=j loop=$list[i].listSub step=1}
+            <li class="nav-item"><a href="{$list[i].listSub[j].Item.vURL}" target="{$list[i].listSub[j].Item.cURLTarget}"
+                    title="{$list[i].listSub[j].Item.vPageName}">{$list[i].listSub[j].Item.vPageName}</a>
+            </li>
+            {/section}
+        </ul>
+    </div>
+</div>
+{/if}
+{/section}

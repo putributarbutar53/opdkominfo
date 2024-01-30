@@ -1,0 +1,35 @@
+  <div class="modal fade" id="module_add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+    
+      <div class="modal-header">
+        <h5 class="modal-title">Tambah Modul</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body text-left">        
+        <form id="module_submit" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="idContent" value="{$Detail.id}" />
+        <input type="hidden" name="action" value="add" />
+        <input type="hidden" id="idmodule" name="idModule" value="" />
+
+          Name:<br />
+          <input type="text" name="vName" value="{$Detail.vName}" class="form form-control form-50" size="40" />
+          <br />
+
+          Data:<br />
+          <textarea cols="80" rows="10" name="vData" class="form form-control form-50">{$Detail.vData}</textarea>
+          <br />          
+
+          Gambar:<br />
+          <input type="file" name="vPicture" class="form form-control form-50" size="40" />
+          <br />
+
+          <span id="report"></span>
+
+          <input type="submit" name="submit" value="Simpan" class="btn btn-primary" />
+        </form>
+      </div>
+      
+      </div>
+    </div>
+</div>

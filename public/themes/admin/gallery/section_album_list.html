@@ -1,0 +1,31 @@
+<div class="container">
+<div class="row">
+{if $listAlbum[0].Item.id != ''}
+{section name=i loop=$listAlbum step=1}
+{if in_array($dummy|cat:'photo_'|cat:$listCategory[i].Item.id, $DetailAdminDir) || $DetailAdmin.vUsername == 'admin'}
+<div class="col-sm">
+<div class="card mb-3 overflow-hidden" style="min-width: 12rem">
+    <div class="card-body position-relative">
+      <div class="row">
+        <div class="col">
+          <div class="display-4 fs-4 mb-2 font-weight-normal text-sans-serif"><a href="{$admin_url}mygallery/gallery?id={$listAlbum[i].Item.id}" class="text-warning">{$listAlbum[i].Item.vAlbum|no_value}</a></div>
+          <p>{$listAlbum[i].Item.vPermalink|no_value}&nbsp;&nbsp;<a href="{$base_url}{$index_page}gallery/{$listAlbum[i].Item.vPermalink}" target="_blank"><i class="fas fa-external-link-alt"></i></a></p>    
+        </div>
+        <div class="col">
+          <a href="javascript:editdata({$listAlbum[i].Item.id});"><i class="fas fa-edit"></i></a>
+          {if $listAlbum[i].Count.total <= '0'}
+          <a href="javascript:deletedata({$listAlbum[i].Item.id});"><i class="fas fa-trash"></i></a>
+          {/if}
+          <a href="{$admin_url}mygallery/gallery?id={$listAlbum[i].Item.id}" class="btn btn-info btn-sm" style="float: right;">View</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{/if}
+{/section}
+{else}
+<span><i>Belum ada data album</i></span>
+{/if}
+</div>
+</div>  

@@ -1,0 +1,32 @@
+{section name=i loop=$list step=1}
+{if $list[i].Sub == 'yes'}
+{if $list[i].Item.iShow == '1'}
+<li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="{$list[i].URL}"
+		data-bs-toggle="dropdown">{$list[i].Item.vPageName}</a>
+		<ul class="dropdown-menu">
+		{section name=j loop=$list[i].listSub step=1}
+		{if $list[i].listSub[j].Item.iShow == '1'}
+		<li {if $list[i].listSub[j].Sub=='yes' } class="dropdown-submenu" {/if}><a
+				class="dropdown-item {if $list[i].listSub[j].Sub == 'yes'}dropdown-toggle{/if}"
+				href="{$list[i].listSub[j].URL}">{$list[i].listSub[j].Item.vPageName}</a>
+			{if $list[i].listSub[j].Sub == 'yes'}
+			<ul class="dropdown-menu">
+				{section name=k loop=$list[i].listSub[j].listSub step=1}
+				{if $list[i].listSub[j].listSub[k].Item.iShow == '1'}
+				<li><a class="dropdown-item" href="{$list[i].listSub[j].listSub[k].URL}"
+						title="{$list[i].listSub[j].listSub[k].Item.vPageName}">{$list[i].listSub[j].listSub[k].Item.vPageName}</a>
+				</li> {/if}
+				{/section}
+			</ul>
+			{/if}
+		</li>
+		{/if}
+		{/section}
+	</ul>
+</li>
+{/if}
+{else}
+{if $list[i].Item.iShow == '1'}<li class="nav-item"> <a href="{$list[i].URL}"
+		class="nav-link">{$list[i].Item.vPageName}</a></li>{/if}
+{/if}
+{/section}

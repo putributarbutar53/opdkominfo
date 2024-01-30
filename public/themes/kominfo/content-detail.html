@@ -1,0 +1,272 @@
+{include file='header.html'} {include file='topmenu.html'}
+<section class="position-relative">
+  <div id="particles-js"></div>
+  <div class="container">
+    <div class="row text-center">
+      <div class="col">
+        <h1 class="font-weight-bold">{$Detail.vTitle}</h1>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb justify-content-center bg-transparent p-0 m-0">
+            <li class="breadcrumb-item">
+              <a class="text-dark" href="{$base_url}{$index_page}">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a
+                class="text-dark"
+                href="{$base_url}{$index_page}{$detailCategory.vPermalink}"
+                >{$detailCategory.vCategory}</a
+              >
+            </li>
+            <li class="breadcrumb-item active text-primary" aria-current="page">
+              {$Detail.vTitle}
+            </li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <!-- / .row -->
+  </div>
+  <!-- / .container -->
+</section>
+
+{include file='marquee.html'} {include file='search-box.html'}
+<div id="wrapper-content" class="wrapper-content pb-13">
+  <div class="container">
+    <div class="page-container row">
+      <div class="page-content col-lg-8 mb-8 mb-lg-0">
+        {$alert}
+        <div class="row post-style-3">
+          <div class="col-12 mb-6">
+            <div class="card border-0">
+              {if $detailCategory.vPermalink != 'video'}
+              <a
+                href="{$base_url}{$index_page}{$detailCategory.vPermalink}/{$Detail.vPermalink}.html"
+                class="hover-scale"
+              >
+                <img
+                  src="{$base_url}{$contentDir}/{$Detail.vGambar}"
+                  alt="{$Detail.vTitle}"
+                  class="card-img-top image"
+                />
+              </a>
+              {/if}
+              <div class="card-body px-0">
+                <h5 class="card-title lh-13 letter-spacing-25">
+                  <a
+                    href="{$base_url}{$index_page}{$detailCategory.vPermalink}/{$Detail.vPermalink}.html"
+                    class="link-hover-dark-primary text-capitalize"
+                  >
+                    {$Detail.vTitle}</a
+                  >
+                </h5>
+                <ul class="list-inline">
+                  <li class="list-inline-item mr-0">
+                    <span class="text-gray"
+                      >{$Detail.dPublishDate|date_format:"%A, %e %B %Y"}</span
+                    >
+                  </li>
+                  <li class="list-inline-item">
+                    <a href="{$base_url}" class="link-hover-dark-primary"
+                      >Kabupaten Toba</a
+                    >
+                  </li>
+                </ul>
+                {$Detail.tDetail}
+                <div class="row">
+                  <div class="col">
+                    {$listModule.video.vData} {$listModule.maps.vData}
+                  </div>
+                </div>
+
+                <div class="blog-tags mt-3">
+                  <div class="row align-items-center">
+                    <div class="col-md-6">
+                      <div class="social-icon text-dark">
+                        <ul class="list-inline">
+                          <li class="list-inline-item">
+                            Share Di Social Media Anda:
+                          </li>
+                          <li class="list-inline-item">
+                            <a
+                              target="_blank"
+                              title="Twitter"
+                              href="https://twitter.com/intent/tweet?text={$Detail.vTitle}%20%3A%20{$base_url}{$index_page}{$detailCategory.vPermalink}/{$Detail.vPermalink}.html"
+                              style="font-size: 20px;"
+                            >
+                            <i class="la la-twitter"></i>
+                            </a>
+                          </li>
+                          <li class="list-inline-item">
+                            <a
+                              target="_blank"
+                              title="Facebook"
+                              href="https://www.facebook.com/sharer/sharer.php?u={$base_url}{$index_page}{$detailCategory.vPermalink}/{$Detail.vPermalink}.html"
+                              style="font-size: 20px;"
+                            >
+                              <i class="la la-facebook"> </i>
+                            </a>
+                          </li>
+                          <li class="list-inline-item">
+                            <a
+                              target="_blank"
+                              title="Whatsapp"
+                              href="https://api.whatsapp.com/send?text={$Detail.vTitle}%20{$base_url}{$index_page}{$detailCategory.vPermalink}/{$Detail.vPermalink}.html"
+                              style="font-size: 20px;"
+                            >
+                              <i class="la la-whatsapp"></i>
+                            </a>
+                          </li>
+                          <li class="list-inline-item">
+                            <a
+                              target="_blank"
+                              title="Linkedin"
+                              href="https://www.linkedin.com/shareArticle?mini=true&url={$base_url}{$index_page}{$detailCategory.vPermalink}/{$Detail.vPermalink}.html&title={$Detail.vTitle}&summary=&source="
+                              style="font-size: 20px;"
+                            >
+                              <i class="la la-linkedin"></i>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="py-8 d-flex justify-content-between align-items-center border-top border-bottom">
+                  {if $beforeContent.id != ""}
+                  <div class="mr-6 mb-2">
+                      <a href="{$base_url}{$index_page}{$beforeContent.category.vPermalink}/{$beforeContent.vPermalink}.html" class="font-size-h4 link-hover-gray-primary">
+                          <span class="d-inline-block mr-3"><i class="la la-arrow-left"></i></span>
+                          <span><b>Older</b></span>
+                      </a>
+                      <a href="{$base_url}{$index_page}{$beforeContent.category.vPermalink}/{$beforeContent.vPermalink}.html" class="d-none d-sm-block link-hover-dark-primary font-weight-semibold font-size-md">
+                          {$beforeContent.title}
+                      </a>
+                  </div>
+                  {/if}
+                  {if $nextContent.id !=''}
+                  <div class="text-right mb-2">
+                      <a href="{$base_url}{$index_page}{$nextContent.category.vPermalink}/{$nextContent.vPermalink}.html" class="font-size-h4 link-hover-gray-primary">
+                          <span><b>Newer</b></span>
+                          <span class="d-inline-block ml-3"><i class="la la-arrow-right"></i></span>
+                      </a>
+                      <a href="{$base_url}{$index_page}{$nextContent.category.vPermalink}/{$nextContent.vPermalink}.html" class="d-none d-sm-block link-hover-dark-primary font-weight-semibold font-size-md">
+                          {$nextContent.title}
+                      </a>
+                  </div>
+                  {/if}
+                </div>
+                {if $detailCategory.iComment == '1'} 
+                {if $countComment.total != '0'}
+                <div class="mt-5">
+                  <div class="mb-8"> <span class="badge badge-primary-soft p-2">
+                        <i class="la la-commenting ic-3x rotation"></i>
+                    </span>
+                    <h2 class="mt-3">Semua Komentara</h2>
+                  </div>
+                  <div class="media-holder review-list mt-5">
+                    {section name=i loop=$listComment step=1} 
+                    <div class="row mb-3 bg-primary-soft rounded p-3">
+                      <div class="col-md px-lg-5">
+                        <div class="d-flex justify-content-between align-items-center border-bottom mb-2">
+                          <h6>{$listComment[i].Item.vName}</h6> <small class="text-muted">{$listComment[i].date}</small>
+                        </div>
+                        <p class="mb-0">{$listComment[i].Item.tComment}</p>
+                      </div>
+                    </div>
+                    {/section}
+                  </div>
+                </div>
+                {/if}
+                <div class="post-comments mt-5">
+                  <div class="mb-8"> <span class="badge badge-primary-soft p-2">
+                        <i class="la la-commenting ic-3x rotation"></i>
+                    </span>
+                    <h2 class="mt-3">Tinggalkan Komentar</h2>
+                    {$reportMessage}
+                  </div>
+                  <form class="row" method="post" action="{$base_url}{$index_page}{$detailCategory.vPermalink}/{$Detail.vPermalink}">
+                    <input type="hidden" name="action" value="savecomment">
+                    <input type="hidden" name="idNews" value="{$Detail.id}">
+                    <div class="messages"></div>
+                    <div class="form-group col-sm-6">
+                      <input id="form_name" type="text" name="vName" class="form-control border-0 bg-light" placeholder="Nama" required="required" data-error="Nama harus di isi" value="{$DetailComment.vName}">
+                      <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group col-sm-6">
+                      <input id="form_email" type="email" name="vEmail" class="form-control border-0 bg-light" placeholder="Email" required="required" data-error="Email harus valid" value="{$DetailComment.vEmail}">
+                      <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group mb-0 col-sm-12">
+                      <textarea id="form_message" name="vComment" class="form-control border-0 bg-light h-100" placeholder="Komentar..." rows="3" required="required" data-error="Mohon tinggalkan pesan.">{$DetailComment.vComment}</textarea>
+                      <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="col-sm-12">
+                      <input type="submit" name="submit" value="Post Comment" class="btn btn-primary mt-5">
+                    </div>
+                  </form>
+                </div>
+                {/if}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar col-lg-4 primary-sidebar sidebar-sticky" id="sidebar">
+        <div class="primary-sidebar-inner sidebar-inner">
+          <div class="card border-0 mb-7 search">
+            <h5 class="card-title mb-6">Search</h5>
+            <div class="card-body p-0">
+              <form action="{$base_url}{$index_page}search" method="post">
+                <input type="hidden" name="submit" value="yes" />
+                <label for="search" class="sr-only">Search</label>
+                <input
+                  type="text"
+                  id="search"
+                  name="txtSearch"
+                  value="{$txtSearch}"
+                  class="form-control"
+                  placeholder="Search..."
+                />
+              </form>
+            </div>
+          </div>
+
+          <div class="card border-0 mb-7 recent-posts">
+            <h5 class="card-title mb-3">Info lainnya</h5>
+            <div class="card-body px-0 bg-transparent">
+              <ul class="list-group list-group-flush list-group-borderless">
+                {section name=i loop=$listContent step=1}
+                <li class="list-group-item bg-transparent p-0 mb-4">
+                  <div class="card border-0 m-0">
+                    <a href="{$listContent[i].URL}" class="hover-scale">
+                      <img
+                        src="{if $listContent[i].Item.vGambar != ''}{$base_url}{$contentDir}/{$listContent[i].Item.vGambar}{else}assets/images/gallery/no_picture.jpg{/if}"
+                        alt="{$listContent[i].Item.vTitle}"
+                        class="image"
+			style="width: 300px; height: 200px; object-fit: cover"
+                      />
+                    </a>
+                    <div class="card-body">
+                      <a
+                        href="{$base_url}{$index_page}{$detailCategory.vPermalink}/{$listContent[i].Item.vPermalink}.html"
+                        class="font-size-md font-weight-semibold link-hover-dark-primary"
+                        >{$listContent[i].Item.vTitle}</a
+                      ><br />
+                      <span class="text-gray"
+                        >{$listContent[i].Item.dPublishDate|date_format:"%A, %e
+                        %B %Y"}</span
+                      >
+                    </div>
+                  </div>
+                </li>
+                {/section}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--================= Back Wrapper End Here =================-->
+{include file='footer.html'}

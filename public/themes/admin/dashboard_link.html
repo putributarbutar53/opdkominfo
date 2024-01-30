@@ -1,0 +1,58 @@
+<div class="card mb-3">
+    <div class="card-header">
+      <div class="row align-items-center justify-content-between">
+        <div class="col-6 col-sm-auto d-flex align-items-center pr-0">
+          <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">Management Website</h5>
+        </div>
+      </div>
+    </div>
+    <div class="card-body pt-0">
+      <div class="container">
+        <div class="row">
+  
+          <div class="col-sm"><a href="{$admin_url}dashboard"><img src="assets/icon/1797890_62.png" /></a><br />Dashboard</div>
+          {if in_array('page', $DetailAdminAuth) || $DetailAdmin.vUsername == 'admin'}
+          <div class="col-sm"><a href="{$admin_url}mypage"><img src="assets/icon/1797890_22.png" /></a><br />Page</div>
+          {/if}
+          {if in_array('content', $DetailAdminAuth) || $DetailAdmin.vUsername == 'admin'}
+          <div class="col-sm"><a href="{$admin_url}mycontent"><img src="assets/icon/1797890_05.png" /></a><br />Content</div>
+          {/if}
+          {if in_array('banner', $DetailAdminAuth) || $DetailAdmin.vUsername == 'admin'}
+          <div class="col-sm"><a href="{$admin_url}mybanner"><img src="assets/icon/1797890_73.png" /></a><br />Banner</div>
+          {/if}
+          {if in_array('album', $DetailAdminAuth) || $DetailAdmin.vUsername == 'admin'}
+          <div class="col-sm"><a href="{$admin_url}mygallery"><img src="assets/icon/1797890_07.png" /></a><br />Album</div>
+          {/if}
+          {if in_array('filemanager', $DetailAdminAuth) || $DetailAdmin.vUsername == 'admin'}
+          <div class="col-sm"><a href="{$admin_url}myfile"><img src="assets/icon/1797890_19.png" /></a><br />File</div>
+          {/if}
+          {if in_array('document', $DetailAdminAuth) || $DetailAdmin.vUsername == 'admin'}
+          <div class="col-sm"><a href="{$admin_url}mydocument"><img src="assets/icon/1797890_77.png" /></a><br />Document</div>
+          {/if}
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="card mb-3">
+    <div class="card-header">
+      <div class="row align-items-center justify-content-between">
+        <div class="col-6 col-sm-auto d-flex align-items-center pr-0">
+          <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">User Management</h5>
+        </div>
+      </div>
+    </div>
+    <div class="card-body pt-0">
+      <div class="container">
+        <div class="row">
+          {if $DetailAdmin.vUsername == 'admin'}
+          <div class="col-sm"><a href="{$admin_url}myaccount/admin"><img src="assets/icon/1797890_39.png" /></a><br />Administrator List</div>
+          {/if}
+          <div class="col-sm"><a href="{$admin_url}myaccount"><img src="assets/icon/1797890_64.png" /></a><br />Ubah Password</div>
+          <div class="col-sm"><a href="{$admin_url}index/logout"><img src="assets/icon/1797890_46.png" /></a><br />Logout</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

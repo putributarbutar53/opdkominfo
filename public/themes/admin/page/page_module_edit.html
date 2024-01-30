@@ -1,0 +1,117 @@
+<div class="modal-header">
+  <h5 class="modal-title">Perbaharui Modul</h5>
+  <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
+</div>
+<div class="modal-body text-left">        
+  <form id="module_edit_submit" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="action" value="add" />
+    <input type="hidden" id="idmodule" name="idModule" value="{$detailModule.id}" />
+
+    Name:<br />
+    <input type="text" name="vName" value="{$detailModule.vName}" class="form form-control form-50" size="40" />
+    <br />
+
+    Data:<br />
+    <textarea cols="80" rows="10" name="vData" class="form form-control form-50">{$detailModule.vData}</textarea>
+    <br />          
+
+    Gambar:<br />
+    <input type="file" name="vPicture" class="form form-control form-50" size="40" />
+    {if $detailModule.vPicture != ''}
+    <p><img src="{$base_url}{$pageDir}{$detailModule.vPicture}" class="img-fluid" width="150" /></p>
+    {/if}
+    <br />
+
+    <span id="report"></span>
+
+    <input type="submit" name="submit" value="Simpan" class="btn btn-primary" />
+  </form>
+</div>
+
+{literal}
+<script>
+
+var request;
+$("#module_edit_submit").submit(function(event){
+
+  // Prevent default posting of form - put here to work in case of errors
+  event.preventDefault();
+  // Abort any pending request
+  if (request) {
+      request.abort();
+  }
+
+  var formData = new FormData(this);
+
+  // Fire off the request to /form.php
+  request = $.ajax({
+      url: "{/literal}{$admin_url}mypage/submitmodule{literal}",
+      type: "post",
+      //data: serializedData,
+      data: formData,
+      cache: false, 
+      contentType: false, 
+      processData: false, 
+      //data: new FormData($inputs),
+      // xhr: function () {
+      //       var myXhr = $.ajaxSettings.xhr();
+      //       if (myXhr.upload) {
+      //         // For handling the progress of the upload
+      //         myXhr.upload.addEventListener('progress', function (e) {
+      //           if (e.lengthComputable) {
+      //             $('progress').attr({
+      //               value: e.loaded,
+      //               max: e.total,
+      //             });
+      //           }
+      //         }, false);
+      //       }
+      //       return myXhr;
+      //     }
+  });
+
+  // Callback handler that will be called on success
+  request.done(function (response, textStatus, jqXHR){
+      // Log a message to the console
+      console.log(response);
+      var obj = jQuery.parseJSON(response);
+      //alert(response);
+      if (obj.status=='success')
+      {
+        //$('#report_all').html(obj.message);
+        $("#report_module").html(obj.message);
+        $('#module_submit input[type="text"]').val('');
+        $('#module_submit input[type="file"]').val('');
+        $('#module_submit textarea').val('');
+        $('#module_edit').modal('hide');
+        datamodule();
+      }
+      else
+        $('#report_module').html(obj.message);
+  });
+
+  // Callback handler that will be called on failure
+  request.fail(function (jqXHR, textStatus, errorThrown){
+      // Log the error to the console
+      console.error(
+          "The following error occurred: "+
+          textStatus, errorThrown
+      );
+      $('#report_module').html('Connection Failed');
+  });
+
+  // Callback handler that will be called regardless
+  // if the request failed or succeeded
+  request.always(function () {
+      // Reenable the inputs
+    // $inputs.prop("disabled", false);
+  });
+
+});
+
+// $('#module_edit').on('hidden.bs.modal', function () {
+//     $('#table_modul').DataTable().columns.adjust();
+// });  
+
+</script>
+{/literal}

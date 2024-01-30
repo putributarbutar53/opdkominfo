@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+  <head>
+    {include file='header.html'}
+
+    {literal}
+    <!-- ===============================================-->
+    <!--    Stylesheets-->
+    <!-- ===============================================-->
+    <script src="assets/js/config.navbar-vertical.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="assets/lib/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet">
+    <link href="assets/lib/prismjs/prism-okaidia.css" rel="stylesheet">
+    <link href="assets/lib/datatables-bs4/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="assets/lib/datatables.net-responsive-bs4/responsive.bootstrap4.css" rel="stylesheet">
+    <link href="assets/lib/leaflet/leaflet.css" rel="stylesheet">
+    <link href="assets/lib/leaflet.markercluster/MarkerCluster.css" rel="stylesheet">
+    <link href="assets/lib/leaflet.markercluster/MarkerCluster.Default.css" rel="stylesheet">
+    <link href="assets/lib/owl.carousel/owl.carousel.css" rel="stylesheet">
+    <link href="assets/lib/dropzone/dropzone.min.css" rel="stylesheet">
+    <link href="assets/lib/flatpickr/flatpickr.min.css" rel="stylesheet">
+    <link href="assets/lib/plyr/plyr.css" rel="stylesheet">
+    <link href="assets/lib/fancybox/jquery.fancybox.min.css" rel="stylesheet">
+    <link href="assets/css/theme.css" rel="stylesheet">
+    {/literal}
+
+  </head>
+
+
+  <body>
+
+    <!-- ===============================================-->
+    <!--    Main Content-->
+    <!-- ===============================================-->
+    <main class="main" id="top">
+
+
+      <div class="container-fluid" data-layout="container">
+
+      {include file='top_menu.html'}
+
+        <div class="content">
+
+          <!-- -------------------------------------------->
+          <!--    Number Stats & Charts-->
+          <!-- -------------------------------------------->
+
+          <span id="report_all"></span>
+
+          <div class="media mb-4 mt-3"><span class="fa-stack mr-2 ml-n1"><i class="fa-stack-2x text-primary fas fa-newspaper"></i></span>
+            <div class="media-body">
+              <h5 class="mb-0 text-primary position-relative"><span class="bg-200 pr-3">Category News / Media</span><span class="border position-absolute absolute-vertical-center w-100 z-index--1 l-0"></span></h5>
+              <p class="mb-0">Management Category News / Media</p>
+              {if $DetailAdmin.vUsername == 'admin'}
+              <div style="float:right;"><button class="btn btn-primary btn-sm" type="button" data-toggle="modal" data-target="#add"><i class="fas fa-plus-square"></i>&nbsp;Tambah Category</button></div>
+              {/if}
+            </div>
+          </div>
+
+          <div class="card-deck" id="category_list"></div>
+
+          <div class="modal fade" id="edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content" id="editor"></div>
+            </div>
+          </div>          
+
+          {include file='content/section_category_add.html'}
+
+          <!-- Alert Notification -->
+          <div class="modal fade" id="alert_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Peringatan</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                Anda yakin ingin menghapus data ini ?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+                  <button type="button" id="click_yes" class="btn btn-primary">Ya, Hapus</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- // Alert notification -->
+
+          {include file='footer.html'}
+
+        </div>
+
+      </div>
+    </main>
+    <!-- ===============================================-->
+    <!--    End of Main Content-->
+    <!-- ===============================================-->
+
+    {literal}
+    <!-- ===============================================-->
+    <!--    JavaScripts-->
+    <!-- ===============================================-->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/lib/@fortawesome/all.min.js"></script>
+    <script src="assets/lib/stickyfilljs/stickyfill.min.js"></script>
+    <script src="assets/lib/sticky-kit/sticky-kit.min.js"></script>
+    <script src="assets/lib/is_js/is.min.js"></script>
+    <script src="assets/lib/lodash/lodash.min.js"></script>
+    <script src="assets/lib/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:100,200,300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
+    <script src="assets/lib/prismjs/prism.js"></script>
+    <script src="assets/lib/chart.js/Chart.min.js"></script>
+    <script src="assets/lib/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="assets/lib/datatables-bs4/dataTables.bootstrap4.min.js"></script>
+    <script src="assets/lib/datatables.net-responsive/dataTables.responsive.js"></script>
+    <script src="assets/lib/datatables.net-responsive-bs4/responsive.bootstrap4.js"></script>
+    <script src="assets/lib/leaflet/leaflet.js"></script>
+    <script src="assets/lib/leaflet.markercluster/leaflet.markercluster.js"></script>
+    <script src="assets/lib/leaflet.tilelayer.colorfilter/leaflet-tilelayer-colorfilter.min.js"></script>
+    <script src="assets/lib/echarts/echarts.min.js"></script>
+    <script src="assets/lib/progressbar.js/progressbar.min.js"></script>
+    <script src="assets/lib/owl.carousel/owl.carousel.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.8.7/polyfill.min.js"></script>
+    <script src="assets/lib/dropzone/dropzone.min.js"></script>
+    <script src="assets/lib/tinymce/tinymce.min.js"></script>
+    <script src="assets/lib/jquery-validation/jquery.validate.min.js"></script>
+    <script src="assets/lib/flatpickr/flatpickr.min.js"></script>
+    <script src="assets/lib/plyr/plyr.polyfilled.min.js"></script>
+    <script src="assets/lib/fancybox/jquery.fancybox.min.js"></script>
+    <script src="assets/js/theme.js"></script>
+
+    <script>
+
+          function editdata(iddata)
+          {
+            //$("#edit").dialog();
+            $.get("{/literal}{$admin_url}mycontent/editcategory{literal}?id="+iddata, function(data, status){
+              $("#editor").html(data);
+              $('#edit').modal('toggle');
+              // $('#myModal').modal('show');
+              // $('#myModal').modal('hide');
+              //alert(data);
+              // console.log(data);
+            });		
+          }
+
+          function datacategory(iddata)
+          {
+            $.get("{/literal}{$admin_url}mycontent/getdetailcategory{literal}", function(data, status){
+              var obj = jQuery.parseJSON(data);
+              $("#category_list").html(obj.category);
+            });
+          }
+          
+          $(document).ready(function(){
+            setTimeout(function () {
+              datacategory();
+            }, 100);
+          });
+
+          function deletedata(iddata)
+          {
+            $("#alert_modal").modal('toggle');
+            $("#click_yes").click(function()
+            {
+              $.get("{/literal}{$admin_url}mycontent/deletecategory{literal}?idcategory="+iddata, function(data, status){
+
+                var obj = jQuery.parseJSON(data);
+                if (obj.status=='success')
+                {
+                  $('#report_all').html(obj.message);
+                  $("#alert_modal").modal('hide');
+                  datacategory();
+                }
+              });
+              //alert('delete this id: '+iddata);
+            });
+          }
+
+          var request;
+          $("#add_submit").submit(function(event){
+          
+              // Prevent default posting of form - put here to work in case of errors
+              event.preventDefault();
+              // Abort any pending request
+              if (request) {
+                  request.abort();
+              }
+              // setup some local variables
+              var $form = $(this);
+
+              // Let's select and cache all the fields
+              var $inputs = $form.find("input, select, button, textarea, file");
+
+              // Serialize the data in the form
+              var serializedData = $form.serialize();
+
+              // Let's disable the inputs for the duration of the Ajax request.
+              // Note: we disable elements AFTER the form data has been serialized.
+              // Disabled form elements will not be serialized.
+              $inputs.prop("disabled", true);
+
+              // Fire off the request to /form.php
+              request = $.ajax({
+                  url: "{/literal}{$admin_url}mycontent/addcategory{literal}",
+                  type: "post",
+                  data: serializedData
+              });
+
+              // Callback handler that will be called on success
+              request.done(function (response, textStatus, jqXHR){
+                  // Log a message to the console
+                  console.log("Hooray, it worked!");
+                  var obj = jQuery.parseJSON(response);
+                  //alert(obj.data);
+                  if (obj.status=='success')
+                  {
+                    $('#report_all').html(obj.message);
+                    $('#add').modal('hide');
+                    $('#add_submit input[type="text"]').val('');
+                    $('#add_submit textarea').val('');
+                    datacategory();
+                  }
+                  else
+                    $('#report').html(obj.message);
+              });
+
+              // Callback handler that will be called on failure
+              request.fail(function (jqXHR, textStatus, errorThrown){
+                  // Log the error to the console
+                  console.error(
+                      "The following error occurred: "+
+                      textStatus, errorThrown
+                  );
+                  $('#report').html('Connection Failed');
+              });
+
+              // Callback handler that will be called regardless
+              // if the request failed or succeeded
+              request.always(function () {
+                  // Reenable the inputs
+                  $inputs.prop("disabled", false);
+              });
+
+          });
+
+
+    </script>
+    
+    {/literal}
+
+  </body>
+
+</html>

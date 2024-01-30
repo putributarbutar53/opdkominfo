@@ -1,0 +1,177 @@
+<div class="modal-header">
+  <h5 class="modal-title" id="add">Perbaharui Document</h5>
+  <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
+</div>
+<div class="modal-body text-left">        
+  <form id="edit_submit" method="post" enctype="multipart/form-data">
+
+    <input type="hidden" name="action" value="update" />
+    <input type="hidden" name="id" value="{$Detail.id}" />
+
+    Document:<br />
+    <input type="text" name="vDocument" value="{$Detail.vDocument}" class="form form-control form-50" size="40" />
+    <br />
+
+    <!-- File URL:<br />
+    <input type="text" name="vFileURL" value="{$Detail.vFileURL}" class="form form-control form-50" size="40" />
+    <br /> -->
+
+    File Document:<br />
+    <input type="file" name="vFile" id="vFile" class="form form-control form-50" size="40" />
+    <i>(Jika file document ada, maka file URL akan di abaikan)</i>
+    {if $Detail.vFile != ''}
+    <p><a href="{$base_url}{$docDir}{$Detail.vFile}" target="_blank"><span class="badge badge-warning fs-0"><i class="fas fa-download"></i> Download</a></span></p>
+    {/if}
+
+    <div class="progress" id="progress_bar" style="visibility: hidden;">
+      <div id="uploadProgressBar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+      </div>
+    <span id="loaded_n_total" style="visibility: hidden;"></span>        
+
+    <br />
+    <span id="report_edit"></span>
+
+    <input type="submit" name="submit" value="Simpan" class="btn btn-primary" />
+  </form>
+</div>
+
+  {literal}
+
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/popper.min.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+  <script src="assets/lib/@fortawesome/all.min.js"></script>
+  <script src="assets/lib/stickyfilljs/stickyfill.min.js"></script>
+  <script src="assets/lib/sticky-kit/sticky-kit.min.js"></script>
+  <script src="assets/lib/is_js/is.min.js"></script>
+  <script src="assets/lib/lodash/lodash.min.js"></script>
+  <script src="assets/lib/perfect-scrollbar/perfect-scrollbar.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:100,200,300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
+  <script src="assets/lib/prismjs/prism.js"></script>
+  <script src="assets/lib/flatpickr/flatpickr.min.js"></script>
+  <script src="assets/js/theme.js"></script>
+
+  <script>
+
+      function uploadProgressHandler(event) {
+        $("#loaded_n_total").html("Uploaded " + event.loaded + " bytes of " + event.total);
+        var percent = (event.loaded / event.total) * 100;
+        var progress = Math.round(percent);
+        $("#uploadProgressBar").html(progress + "%");
+        $("#uploadProgressBar").css("width", progress + "%");
+        $("#status").html(progress + "% uploaded... please wait");
+      }
+
+      function loadHandler(event) {
+        $("#status").html(event.target.responseText);
+        $("#uploadProgressBar").css("width", "0%");
+      }
+
+      function errorHandler(event) {
+        $("#status").html("Upload Failed");
+      }
+
+      function abortHandler(event) {
+        $("#status").html("Upload Aborted");
+      }
+
+      var request;
+      $("#edit_submit").submit(function(event){
+              
+          if ($('#vFile').get(0).files.length !== 0)
+          {
+            $("#progress_bar").css("visibility", "visible");
+            $("#loaded_n_total").css("visibility", "visible");
+          }
+
+          // Prevent default posting of form - put here to work in case of errors
+          event.preventDefault();
+          // Abort any pending request
+          if (request) {
+              request.abort();
+          }
+
+          var formData = new FormData(this);
+
+          // Fire off the request to /form.php
+          request = $.ajax({
+              url: "{/literal}{$admin_url}mydocument/submit{literal}",
+              type: "post",
+              //data: serializedData,
+              data: formData,
+              cache: false, 
+              contentType: false, 
+              processData: false, 
+              xhr: function () {
+                var xhr = new window.XMLHttpRequest();
+                xhr.upload.addEventListener("progress",
+                    uploadProgressHandler,
+                    false
+                );
+                xhr.addEventListener("load", loadHandler, false);
+                xhr.addEventListener("error", errorHandler, false);
+                xhr.addEventListener("abort", abortHandler, false);
+                return xhr;
+              }
+
+          });
+
+          // Callback handler that will be called on success
+          request.done(function (response, textStatus, jqXHR){
+              // Log a message to the console
+              console.log(response);
+              var obj = jQuery.parseJSON(response);
+              //alert(response);
+              if (obj.status=='success')
+              {
+                //$('#report_all').html(obj.message);
+                $("#report_modal").html(obj.message);
+                $('#edit').modal('hide');
+                $('#edit_submit input[type="text"]').val('');
+                $('#edit_submit textarea').val('');
+                success_notify();
+              }
+              else
+                $('#report_edit').html(obj.message);
+          });
+
+          // Callback handler that will be called on failure
+          request.fail(function (jqXHR, textStatus, errorThrown){
+              // Log the error to the console
+              console.error(
+                  "The following error occurred: "+
+                  textStatus, errorThrown
+              );
+              $('#report_edit').html('Connection Failed');
+          });
+
+          // Callback handler that will be called regardless
+          // if the request failed or succeeded
+          request.always(function () {
+              // Reenable the inputs
+            // $inputs.prop("disabled", false);
+          });
+
+      });
+
+      $('#edit').on('hidden.bs.modal', function () {
+          //alert('test');
+          $('#report_edit').html('');
+      });
+      
+      function success_notify()
+      {
+        $("#notify_modal").modal('toggle');
+        $("#notify_yes").click(function()
+        {
+          location.reload();
+          //alert('delete this id: '+iddata);
+        });
+      }
+
+      $('#notify_modal').on('hidden.bs.modal', function () {
+          location.reload();
+      });
+
+  </script>
+  {/literal}

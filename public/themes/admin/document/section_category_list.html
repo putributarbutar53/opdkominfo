@@ -1,0 +1,31 @@
+<div class="container">
+<div class="row">
+{if $listCategory[0].Item.id != ''}
+{section name=i loop=$listCategory step=1}
+{if in_array($dummy|cat:'doc_'|cat:$listCategory[i].Item.id, $DetailAdminDir) || $DetailAdmin.vUsername == 'admin'}
+<div class="col-sm">
+<div class="card mb-3 overflow-hidden" style="min-width: 12rem">
+    <div class="card-body position-relative">
+      <div class="row">
+        <div class="col">
+          <div class="display-4 fs-4 mb-2 font-weight-normal text-sans-serif"><a href="{$admin_url}mydocument/doc?id={$listCategory[i].Item.id}" class="text-warning">{$listCategory[i].Item.vCategory|no_value}</a></div>
+          <p>{$listCategory[i].Item.vPermalink|no_value}&nbsp;&nbsp;<a href="{$base_url}{$index_page}download/{$listCategory[i].Item.vPermalink}" target="_blank"><i class="fas fa-external-link-alt"></i></a></p> 
+        </div>
+        <div class="col">
+          <a href="javascript:editdata({$listCategory[i].Item.id});"><i class="fas fa-edit"></i></a>
+          {if $listCategory[i].Count.total <= '0'}
+          <a href="javascript:deletedata({$listCategory[i].Item.id});"><i class="fas fa-trash"></i></a>
+          {/if}
+          <a href="{$admin_url}mydocument/doc?id={$listCategory[i].Item.id}" class="btn btn-info btn-sm" style="float: right;">View</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{/if}
+{/section}
+{else}
+<span><i>Belum ada data category</i></span>
+{/if}
+</div>
+</div>  

@@ -1,0 +1,44 @@
+{include file='header.html'}{include file='topmenu.html'}
+<!--================= Back Wrapper Start Here =================-->
+
+<div id="page-title" class="page-title page-title-style-no-background">
+    <div class="container">
+        <div class="h-100">
+            <h1 class="mb-0 text-center" data-animate="fadeInDown">
+                <span>Album Gallery </span>
+            </h1>
+            <ul class="breadcrumb breadcrumb-style-01 justify-content-center" data-animate="fadeInUp">
+                <li class="breadcrumb-item"><a href="{$base_url}{$index.php}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{$base_url}{$index_page}gallery">Album Gallery</a></li>
+                <li class="breadcrumb-item"><span>{$detailAlbum.vAlbum}</span></li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+{include file='marquee.html'} {include file='search-box.html'}
+<div id="wrapper-content" class="wrapper-content pb-13">
+    <div class="container">
+        <div class="page-container row">
+            <div class="page-content col-lg-12 mb-8 mb-lg-0">
+                <div class="row">                                       
+                    {section name=i loop=$listPhoto step=1}
+                    <div class="col-4">
+                        <div class="card">
+                            <div class="col-4 px-1"><a href="{$base_url}{$photoDir}{$listPhoto[i].Item.vPhotoName}" alt="{$listPhoto[i].Item.vPhotoTitle}" data-fancybox="gallery" data-caption="Image caption"><img class="rounded w-100" src="{$base_url}{$photoDir}{$listPhoto[i].Item.vPhotoName}" alt="{$listPhoto[i].Item.vPhotoTitle}" alt="" /></a>
+                            </div>
+                            <div class="card-body">
+                                {$listPhoto[i].Item.vPhotoTitle}
+                            </div>                          
+                        </div>
+                    </div>           
+                        {/section}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+{include file='footer.html'}
