@@ -4,12 +4,21 @@
 
 <section class="home-main-intro">
   <div class="home-main-intro-container mt-n11">
-    <div class="owl-carousel no-pb owl-2" data-dots="false" data-nav="true" data-items="1" data-autoplay="true">
+    <div
+      class="owl-carousel no-pb owl-2"
+      data-dots="false"
+      data-nav="true"
+      data-items="1"
+      data-autoplay="true"
+    >
       {section name=i loop=$listBanner} {if $listBanner[i].Item.iStatus =='1'}
       <div class="box d-flex justify-content-center0">
-        <img class="card-img-top"
+        <img
+          class="card-img-top"
           src="{if $listBanner[i].Item.vBannerFile != ''}{$base_url}{$dirBanner}{$listBanner[i].Item.vBannerFile}{else}{$listBanner[i].Item.vFileURL}{/if}"
-          alt="{$listBanner[i].Item.vBannerName}" style="height: 540px; width: 100%; object-fit: fill" />
+          alt="{$listBanner[i].Item.vBannerName}"
+          style="height: 540px; width: 100%; object-fit: fill"
+        />
       </div>
       {/if} {/section}
     </div>
@@ -23,9 +32,15 @@
       <div class="col-12 col-lg-3">
         {if $OPTIONAL.BANNER_LEFT.lbPicture !=''}
         <div class="single-sidebar-widget">
-          <a href="{$OPTIONAL.BANNER_LEFT.vURL}" target="{$OPTIONAL.BANNER_LEFT.cURLTarget}">
-            <img src="{$base_url}{$pageDir}{$OPTIONAL.BANNER_LEFT.lbPicture}" alt="{$OPTIONAL.BANNER_LEFT.tContent}"
-              style="width: 100%; height: 600px; object-fit: fill" />
+          <a
+            href="{$OPTIONAL.BANNER_LEFT.vURL}"
+            target="{$OPTIONAL.BANNER_LEFT.cURLTarget}"
+          >
+            <img
+              src="{$base_url}{$pageDir}{$OPTIONAL.BANNER_LEFT.lbPicture}"
+              alt="{$OPTIONAL.BANNER_LEFT.tContent}"
+              style="width: 100%; height: 600px; object-fit: fill"
+            />
           </a>
         </div>
         {/if}
@@ -40,11 +55,21 @@
         </div>
         <div class="d-flex justify-content-between mb-5">
           <div class="me-3">
-            <svg class="feather feather-check-square bg-warning-soft p-2 rounded" width="60" height="60"
-              viewBox="0 0 24 24" fill="none" stroke="#1360ef" stroke-width="1" stroke-linecap="round"
-              stroke-linejoin="round">
+            <svg
+              class="feather feather-check-square bg-warning-soft p-2 rounded"
+              width="60"
+              height="60"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#1360ef"
+              stroke-width="1"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
               <polyline points="9 11 12 14 22 4"></polyline>
-              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+              <path
+                d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"
+              ></path>
             </svg>
           </div>
           <div>
@@ -58,11 +83,21 @@
         </div>
         <div class="d-flex justify-content-between mb-5">
           <div class="me-3">
-            <svg class="feather feather-check-square bg-warning-soft p-2 rounded" width="60" height="60"
-              viewBox="0 0 24 24" fill="none" stroke="#1360ef" stroke-width="1" stroke-linecap="round"
-              stroke-linejoin="round">
+            <svg
+              class="feather feather-check-square bg-warning-soft p-2 rounded"
+              width="60"
+              height="60"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#1360ef"
+              stroke-width="1"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
               <polyline points="9 11 12 14 22 4"></polyline>
-              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+              <path
+                d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"
+              ></path>
             </svg>
           </div>
           <div>
@@ -77,9 +112,15 @@
       <div class="col-12 col-lg-3">
         {if $OPTIONAL.BANNER_RIGHT.lbPicture !=''}
         <div class="single-sidebar-widget">
-          <a href="{$OPTIONAL.BANNER_RIGHT.vURL}" target="{$OPTIONAL.BANNER_RIGHT.cURLTarget}">
-            <img src="{$base_url}{$pageDir}{$OPTIONAL.BANNER_RIGHT.lbPicture}" alt="{$OPTIONAL.BANNER_RIGHT.tContent}"
-              style="width: 100%; height: 600px; object-fit: fill" />
+          <a
+            href="{$OPTIONAL.BANNER_RIGHT.vURL}"
+            target="{$OPTIONAL.BANNER_RIGHT.cURLTarget}"
+          >
+            <img
+              src="{$base_url}{$pageDir}{$OPTIONAL.BANNER_RIGHT.lbPicture}"
+              alt="{$OPTIONAL.BANNER_RIGHT.tContent}"
+              style="width: 100%; height: 600px; object-fit: fill"
+            />
           </a>
         </div>
         {/if}
@@ -93,8 +134,11 @@
     <div class="row align-items-end mb-5">
       <div class="col-12 col-md-12 col-lg-4">
         <div>
-          <a href="http://localhost/kominfo/public/index.php/pages/berita.html" class="h6 text-primary">Berita
-            Terkini</a>
+          <a
+            href="http://localhost/kominfo/public/index.php/pages/berita.html"
+            class="h6 text-primary"
+            >Berita Terkini</a
+          >
           <h2 class="mt-4 mb-0 font-w-5">
             Menampilkan berita terkini di Kabupaten Toba
           </h2>
@@ -105,32 +149,48 @@
     <!-- / .row -->
     <div class="row">
       <div class="col-12">
-        <div class="owl-carousel" data-dots="false" data-nav="true" data-items="3" data-md-items="2" data-sm-items="1"
-          data-margin="30" data-autoplay="true">
+        <div
+          class="owl-carousel"
+          data-dots="false"
+          data-nav="true"
+          data-items="3"
+          data-md-items="2"
+          data-sm-items="1"
+          data-margin="30"
+          data-autoplay="true"
+        >
           {section name=i loop=$listTerkini}
           <div class="item">
             <!-- Blog Card -->
             <div class="card bg-light">
-              <div class="position-absolute bg-white shadow-primary text-center p-2 rounded ms-3 mt-3">
+              <div
+                class="position-absolute bg-white shadow-primary text-center p-2 rounded ms-3 mt-3"
+              >
                 {$listTerkini[i].Item.dPublishDate|date_format}
               </div>
               <img
                 src="{if $listTerkini[i].Item.vGambar !=''}{$base_url}{$dirContent}{$listTerkini[i].Item.vGambar}{else}assets/images/gallery/gallery-album.png{/if}"
-                alt="{$listTerkini[i].Item.vTitle}" style="height: 190px; object-fit: cover" />
+                alt="{$listTerkini[i].Item.vTitle}"
+                style="height: 190px; object-fit: cover"
+              />
               <div class="card-body pt-5 bg-white">
                 <h2 class="h5 font-weight-medium">
-                  <a href="{$base_url}{$index_page}{$listTerkini[i].category.vPermalink}/{$listTerkini[i].Item.vPermalink}.html"
-                    class="post-title" title="{$listTerkini[i].Item.vTitle}">{$listTerkini[i].title}</a>
+                  <a
+                    href="{$base_url}{$index_page}{$listTerkini[i].category.vPermalink}/{$listTerkini[i].Item.vPermalink}.html"
+                    class="post-title"
+                    title="{$listTerkini[i].Item.vTitle}"
+                    >{$listTerkini[i].title}</a
+                  >
                 </h2>
-                <p class="mb-0"> 
-                    
-                </p>
+                <p class="mb-0"></p>
               </div>
               <div class="card-footer bg-transparent border-0 text-center">
                 <ul class="list-inline mb-0">
                   <li class="list-inline-item pe-4">
-                    <a href="#" class="text-muted"><i class="ti-eye me-1 text-primary"></i>
-                      {$listTerkini[i].Eye|number_format:2:",":"."} x</a>
+                    <a href="#" class="text-muted"
+                      ><i class="ti-eye me-1 text-primary"></i>
+                      {$listTerkini[i].Eye|number_format:2:",":"."} x</a
+                    >
                   </li>
                 </ul>
               </div>
@@ -161,29 +221,48 @@
     <!-- / .row -->
     <div class="row">
       <div class="col-12">
-        <div class="owl-carousel" data-dots="false" data-nav="true" data-items="3" data-md-items="2" data-sm-items="1"
-          data-margin="30" data-autoplay="true">
+        <div
+          class="owl-carousel"
+          data-dots="false"
+          data-nav="true"
+          data-items="3"
+          data-md-items="2"
+          data-sm-items="1"
+          data-margin="30"
+          data-autoplay="true"
+        >
           {section name=i loop=$listPopuler}
           <div class="item">
             <!-- Blog Card -->
             <div class="card bg-light">
-              <div class="position-absolute bg-white shadow-primary text-center p-2 rounded ms-3 mt-3">
+              <div
+                class="position-absolute bg-white shadow-primary text-center p-2 rounded ms-3 mt-3"
+              >
                 {$listPopuler[i].content.dPublishDate|date_format}
               </div>
-              <img src="{$base_url}{$dirContent}{$listPopuler[i].content.vGambar}" alt="{$TITLE}" style="height: 190px; object-fit: cover" />
+              <img
+                src="{$base_url}{$dirContent}{$listPopuler[i].content.vGambar}"
+                alt="{$TITLE}"
+                style="height: 190px; object-fit: cover"
+              />
               <div class="card-body pt-5 bg-white">
                 <h2 class="h5 font-weight-medium">
-                  <a href="{$base_url}{$index_page}{$listPopuler[i].category.vPermalink}/{$listPopuler[i].content.vPermalink}.html"
-                    class="post-title" title="{$listPopuler[i].content.vTitle}">{$listPopuler[i].title}</a>
+                  <a
+                    href="{$base_url}{$index_page}{$listPopuler[i].category.vPermalink}/{$listPopuler[i].content.vPermalink}.html"
+                    class="post-title"
+                    title="{$listPopuler[i].content.vTitle}"
+                    >{$listPopuler[i].title}</a
+                  >
                 </h2>
-                <p class="mb-0">
-                </p>
+                <p class="mb-0"></p>
               </div>
               <div class="card-footer bg-transparent border-0 text-center">
                 <ul class="list-inline mb-0">
                   <li class="list-inline-item pe-4">
-                    <a href="#" class="text-muted"><i class="ti-eye me-1 text-primary"></i>
-                      {$listPopuler[i].Item.iView|number_format} x</a>
+                    <a href="#" class="text-muted"
+                      ><i class="ti-eye me-1 text-primary"></i>
+                      {$listPopuler[i].Item.iView|number_format} x</a
+                    >
                   </li>
                 </ul>
               </div>
@@ -219,29 +298,46 @@
               <div class="image-container position-relative">
                 <img
                   src="{if $listVideo[i].module.thumbnail.vPicture !=''}{$base_url}{$dirContent}{$listVideo[i].Item.vGambar}{elseif $listVideo[i].thumbnail.vPicture == '' && $listVideo[i].Item.vGambar !=''}{$base_url}{$dirContent}{$listVideo[i].Item.vGambar}{/if}"
-                  alt="{$TITLE}" width="100%" height="120px" />
+                  alt="{$TITLE}"
+                  width="100%"
+                  height="120px"
+                />
                 <div class="spinner-eff">
                   <!-- <div class="spinner-circle circle-1"></div> -->
                   <div class="spinner-circle circle-2"></div>
                 </div>
-                <div class="video-btn video-btn-pos position-absolute top-50 start-50 translate-middle">
-                  <a class="play-btn"
-                    href="{$base_url}{$index_page}{$listVideo[i].category.vPermalink}/{$listVideo[i].Item.vPermalink}.html"><i
-                      class="la la-play"></i></a>
+                <div
+                  class="video-btn video-btn-pos position-absolute top-50 start-50 translate-middle"
+                >
+                  <a
+                    class="play-btn"
+                    href="{$base_url}{$index_page}{$listVideo[i].category.vPermalink}/{$listVideo[i].Item.vPermalink}.html"
+                    ><i class="la la-play"></i
+                  ></a>
                 </div>
               </div>
             </div>
 
             <div class="col-md-7">
               <div class="card-body">
-                <a href="{$base_url}{$index_page}{$listVideo[i].category.vPermalink}/{$listVideo[i].Item.vPermalink}.html"
-                  class="h5 font-weight-medium" title="{$listVideo[i].Item.vTitle}">{$listVideo[i].title}</a>
+                <a
+                  href="{$base_url}{$index_page}{$listVideo[i].category.vPermalink}/{$listVideo[i].Item.vPermalink}.html"
+                  class="h5 font-weight-medium"
+                  title="{$listVideo[i].Item.vTitle}"
+                  >{$listVideo[i].title}</a
+                >
                 <div class="post-meta d-flex justify-content-between">
-                  <span class="text-gray" style="font-size: small"><i class="ti-eye me-1 text-primary"></i>
-                    {$listVideo[i].view.iView|number_format}x</span>
-                  <span class="text-gray" style="font-size: small"><i class="ti-calendar me-1 text-primary"
-                      aria-hidden="true"></i>
-                    {$listVideo[i].Item.dPublishDate|date_format}</span>
+                  <span class="text-gray" style="font-size: small"
+                    ><i class="ti-eye me-1 text-primary"></i>
+                    {$listVideo[i].view.iView|number_format}x</span
+                  >
+                  <span class="text-gray" style="font-size: small"
+                    ><i
+                      class="ti-calendar me-1 text-primary"
+                      aria-hidden="true"
+                    ></i>
+                    {$listVideo[i].Item.dPublishDate|date_format}</span
+                  >
                 </div>
               </div>
             </div>
@@ -254,7 +350,10 @@
   </div>
 </section>
 
-<section class="position-relative bg-dark parallaxie" data-bg-img="assets/images/bg/02.png">
+<section
+  class="position-relative bg-dark parallaxie"
+  data-bg-img="assets/images/bg/02.png"
+>
   <div class="container">
     <div class="row justify-content-center text-center">
       <div class="col-12 col-md-12 col-lg-8 mb-8">
@@ -269,15 +368,26 @@
     <!-- / .row -->
     <div class="row justify-content-center">
       <div class="col">
-        <div class="owl-carousel" data-dots="false" data-nav="true" data-items="3" data-md-items="2" data-sm-items="2"
-          data-margin="30" data-autoplay="true">
+        <div
+          class="owl-carousel"
+          data-dots="false"
+          data-nav="true"
+          data-items="3"
+          data-md-items="2"
+          data-sm-items="2"
+          data-margin="30"
+          data-autoplay="true"
+        >
           {section name=i loop=$OPTIONAL.SECTION_2.listsetting step=1}
           <div class="item">
             <div class="bg-primary-soft rounded text-center p-5">
               <div class="mb-3">
-                <img alt="Image" src="{$base_url}{$pageDir}{$OPTIONAL.SECTION_2.listsetting[i].Item.vPicture}"
+                <img
+                  alt="Image"
+                  src="{$base_url}{$pageDir}{$OPTIONAL.SECTION_2.listsetting[i].Item.vPicture}"
                   class="shadow-primary img-fluid rounded-circle d-inline"
-                  style="width: 100px; height: 100px; object-fit: cover" />
+                  style="width: 100px; height: 100px; object-fit: cover"
+                />
               </div>
               <div>{$OPTIONAL.SECTION_2.listsetting[i].Item.vData}</div>
             </div>
@@ -288,45 +398,83 @@
     </div>
   </div>
   <div class="shape-1" style="height: 200px; overflow: hidden">
-    <svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%">
-      <path d="M0.00,49.98 C150.00,150.00 271.49,-50.00 500.00,49.98 L500.00,0.00 L0.00,0.00 Z"
-        style="stroke: none; fill: #fff"></path>
+    <svg
+      viewBox="0 0 500 150"
+      preserveAspectRatio="none"
+      style="height: 100%; width: 100%"
+    >
+      <path
+        d="M0.00,49.98 C150.00,150.00 271.49,-50.00 500.00,49.98 L500.00,0.00 L0.00,0.00 Z"
+        style="stroke: none; fill: #fff"
+      ></path>
     </svg>
   </div>
   <div class="shape-1 bottom" style="height: 200px; overflow: hidden">
-    <svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%">
-      <path d="M0.00,49.98 C150.00,150.00 349.20,-50.00 500.00,49.98 L500.00,150.00 L0.00,150.00 Z"
-        style="stroke: none; fill: #fff"></path>
+    <svg
+      viewBox="0 0 500 150"
+      preserveAspectRatio="none"
+      style="height: 100%; width: 100%"
+    >
+      <path
+        d="M0.00,49.98 C150.00,150.00 349.20,-50.00 500.00,49.98 L500.00,150.00 L0.00,150.00 Z"
+        style="stroke: none; fill: #fff"
+      ></path>
     </svg>
   </div>
 </section>
 
 <section>
   <div class="container">
-    <div class="row align-items-center justify-content-between" id="form-polling">
+    <div
+      class="row align-items-center justify-content-between"
+      id="form-polling"
+    >
       <div class="col-12 col-lg-6 col-xl-5">
         <div>
           <span class="badge badge-primary-soft p-2 font-w-6"> Polling </span>
-          <h2 class="mt-3 font-w-5">Bagaimana Website Kominfo Toba ini?</h2>
+          <h2 class="mt-3 font-w-5">
+            Beri Penilaian Anda Tentang Website Kominfo
+          </h2>
           <span id="report"></span>
           <form class="row" id="polling_form">
             <input type="hidden" name="action" value="form-polling" />
             <p class="mb-0">
               <label>
-                <input type="radio" name="poll_option" value="sangat_informatif" />
-                Sangat Informatif </label><br />
+                <input
+                  type="radio"
+                  name="poll_option"
+                  value="sangat_informatif"
+                />
+                Sangat Informatif </label
+              ><br />
               <label>
                 <input type="radio" name="poll_option" value="informatif" />
-                Informatif </label><br />
+                Informatif </label
+              ><br />
               <label>
-                <input type="radio" name="poll_option" value="cukup_informatif" />
-                Cukup Informatif </label><br />
+                <input
+                  type="radio"
+                  name="poll_option"
+                  value="cukup_informatif"
+                />
+                Cukup Informatif </label
+              ><br />
               <label>
-                <input type="radio" name="poll_option" value="kurang_informatif" />
+                <input
+                  type="radio"
+                  name="poll_option"
+                  value="kurang_informatif"
+                />
                 Kurang Informatif
               </label>
             </p>
-            <input class="btn btn-outline-primary mt-5" type="submit" name="submit" value="Pilih" style="width: 90px" />
+            <input
+              class="btn btn-outline-primary mt-5"
+              type="submit"
+              name="submit"
+              value="Pilih"
+              style="width: 90px"
+            />
           </form>
         </div>
       </div>
@@ -382,13 +530,16 @@
 {literal}
 <script>
   function getpolling() {
-    $.get('{/literal}{$base_url}{$index_page}index/polling{literal}', function (data) {
-      let obj = jQuery.parseJSON(data);
-      $('#span_sangat_informatif').html(obj.sangat_informatif);
-      $('#span_informatif').html(obj.informatif);
-      $('#span_cukup_informatif').html(obj.cukup_informatif);
-      $('#span_kurang_informatif').html(obj.kurang_informatif);
-    });
+    $.get(
+      "{/literal}{$base_url}{$index_page}index/polling{literal}",
+      function (data) {
+        let obj = jQuery.parseJSON(data);
+        $("#span_sangat_informatif").html(obj.sangat_informatif);
+        $("#span_informatif").html(obj.informatif);
+        $("#span_cukup_informatif").html(obj.cukup_informatif);
+        $("#span_kurang_informatif").html(obj.kurang_informatif);
+      }
+    );
   }
 
   $(document).ready(function () {
@@ -414,21 +565,23 @@
 
     request.done(function (response, textStatus, jqXHR) {
       let obj = jQuery.parseJSON(response);
-      $('#report').html('<div class="alert alert-success" role="alert">'+obj.message+'</div>');
-      $('#span_sangat_informatif').html(obj.sangat_informatif);
-      $('#span_informatif').html(obj.informatif);
-      $('#span_cukup_informatif').html(obj.cukup_informatif);
-      $('#span_kurang_informatif').html(obj.kurang_informatif);
+      $("#report").html(
+        '<div class="alert alert-success" role="alert">' +
+          obj.message +
+          "</div>"
+      );
+      $("#span_sangat_informatif").html(obj.sangat_informatif);
+      $("#span_informatif").html(obj.informatif);
+      $("#span_cukup_informatif").html(obj.cukup_informatif);
+      $("#span_kurang_informatif").html(obj.kurang_informatif);
     });
 
     request.fail(function (jqXHR, textStatus, errorThrown) {
-      console.error(
-        "The following error occurred: " +
-        textStatus, errorThrown
+      console.error("The following error occurred: " + textStatus, errorThrown);
+      $("#report").html(
+        '<div class="alert alert-danger" role="alert">Connection Failed</div>'
       );
-      $('#report').html('<div class="alert alert-danger" role="alert">Connection Failed</div>');
     });
-
   });
 </script>
 {/literal}
