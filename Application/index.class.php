@@ -47,10 +47,10 @@ class index extends Core
 		if ($action == 'form-polling') {
 			$user_ip = $_SERVER['REMOTE_ADDR'];
 			$detail = $this->Db->sql_query_array("SELECT * FROM cppolling WHERE user_ip='$user_ip' LIMIT 1");
-			if ($detail['id'])
-				$this->Db->update(['option_name' => htmlspecialchars($_POST['poll_option']), 'user_ip' => $_SERVER['REMOTE_ADDR']], $detail['id'], 'cppolling');
-			else
-				$this->Db->add(['option_name' => htmlspecialchars($_POST['poll_option']), 'user_ip' => $_SERVER['REMOTE_ADDR']], 'cppolling');
+			// if ($detail['id'])
+			// 	$this->Db->update(['option_name' => htmlspecialchars($_POST['poll_option']), 'user_ip' => $_SERVER['REMOTE_ADDR']], $detail['id'], 'cppolling');
+			// else
+			$this->Db->add(['option_name' => htmlspecialchars($_POST['poll_option']), 'user_ip' => $_SERVER['REMOTE_ADDR']], 'cppolling');
 			$status_message = true;
 		}
 		$sangat_informatif = $this->Db->sql_query_array("SELECT COUNT(*) AS total FROM cppolling WHERE option_name='sangat_informatif'");
@@ -69,3 +69,4 @@ class index extends Core
 		echo json_encode($data);
 	}
 }
+
