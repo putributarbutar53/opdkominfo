@@ -529,7 +529,7 @@
 <script>
   function getpolling() {
     $.get(
-      "{/literal}{$base_url}{$index_page}index/polling{literal}",
+      "{/literal}{$base_url}{$index_page}beranda/polling{literal}",
       function (data) {
         let obj = jQuery.parseJSON(data);
         $("#span_sangat_informatif").html(obj.sangat_informatif);
@@ -553,7 +553,7 @@
 
     var formData = new FormData(this);
     request = $.ajax({
-      url: "{/literal}{$base_url}{$index_page}index/polling{literal}",
+      url: "{/literal}{$base_url}{$index_page}beranda/polling{literal}",
       type: "post",
       data: formData,
       cache: false,
