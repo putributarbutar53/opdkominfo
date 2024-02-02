@@ -28,15 +28,15 @@ class beranda extends Core
 	function main()
 	{
 
-		$this->Template->assign('style_2', 1);
-		$this->Template->assign('listBanner', $this->Module->Banner->listBanner(1));
-		$this->Template->assign('listPopuler', $this->Module->Content->listView(12));
-		$this->Template->assign('listVideo', $this->Module->Content->listContentVideo(2));
-		$this->Template->assign('listTerkini', $this->Module->Content->listNewContent(10));
-		$this->Template->assign('listKliping', $this->Module->Content->listContentByCategory('kliping'));
-		$this->Template->assign('listEvent', $this->Module->Content->listContentByCategory('event'));
-		$this->Template->assign('listPemerintah', $this->Module->Content->listContentByCategory('pemerintah'));
-		$this->Template->assign('Detail', $this->Module->Polling->detail($this->Id));
+		// $this->Template->assign('style_2', 1);
+		// $this->Template->assign('listBanner', $this->Module->Banner->listBanner(1));
+		// $this->Template->assign('listPopuler', $this->Module->Content->listView(12));
+		// $this->Template->assign('listVideo', $this->Module->Content->listContentVideo(2));
+		// $this->Template->assign('listTerkini', $this->Module->Content->listNewContent(10));
+		// $this->Template->assign('listKliping', $this->Module->Content->listContentByCategory('kliping'));
+		// $this->Template->assign('listEvent', $this->Module->Content->listContentByCategory('event'));
+		// $this->Template->assign('listPemerintah', $this->Module->Content->listContentByCategory('pemerintah'));
+		// $this->Template->assign('Detail', $this->Module->Polling->detail($this->Id));
 		echo $this->Template->Show("404.html");
 	}
 	function polling()
