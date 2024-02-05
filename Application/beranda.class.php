@@ -10,7 +10,7 @@ class beranda extends Core
 		$this->LoadModule("Options");
 		$this->LoadModule("Banner");
 		$this->LoadModule("Content");
-		$this->LoadModule("Polling");
+		// $this->LoadModule("Polling");
 		$this->Template->assign("dirNews", $this->Config['news']['dir']);
 		$this->Template->assign("dirContent", $this->Config['content']['dir']);
 		$this->Template->assign("dirBanner", $this->Config['upload']['bannerdir']);

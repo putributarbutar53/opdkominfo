@@ -42,8 +42,8 @@ class index extends Core
 								// Jika telah melebihi batas percobaan, blokir pengguna
 								if ($_SESSION['login_attempts'] >= 5) {
 									$username_ = $this->Module->Auth->detailUsername($Username);
-									if($this->Module->Auth->updateUser(array('isLogin' => 0), $username_['id']))
-									$this->Template->reportMessage("error", "Ops! Anda telah mencoba login 5 kali, akun Anda telah diblokir!!");
+									if ($this->Module->Auth->updateUser(array('isLogin' => 0), $username_['id']))
+										$this->Template->reportMessage("error", "Ops! Anda telah mencoba login 5 kali, akun Anda telah diblokir!!");
 								} else {
 									$this->Template->reportMessage("error", "Ops! Password anda tidak benar!!");
 								}
