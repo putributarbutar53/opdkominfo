@@ -16,7 +16,7 @@ class index extends Core
 		$this->Template->assign("Id", $this->Id);
 	}
 
-	function main()
+function main()
 	{
 		if ($this->Submit) {
 			switch ($this->Action) {
@@ -58,7 +58,6 @@ class index extends Core
 		}
 		echo $this->Template->ShowAdmin("index.html");
 	}
-
 	function logout()
 	{
 		$this->Module->Auth->updateLastLogin($_SESSION['zxcvbnm']);
