@@ -24,7 +24,6 @@ class mymessage extends Core
 	{
 		echo $this->Template->ShowAdmin("message/index.html");
 	}
-
 	function loaddata()
 	{
 
