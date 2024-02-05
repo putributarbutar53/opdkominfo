@@ -40,3 +40,4 @@ class index extends Core
 		echo $this->Template->Show("index.html");
 	}
 }
+
