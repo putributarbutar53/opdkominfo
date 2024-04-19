@@ -373,7 +373,7 @@ class mypage extends Core
 		$tContent = $this->Template->cleanURL($this->Db->real_escape_string($_POST['tContent']));
 		$idCategory = $_POST['idCategory'];
 		// $dCreated = date("Y-m-d");
-		$dCreated = ($_POST['dCreated']) ? $_POST['dCreated'] : date("Y-m-d");
+		$dCreated = ($_POST['dCreated']) ? $_POST['dCreated'] : date("d/m/y H:i");
 		$cURLTarget = $_POST['cURLTarget'];
 		$lbPicture = $this->Pile->simpanImage($_FILES['lbPicture'], "page_" . date("Yndhis") . rand(0, 9) . rand(0, 9) . rand(0, 9));
 		$vMetaTitle = $_POST['vMetaTitle'];

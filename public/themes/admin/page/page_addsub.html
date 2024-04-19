@@ -69,13 +69,13 @@
         {/if} {/if} Tanggal Publikasi:<br />
         <div class="form-group">
           <input
-            class="form-control editdatepicker"
+            class="form-control editdatetimepicker"
             name="dCreated"
             value="{$Detail.dCreated}"
-            id="datepicker"
+            id="datetimepicker"
             type="text"
-            placeholder="yyyy-mm-dd"
-            data-options='{literal}{"dateFormat":"Y-m-d"}{/literal}'
+            placeholder="yyyy-mm-dd : H:i"
+            data-options='{literal}{"dateFormat":"d/m/y H:i"}{/literal}'
           />
         </div>
 
@@ -320,7 +320,7 @@
       $(document).ready(function () {
         $(".editdatetimepicker").flatpickr({
           enableTime: true,
-          dateFormat: "Y-m-d H:i:s",
+          dateFormat: "Y-m-d H:i",
         });
 
         $(".editdatepicker").flatpickr({
