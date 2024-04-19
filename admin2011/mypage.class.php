@@ -1,4 +1,4 @@
-<?php  if ( ! defined('ONPATH')) exit('No direct script access allowed'); //Mencegah akses langsung ke class
+<?php if (!defined('ONPATH')) exit('No direct script access allowed'); //Mencegah akses langsung ke class
 
 class mypage extends Core
 {
@@ -9,26 +9,26 @@ class mypage extends Core
 
 		//Load General Process
 		include '../inc/general_admin.php';
-		
+
 		$this->LoadModule("Options");
 
 		$this->LoadModule("FileManager");
 		$this->LoadModule("Paging");
-		$this->Module->Paging->setPaging(20,10,"&laquo; Prev","Next &raquo;");
-		
+		$this->Module->Paging->setPaging(20, 10, "&laquo; Prev", "Next &raquo;");
+
 		$this->Template->assign("Signature", "page");
 
 		$this->pageDir = $this->Config['page']['dir'];
 		$this->Template->assign("pageDir", $this->pageDir);
-		$this->Pile->fileDestination=$this->pageDir;
+		$this->Pile->fileDestination = $this->pageDir;
 
-		$this->Submit = ($_POST['submit'])?$_POST['submit']:$_GET['submit'];
-		$this->Action = ($_POST['action'])?$_POST['action']:$_GET['action'];
-		$this->Do = ($_POST['do'])?$_POST['do']:$_GET['do'];
+		$this->Submit = ($_POST['submit']) ? $_POST['submit'] : $_GET['submit'];
+		$this->Action = ($_POST['action']) ? $_POST['action'] : $_GET['action'];
+		$this->Do = ($_POST['do']) ? $_POST['do'] : $_GET['do'];
 		$this->Template->assign("Do", $this->Do);
-		
-		$this->Id = ($_POST['id'])?$_POST['id']:$_GET['id'];
-		$this->iTopMenu = ($_GET['itopmenu'])?$_GET['itopmenu']:"0";
+
+		$this->Id = ($_POST['id']) ? $_POST['id'] : $_GET['id'];
+		$this->iTopMenu = ($_GET['itopmenu']) ? $_GET['itopmenu'] : "0";
 
 		$this->ContentModule = "page";
 
@@ -65,25 +65,23 @@ class mypage extends Core
 	{
 		$vCategory = $_POST['vCategory'];
 
-		$iAddPage = ($_POST['iAddPage']=="yes")?"1":"0";
-		$iPictureIcon = ($_POST['iPictureIcon']=="yes")?"1":"0";
-		$iContent = ($_POST['iContent']=="yes")?"1":"0";
-		$iMenuURL = ($_POST['iMenuURL']=="yes")?"1":"0";
-		$iLinkTarget = ($_POST['iLinkTarget']=="yes")?"1":"0";
-		$iEditor  = ($_POST['iEditor']=="yes")?"1":"0";
-		$iModule  = ($_POST['iModule']=="yes")?"1":"0";
-		$iMeta  = ($_POST['iMeta']=="yes")?"1":"0";
-		$iLiveEditor  = ($_POST['iLiveEditor']=="yes")?"1":"0";
-		$iOpsi  = ($_POST['iOpsi']=="yes")?"1":"0";
+		$iAddPage = ($_POST['iAddPage'] == "yes") ? "1" : "0";
+		$iPictureIcon = ($_POST['iPictureIcon'] == "yes") ? "1" : "0";
+		$iContent = ($_POST['iContent'] == "yes") ? "1" : "0";
+		$iMenuURL = ($_POST['iMenuURL'] == "yes") ? "1" : "0";
+		$iLinkTarget = ($_POST['iLinkTarget'] == "yes") ? "1" : "0";
+		$iEditor  = ($_POST['iEditor'] == "yes") ? "1" : "0";
+		$iModule  = ($_POST['iModule'] == "yes") ? "1" : "0";
+		$iMeta  = ($_POST['iMeta'] == "yes") ? "1" : "0";
+		$iLiveEditor  = ($_POST['iLiveEditor'] == "yes") ? "1" : "0";
+		$iOpsi  = ($_POST['iOpsi'] == "yes") ? "1" : "0";
 
-		$vPermalink = ($_POST['vPermalink']=="")?preg_replace("# #","-",strtolower(preg_replace("/[^a-zA-Z0-9\-\s]/", "", $vCategory))):preg_replace("# #","-",strtolower(preg_replace("/[^a-zA-Z0-9\-\s]/", "", $_POST['vPermalink'])));
+		$vPermalink = ($_POST['vPermalink'] == "") ? preg_replace("# #", "-", strtolower(preg_replace("/[^a-zA-Z0-9\-\s]/", "", $vCategory))) : preg_replace("# #", "-", strtolower(preg_replace("/[^a-zA-Z0-9\-\s]/", "", $_POST['vPermalink'])));
 
 		$Action = $_POST['action'];
-		switch ($Action)
-		{
+		switch ($Action) {
 			case "add":
-				if ($vCategory!="")
-				{
+				if ($vCategory != "") {
 					if ($this->Module->Page->addCategory(array(
 						'vCategory' => $vCategory,
 						'iAddPage' => $iAddPage,
@@ -96,35 +94,32 @@ class mypage extends Core
 						'iMeta' => $iMeta,
 						'iLiveEditor' => $iLiveEditor,
 						'iOpsi' => $iOpsi,
-						'vPermalink' => $vPermalink)))
-					{	
-						$Return = array('status' => 'success',
-						'message' => $this->Template->showMessage('success', 'Data category telah di tambahkan'), 
-						'data' => ''
+						'vPermalink' => $vPermalink
+					))) {
+						$Return = array(
+							'status' => 'success',
+							'message' => $this->Template->showMessage('success', 'Data category telah di tambahkan'),
+							'data' => ''
+						);
+					} else {
+						$Return = array(
+							'status' => 'error',
+							'message' => $this->Template->showMessage('error', 'Ops! Ada error pada database'),
+							'data' => ''
 						);
 					}
-					else
-					{
-						$Return = array('status' => 'error',
-						'message' => $this->Template->showMessage('error', 'Ops! Ada error pada database'), 
-						'data' => ''
-						);
-					}
-				}
-				else
-				{
+				} else {
 					$Return = array(
 						'status' => 'error',
-						'message' => $this->Template->showMessage('error', 'Data form isian tidak lengkap'), 
+						'message' => $this->Template->showMessage('error', 'Data form isian tidak lengkap'),
 						'data' => ''
 					);
 				}
-			break;
+				break;
 			case "update":
 				$idCategory = $_POST['idcategory'];
 
-				if (($vCategory!="") AND ($idCategory!=""))
-				{
+				if (($vCategory != "") and ($idCategory != "")) {
 					$UpdateField = array(
 						'vCategory' => $vCategory,
 						'iAddPage' => $iAddPage,
@@ -140,64 +135,58 @@ class mypage extends Core
 						'vPermalink' => $vPermalink
 					);
 
-					if ($this->Module->Page->updateCategory($UpdateField,$idCategory))
-						{
-							$Return = array('status' => 'success',
-							'message' => $this->Template->showMessage('success', 'Data category telah di perbaharui'), 
+					if ($this->Module->Page->updateCategory($UpdateField, $idCategory)) {
+						$Return = array(
+							'status' => 'success',
+							'message' => $this->Template->showMessage('success', 'Data category telah di perbaharui'),
 							'data' => ''
-							);
-						}
-						else
-						{
-							$Return = array('status' => 'error',
-							'message' => $this->Template->showMessage('error', 'Ops! Ada error pada database'), 
+						);
+					} else {
+						$Return = array(
+							'status' => 'error',
+							'message' => $this->Template->showMessage('error', 'Ops! Ada error pada database'),
 							'data' => ''
-							);
-						}
-				}
-				else
-				{
-					$Return = array('status' => 'error',
-					'message' => $this->Template->showMessage('error', 'Ops! Data form isian tidak lengkap'), 
-					'data' => ''
+						);
+					}
+				} else {
+					$Return = array(
+						'status' => 'error',
+						'message' => $this->Template->showMessage('error', 'Ops! Data form isian tidak lengkap'),
+						'data' => ''
 					);
 				}
-			break;
+				break;
 		}
 
-		echo json_encode($Return);		
+		echo json_encode($Return);
 	}
 
 	function deletecategory()
 	{
 		$idCategory = $_GET['idcategory'];
-		if ($idCategory!="")
-		{
+		if ($idCategory != "") {
 			$countPage = $this->Module->Page->countPage($idCategory);
-			if ($countPage['total']<=0)
-			{
-				if ($this->Module->Page->deleteCategory($idCategory))
-				{
-					$Return = array('status' => 'success',
-					'message' => $this->Template->showMessage('success', 'Data category telah di hapus'), 
-					'data' => ''
+			if ($countPage['total'] <= 0) {
+				if ($this->Module->Page->deleteCategory($idCategory)) {
+					$Return = array(
+						'status' => 'success',
+						'message' => $this->Template->showMessage('success', 'Data category telah di hapus'),
+						'data' => ''
 					);
 				}
+			} else {
+				$Return = array(
+					'status' => 'error',
+					'message' => $this->Template->showMessage('error', 'Ops! Category ini mengandung data banner, harap hapus dulu data banner di dalam category'),
+					'data' => ''
+				);
 			}
-			else
-			{
-				$Return = array('status' => 'error',
-				'message' => $this->Template->showMessage('error', 'Ops! Category ini mengandung data banner, harap hapus dulu data banner di dalam category'), 
+		} else {
+			$Return = array(
+				'status' => 'error',
+				'message' => $this->Template->showMessage('error', 'Ops! ID category tidak valid'),
 				'data' => ''
-				);	
-			}
-		}
-		else
-		{
-			$Return = array('status' => 'error',
-			'message' => $this->Template->showMessage('error', 'Ops! ID category tidak valid'), 
-			'data' => ''
-			);			
+			);
 		}
 
 		echo json_encode($Return);
@@ -214,7 +203,7 @@ class mypage extends Core
 		$idCategory = $_GET['idcategory'];
 		$listAllPage = $this->Module->Page->listAllPages($idCategory);
 		$this->Template->assign("listAllPage", $listAllPage);
-		
+
 		//$listCategory = $this->Module->Page->listCategory();
 		//$this->Template->assign("listCategory", $listCategory);
 		$getPage = $this->Template->ShowAdmin("page/page_tree.html");
@@ -225,34 +214,31 @@ class mypage extends Core
 	function delete()
 	{
 		$detailPage = $this->Module->Page->detailPage($this->Id);
-		if ($detailPage['id'])
-		{			
-			if ($detailPage['lbPicture']!="")
+		if ($detailPage['id']) {
+			if ($detailPage['lbPicture'] != "")
 				$this->Pile->deleteOldFile($detailPage['lbPicture']);
-			
+
 			$listModule = $this->Module->Content->listModule($this->Id, "page");
-			for ($i=0;$i<count($listModule);$i++)
-			{
-				if ($listModule[$i]['Item']['vPicture']!="")
+			for ($i = 0; $i < count($listModule); $i++) {
+				if ($listModule[$i]['Item']['vPicture'] != "")
 					$this->Pile->deleteOldFile($listModule[$i]['Item']['vPicture']);
 
 				$this->Module->Content->deleteModule($listModule[$i]['Item']['id']);
 			}
-				
-			if ($this->Module->Page->deletePage($this->Id))
-			{
-				$Return = array('status' => 'success',
-				'message' => $this->Template->showMessage('success', 'Data page telah di hapus'), 
-				'data' => ''
+
+			if ($this->Module->Page->deletePage($this->Id)) {
+				$Return = array(
+					'status' => 'success',
+					'message' => $this->Template->showMessage('success', 'Data page telah di hapus'),
+					'data' => ''
 				);
 			}
-		}
-		else
-		{
-			$Return = array('status' => 'error',
-			'message' => $this->Template->showMessage('error', 'Ops! ID page tidak valid'), 
-			'data' => ''
-			);			
+		} else {
+			$Return = array(
+				'status' => 'error',
+				'message' => $this->Template->showMessage('error', 'Ops! ID page tidak valid'),
+				'data' => ''
+			);
 		}
 
 		echo json_encode($Return);
@@ -305,23 +291,21 @@ class mypage extends Core
 	{
 		$idPage = $_GET['idpage'];
 		$detailPage = $this->Module->Page->detailPage($idPage);
-		if ($detailPage['id'])
-		{			
+		if ($detailPage['id']) {
 			$this->Pile->deleteOldFile($detailPage['lbPicture']);
-			if ($this->Module->Page->deletePicture($idPage))
-			{
-				$Return = array('status' => 'success',
-				'message' => $this->Template->showMessage('success', 'Data gambar telah di hapus'), 
-				'data' => ''
+			if ($this->Module->Page->deletePicture($idPage)) {
+				$Return = array(
+					'status' => 'success',
+					'message' => $this->Template->showMessage('success', 'Data gambar telah di hapus'),
+					'data' => ''
 				);
 			}
-		}
-		else
-		{
-			$Return = array('status' => 'error',
-			'message' => $this->Template->showMessage('error', 'Ops! ID page tidak valid'), 
-			'data' => ''
-			);			
+		} else {
+			$Return = array(
+				'status' => 'error',
+				'message' => $this->Template->showMessage('error', 'Ops! ID page tidak valid'),
+				'data' => ''
+			);
 		}
 
 		echo json_encode($Return);
@@ -331,19 +315,18 @@ class mypage extends Core
 	{
 		$idPage = $_POST['idPage'];
 
-		$iAddPage = ($_POST['iAddPage']=="yes")?"1":"0";
-		$iPictureIcon = ($_POST['iPictureIcon']=="yes")?"1":"0";
-		$iContent = ($_POST['iContent']=="yes")?"1":"0";
-		$iMenuURL = ($_POST['iMenuURL']=="yes")?"1":"0";
-		$iLinkTarget = ($_POST['iLinkTarget']=="yes")?"1":"0";
-		$iEditor  = ($_POST['iEditor']=="yes")?"1":"0";
-		$iModule  = ($_POST['iModule']=="yes")?"1":"0";
-		$iMeta  = ($_POST['iMeta']=="yes")?"1":"0";
-		$iLiveEditor  = ($_POST['iLiveEditor']=="yes")?"1":"0";
-		$iOpsi  = ($_POST['iOpsi']=="yes")?"1":"0";
+		$iAddPage = ($_POST['iAddPage'] == "yes") ? "1" : "0";
+		$iPictureIcon = ($_POST['iPictureIcon'] == "yes") ? "1" : "0";
+		$iContent = ($_POST['iContent'] == "yes") ? "1" : "0";
+		$iMenuURL = ($_POST['iMenuURL'] == "yes") ? "1" : "0";
+		$iLinkTarget = ($_POST['iLinkTarget'] == "yes") ? "1" : "0";
+		$iEditor  = ($_POST['iEditor'] == "yes") ? "1" : "0";
+		$iModule  = ($_POST['iModule'] == "yes") ? "1" : "0";
+		$iMeta  = ($_POST['iMeta'] == "yes") ? "1" : "0";
+		$iLiveEditor  = ($_POST['iLiveEditor'] == "yes") ? "1" : "0";
+		$iOpsi  = ($_POST['iOpsi'] == "yes") ? "1" : "0";
 
-		if ($idPage!="")
-		{
+		if ($idPage != "") {
 			$UpdateField = array(
 				'iAddPage' => $iAddPage,
 				'iPictureIcon' => $iPictureIcon,
@@ -357,26 +340,24 @@ class mypage extends Core
 				'iOpsi' => $iOpsi
 			);
 
-			if ($this->Module->Page->updatePageConf($UpdateField, $idPage))
-				{
-					$Return = array('status' => 'success',
-					'message' => $this->Template->showMessage('success', 'Data page conf telah di perbaharui'), 
+			if ($this->Module->Page->updatePageConf($UpdateField, $idPage)) {
+				$Return = array(
+					'status' => 'success',
+					'message' => $this->Template->showMessage('success', 'Data page conf telah di perbaharui'),
 					'data' => $idPage
-					);
-				}
-				else
-				{
-					$Return = array('status' => 'error',
-					'message' => $this->Template->showMessage('error', 'Ops! Ada error pada database'), 
+				);
+			} else {
+				$Return = array(
+					'status' => 'error',
+					'message' => $this->Template->showMessage('error', 'Ops! Ada error pada database'),
 					'data' => ''
-					);
-				}
-		}
-		else
-		{
-			$Return = array('status' => 'error',
-			'message' => $this->Template->showMessage('error', 'Ops! Data form isian tidak lengkap'), 
-			'data' => ''
+				);
+			}
+		} else {
+			$Return = array(
+				'status' => 'error',
+				'message' => $this->Template->showMessage('error', 'Ops! Data form isian tidak lengkap'),
+				'data' => ''
 			);
 		}
 
@@ -386,27 +367,26 @@ class mypage extends Core
 	function submit()
 	{
 		$vPageName = $_POST['vPageName'];
-		$iTopMenu = ($_POST['iTopMenu'])?$_POST['iTopMenu']:"0";
-		$vPermalink = ($_POST['vPermalink']=="")?preg_replace("# #","-",strtolower(preg_replace("/[^a-zA-Z0-9\-\s]/", "", $vPageName))):preg_replace("# #","-",strtolower(preg_replace("/[^a-zA-Z0-9\-\s]/", "", $_POST['vPermalink'])));
+		$iTopMenu = ($_POST['iTopMenu']) ? $_POST['iTopMenu'] : "0";
+		$vPermalink = ($_POST['vPermalink'] == "") ? preg_replace("# #", "-", strtolower(preg_replace("/[^a-zA-Z0-9\-\s]/", "", $vPageName))) : preg_replace("# #", "-", strtolower(preg_replace("/[^a-zA-Z0-9\-\s]/", "", $_POST['vPermalink'])));
 		$vURL = $_POST['vURL'];
 		$tContent = $this->Template->cleanURL($this->Db->real_escape_string($_POST['tContent']));
 		$idCategory = $_POST['idCategory'];
-		$dCreated = date("Y-m-d");
+		// $dCreated = date("Y-m-d");
+		$dCreated = ($_POST['dCreated']) ? $_POST['dCreated'] : date("Y-m-d");
 		$cURLTarget = $_POST['cURLTarget'];
-		$lbPicture = $this->Pile->simpanImage($_FILES['lbPicture'],"page_".date("Yndhis").rand(0,9).rand(0,9).rand(0,9));
+		$lbPicture = $this->Pile->simpanImage($_FILES['lbPicture'], "page_" . date("Yndhis") . rand(0, 9) . rand(0, 9) . rand(0, 9));
 		$vMetaTitle = $_POST['vMetaTitle'];
 		$vMetaDesc = $_POST['vMetaDesc'];
 		$vMetaKeyword = $_POST['vMetaKeyword'];
-		$iShow = ($_POST['iShow']=="")?"1":$_POST['iShow'];
-		$iUrutan = ($_POST['iUrutan'])?$_POST['iUrutan']:"0";
+		$iShow = ($_POST['iShow'] == "") ? "1" : $_POST['iShow'];
+		$iUrutan = ($_POST['iUrutan']) ? $_POST['iUrutan'] : "0";
 
 		$Action = $_POST['action'];
 
-		switch ($Action)
-		{
+		switch ($Action) {
 			case "add":
-				if ($vPageName!="")
-				{
+				if ($vPageName != "") {
 					if ($this->Module->Page->addPage(array(
 						'vPageName' => $vPageName,
 						'iTopMenu' => $iTopMenu,
@@ -417,39 +397,35 @@ class mypage extends Core
 						'dCreated' => $dCreated,
 						'cURLTarget' => $cURLTarget,
 						'lbPicture' => $lbPicture,
-						'vMetaTitle' => $vMetaTitle, 
-						'vMetaDesc' => $vMetaDesc, 
+						'vMetaTitle' => $vMetaTitle,
+						'vMetaDesc' => $vMetaDesc,
 						'vMetaKeyword' => $vMetaKeyword,
 						'iUrutan' => $iUrutan,
 						'iShow' => $iShow
-					), $idCategory))
-					{
+					), $idCategory)) {
 						$getLastID = $this->Module->Page->getLastPage();
-						$Return = array('status' => 'success',
-						'message' => 'Data page telah di tambahkan', 
-						'data' => $getLastID['id']
+						$Return = array(
+							'status' => 'success',
+							'message' => 'Data page telah di tambahkan',
+							'data' => $getLastID['id']
+						);
+					} else {
+						$Return = array(
+							'status' => 'error',
+							'message' => $this->Template->showMessage('error', 'Ops! Ada error pada database'),
+							'data' => ''
 						);
 					}
-					else
-					{
-						$Return = array('status' => 'error',
-						'message' => $this->Template->showMessage('error', 'Ops! Ada error pada database'), 
-						'data' => ''
-						);
-					}
-				}
-				else
-				{
+				} else {
 					$Return = array(
 						'status' => 'error',
-						'message' => $this->Template->showMessage('error', 'Data form isian tidak lengkap'), 
+						'message' => $this->Template->showMessage('error', 'Data form isian tidak lengkap'),
 						'data' => ''
 					);
 				}
-			break;
+				break;
 			case "update":
-				if ($vPageName!="")
-				{
+				if ($vPageName != "") {
 					$idPage = $_POST['idPage'];
 					$tContent_status = $_POST['tContent_status'];
 					$detailPage = $this->Module->Page->detailPage($idPage);
@@ -459,50 +435,45 @@ class mypage extends Core
 						'vURL' => $vURL,
 						'dCreated' => $dCreated,
 						'cURLTarget' => $cURLTarget,
-						'vMetaTitle' => $vMetaTitle, 
-						'vMetaDesc' => $vMetaDesc, 
+						'vMetaTitle' => $vMetaTitle,
+						'vMetaDesc' => $vMetaDesc,
 						'vMetaKeyword' => $vMetaKeyword,
 						'iUrutan' => $iUrutan,
 						'iShow' => $iShow
 					);
 
-					if ($tContent_status=="1")
-					{
-						$UpdateField = array_merge($UpdateField,array('tContent' => $tContent));
+					if ($tContent_status == "1") {
+						$UpdateField = array_merge($UpdateField, array('tContent' => $tContent));
 					}
 
-					if ($lbPicture!="")
-					{
+					if ($lbPicture != "") {
 						$this->Pile->deleteOldFile($detailPage['lbPicture']);
-						$UpdateField = array_merge($UpdateField,array('lbPicture' => $lbPicture));
+						$UpdateField = array_merge($UpdateField, array('lbPicture' => $lbPicture));
 					}
 
-					if ($this->Module->Page->updatePage($UpdateField, $idPage))
-					{
-						$Return = array('status' => 'success',
-						'message' => 'Data page telah di perbaharui', 
-						'data' => $idPage
+					if ($this->Module->Page->updatePage($UpdateField, $idPage)) {
+						$Return = array(
+							'status' => 'success',
+							'message' => 'Data page telah di perbaharui',
+							'data' => $idPage
+						);
+					} else {
+						$Return = array(
+							'status' => 'error',
+							'message' => $this->Template->showMessage('error', 'Ops! Ada error pada database'),
+							'data' => ''
 						);
 					}
-					else
-					{
-						$Return = array('status' => 'error',
-						'message' => $this->Template->showMessage('error', 'Ops! Ada error pada database'), 
+				} else {
+					$Return = array(
+						'status' => 'error',
+						'message' => $this->Template->showMessage('error', 'Ops! Data form isian tidak lengkap'),
 						'data' => ''
-						);
-					}
-				}
-				else
-				{
-					$Return = array('status' => 'error',
-					'message' => $this->Template->showMessage('error', 'Ops! Data form isian tidak lengkap'), 
-					'data' => ''
 					);
 				}
-			break;
+				break;
 			case "addsub":
-				if ($vPageName!="")
-				{
+				if ($vPageName != "") {
 					if ($this->Module->Page->addSubPage(array(
 						'vPageName' => $vPageName,
 						'iTopMenu' => $iTopMenu,
@@ -513,35 +484,32 @@ class mypage extends Core
 						'dCreated' => $dCreated,
 						'cURLTarget' => $cURLTarget,
 						'lbPicture' => $lbPicture,
-						'vMetaTitle' => $vMetaTitle, 
-						'vMetaDesc' => $vMetaDesc, 
+						'vMetaTitle' => $vMetaTitle,
+						'vMetaDesc' => $vMetaDesc,
 						'vMetaKeyword' => $vMetaKeyword,
 						'iUrutan' => $iUrutan,
 						'iShow' => $iShow
-					), $iTopMenu))
-					{	
-						$Return = array('status' => 'success',
-						'message' => $this->Template->showMessage('success', 'Data page telah di tambahkan'), 
-						'data' => ''
+					), $iTopMenu)) {
+						$Return = array(
+							'status' => 'success',
+							'message' => $this->Template->showMessage('success', 'Data page telah di tambahkan'),
+							'data' => ''
+						);
+					} else {
+						$Return = array(
+							'status' => 'error',
+							'message' => $this->Template->showMessage('error', 'Ops! Ada error pada database'),
+							'data' => ''
 						);
 					}
-					else
-					{
-						$Return = array('status' => 'error',
-						'message' => $this->Template->showMessage('error', 'Ops! Ada error pada database'), 
-						'data' => ''
-						);
-					}
-				}
-				else
-				{
+				} else {
 					$Return = array(
 						'status' => 'error',
-						'message' => $this->Template->showMessage('error', 'Data form isian tidak lengkap'), 
+						'message' => $this->Template->showMessage('error', 'Data form isian tidak lengkap'),
 						'data' => ''
 					);
 				}
-			break;
+				break;
 		}
 
 		echo json_encode($Return);
@@ -554,56 +522,54 @@ class mypage extends Core
 		$draw = $_POST['draw'];
 		$row = $_POST['start'];
 		$rowperpage = $_POST['length'];
-		
+
 		$columnIndex = $_POST['order'][0]['column'];
 		$columnName = $_POST['columns'][$columnIndex]['data'];
-		
+
 		$columnSortOrder = $_POST['order'][0]['dir'];
 		$searchValue = $_POST['search']['value'];
-		
+
 		//Search
 		$searchQuery = "";
-		if ($searchValue != '')
-		{
-			$searchQuery = " AND ((vName like '%".$searchValue."%') OR (vData like '%".$searchValue."%'))";
+		if ($searchValue != '') {
+			$searchQuery = " AND ((vName like '%" . $searchValue . "%') OR (vData like '%" . $searchValue . "%'))";
 		}
-		
+
 		//Total Records without Filtering
-		$records = $this->Db->sql_query_array("select count(*) as total from cpcontentmodule WHERE idContent='".$idPage."' AND vModule='page'");
+		$records = $this->Db->sql_query_array("select count(*) as total from cpcontentmodule WHERE idContent='" . $idPage . "' AND vModule='page'");
 		$totalRecords = $records['total'];
-		
+
 		//Total Record with filtering
-		$records = $this->Db->sql_query_array("select count(*) as total from cpcontentmodule where id!='0'".$searchQuery." AND idContent='".$idPage."' AND vModule='page'");
+		$records = $this->Db->sql_query_array("select count(*) as total from cpcontentmodule where id!='0'" . $searchQuery . " AND idContent='" . $idPage . "' AND vModule='page'");
 		$totalRecordsWithFilter = $records['total'];
-		
+
 		//Fetch Records
-		$orderBy = ($columnName=="")?" order by id desc":" order by ".$columnName." ".$columnSortOrder;
-		$limitBy = ($row=="")?"":" limit ".$row.",".$rowperpage;
-		
-		$sqlQuery = "select * from cpcontentmodule where id!='0' AND idContent='".$idPage."' AND vModule='page'".$searchQuery.$orderBy.$limitBy;
-			
+		$orderBy = ($columnName == "") ? " order by id desc" : " order by " . $columnName . " " . $columnSortOrder;
+		$limitBy = ($row == "") ? "" : " limit " . $row . "," . $rowperpage;
+
+		$sqlQuery = "select * from cpcontentmodule where id!='0' AND idContent='" . $idPage . "' AND vModule='page'" . $searchQuery . $orderBy . $limitBy;
+
 		$sqlRecord = $this->Db->sql_query($sqlQuery);
-		while ($row = $this->Db->sql_array($sqlRecord))
-		{
-			$navButton = "<a href=\"javascript:editmodule(".$row['id'].")\"><i class='fas fa-pen-square'></i></a>&nbsp;<a href=\"javascript:deletemodule(".$row['id'].")\"><i class='fas fa-trash-alt'></i></a>";			
-			$Image_Pic = ($row['vPicture']!="")?"<a href=\"".$this->Config['base']['url'].$this->pageDir.$row['vPicture']."\" data-fancybox=\"gallery\" data-caption=\"\"><img class=\"img-fluid\" src=\"".$this->Config['base']['url'].$this->pageDir.$row['vPicture']."\" width=\"100\" /></a>&nbsp;<a href=\"javascript:deletemodulepic(".$row['id'].")\"><i class='fas fa-trash-alt h6'></i></a>":"----";
+		while ($row = $this->Db->sql_array($sqlRecord)) {
+			$navButton = "<a href=\"javascript:editmodule(" . $row['id'] . ")\"><i class='fas fa-pen-square'></i></a>&nbsp;<a href=\"javascript:deletemodule(" . $row['id'] . ")\"><i class='fas fa-trash-alt'></i></a>";
+			$Image_Pic = ($row['vPicture'] != "") ? "<a href=\"" . $this->Config['base']['url'] . $this->pageDir . $row['vPicture'] . "\" data-fancybox=\"gallery\" data-caption=\"\"><img class=\"img-fluid\" src=\"" . $this->Config['base']['url'] . $this->pageDir . $row['vPicture'] . "\" width=\"100\" /></a>&nbsp;<a href=\"javascript:deletemodulepic(" . $row['id'] . ")\"><i class='fas fa-trash-alt h6'></i></a>" : "----";
 
 			$data[] = array(
 				"vName" => $row['vName'],
-				"vData" => wordwrap(htmlspecialchars($row['vData']),"20","<br />\n"),
+				"vData" => wordwrap(htmlspecialchars($row['vData']), "20", "<br />\n"),
 				"vPicture" => $Image_Pic,
 				"navButton" => $navButton
 			);
 		}
-		
+
 		//Response
 		$response = array(
 			"draw" => intval($draw),
 			"iTotalRecords" => $totalRecordsWithFilter,
 			"iTotalDisplayRecords" => $totalRecords,
-			"aaData" => (($data)?$data:array())
+			"aaData" => (($data) ? $data : array())
 		);
-		
+
 		echo json_encode($response);
 	}
 
@@ -612,81 +578,71 @@ class mypage extends Core
 		$idContent = $_POST['idContent'];
 		$vName = $this->Db->real_escape_string($_POST['vName']);
 		$vData = $this->Template->cleanURL($this->Db->real_escape_string($_POST['vData']));
-		$vPicture = $this->Pile->simpanImage($_FILES['vPicture'],"pm_".date("Yndhis").rand(0,9).rand(0,9).rand(0,9));
+		$vPicture = $this->Pile->simpanImage($_FILES['vPicture'], "pm_" . date("Yndhis") . rand(0, 9) . rand(0, 9) . rand(0, 9));
 		$vModule = "page";
 		$idModule = $_POST['idModule'];
 
 		$Action = $_POST['action'];
 
-		switch ($Action)
-		{
+		switch ($Action) {
 			case "add":
-				if ($vName!="")
-				{
-					if ($idModule=="")
-					{
+				if ($vName != "") {
+					if ($idModule == "") {
 						if ($this->Module->Content->addModule(array(
 							'idContent' => $idContent,
 							'vName' => $vName,
 							'vData' => $vData,
 							'vPicture' => $vPicture,
-							'vModule' => $vModule)))
-						{	
-							$Return = array('status' => 'success',
-							'message' => $this->Template->showMessage('success', 'Data module page telah di tambahkan'), 
-							'data' => ''
+							'vModule' => $vModule
+						))) {
+							$Return = array(
+								'status' => 'success',
+								'message' => $this->Template->showMessage('success', 'Data module page telah di tambahkan'),
+								'data' => ''
+							);
+						} else {
+							$Return = array(
+								'status' => 'error',
+								'message' => $this->Template->showMessage('error', 'Ops! Ada error pada database'),
+								'data' => ''
 							);
 						}
-						else
-						{
-							$Return = array('status' => 'error',
-							'message' => $this->Template->showMessage('error', 'Ops! Ada error pada database'), 
-							'data' => ''
-							);
-						}
-					}
-					else
-					{
+					} else {
 						$detailModule = $this->Module->Content->detailModule($idModule);
-						if ($detailModule['id']!="")
-						{
+						if ($detailModule['id'] != "") {
 							$UpdateField = array(
 								'vName' => $vName,
 								'vData' => $vData
 							);
-		
-							if ($vPicture!="")
-							{
+
+							if ($vPicture != "") {
 								$this->Pile->deleteOldFile($detailModule['vPicture']);
-								$UpdateField = array_merge($UpdateField,array('vPicture' => $vPicture));
+								$UpdateField = array_merge($UpdateField, array('vPicture' => $vPicture));
 							}
-		
-							if ($this->Module->Content->updateModule($UpdateField, $idModule))
-							{
-								$Return = array('status' => 'success',
-								'message' => $this->Template->showMessage('success', 'Data module telah di perbaharui'), 
-								'data' => $idModule
+
+							if ($this->Module->Content->updateModule($UpdateField, $idModule)) {
+								$Return = array(
+									'status' => 'success',
+									'message' => $this->Template->showMessage('success', 'Data module telah di perbaharui'),
+									'data' => $idModule
+								);
+							} else {
+								$Return = array(
+									'status' => 'error',
+									'message' => $this->Template->showMessage('error', 'Ops! Ada error pada database'),
+									'data' => ''
 								);
 							}
-							else
-							{
-								$Return = array('status' => 'error',
-								'message' => $this->Template->showMessage('error', 'Ops! Ada error pada database'), 
-								'data' => ''
-								);
-							}	
 						}
 					}
-				}
-				else
-				{
+				} else {
 					$Return = array(
 						'status' => 'error',
-						'message' => $this->Template->showMessage('error', 'Data form isian tidak lengkap'), 
+						'message' => $this->Template->showMessage('error', 'Data form isian tidak lengkap'),
 						'data' => ''
 					);
 				}
-			break;
+				break;
 		}
 
 		echo json_encode($Return);
@@ -716,25 +672,23 @@ class mypage extends Core
 	{
 		$idModule = $_GET['idmodule'];
 		$detailModule = $this->Module->Content->detailModule($idModule);
-		if ($detailModule['id'])
-		{			
-			if ($detailModule['vPicture']!="")
+		if ($detailModule['id']) {
+			if ($detailModule['vPicture'] != "")
 				$this->Pile->deleteOldFile($detailModule['vPicture']);
-			
-			if ($this->Module->Content->deleteModulePic($idModule))
-			{
-				$Return = array('status' => 'success',
-				'message' => $this->Template->showMessage('success', 'Data gambar telah di hapus'), 
-				'data' => ''
+
+			if ($this->Module->Content->deleteModulePic($idModule)) {
+				$Return = array(
+					'status' => 'success',
+					'message' => $this->Template->showMessage('success', 'Data gambar telah di hapus'),
+					'data' => ''
 				);
 			}
-		}
-		else
-		{
-			$Return = array('status' => 'error',
-			'message' => $this->Template->showMessage('error', 'Ops! ID module tidak valid'), 
-			'data' => ''
-			);			
+		} else {
+			$Return = array(
+				'status' => 'error',
+				'message' => $this->Template->showMessage('error', 'Ops! ID module tidak valid'),
+				'data' => ''
+			);
 		}
 
 		echo json_encode($Return);
@@ -743,25 +697,23 @@ class mypage extends Core
 	function deletemodule()
 	{
 		$detailModule = $this->Module->Content->detailModule($this->Id);
-		if ($detailModule['id'])
-		{			
-			if ($detailModule['vPicture']!="")
+		if ($detailModule['id']) {
+			if ($detailModule['vPicture'] != "")
 				$this->Pile->deleteOldFile($detailModule['vPicture']);
-			
-			if ($this->Module->Content->deleteModule($this->Id))
-			{
-				$Return = array('status' => 'success',
-				'message' => $this->Template->showMessage('success', 'Data module telah di hapus'), 
-				'data' => ''
+
+			if ($this->Module->Content->deleteModule($this->Id)) {
+				$Return = array(
+					'status' => 'success',
+					'message' => $this->Template->showMessage('success', 'Data module telah di hapus'),
+					'data' => ''
 				);
 			}
-		}
-		else
-		{
-			$Return = array('status' => 'error',
-			'message' => $this->Template->showMessage('error', 'Ops! ID module tidak valid'), 
-			'data' => ''
-			);			
+		} else {
+			$Return = array(
+				'status' => 'error',
+				'message' => $this->Template->showMessage('error', 'Ops! ID module tidak valid'),
+				'data' => ''
+			);
 		}
 
 		echo json_encode($Return);
@@ -769,27 +721,23 @@ class mypage extends Core
 
 	function setdefault()
 	{
-		if ($this->Id!="")
-		{
+		if ($this->Id != "") {
 			$iDefault = $_GET['idefault'];
-			if ($this->Module->Page->setDefault($iDefault, $this->Id))
-			{
-				$Return = array('status' => 'success',
-				'message' => $this->Template->showMessage('success', 'Status default page sudah di perbaharui'), 
-				'data' => ''
+			if ($this->Module->Page->setDefault($iDefault, $this->Id)) {
+				$Return = array(
+					'status' => 'success',
+					'message' => $this->Template->showMessage('success', 'Status default page sudah di perbaharui'),
+					'data' => ''
 				);
 			}
-		}
-		else
-		{
-			$Return = array('status' => 'error',
-			'message' => $this->Template->showMessage('error', 'Ops! ID Page tidak valid'), 
-			'data' => ''
-			);			
+		} else {
+			$Return = array(
+				'status' => 'error',
+				'message' => $this->Template->showMessage('error', 'Ops! ID Page tidak valid'),
+				'data' => ''
+			);
 		}
 
 		echo json_encode($Return);
 	}
-
 }
-?>

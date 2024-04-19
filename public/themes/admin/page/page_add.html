@@ -39,6 +39,10 @@
             <input type="hidden" name="tContent_status" value="1" />
           {/if}
 
+          <!-- Tanggal Publikasi:<br />
+          <div class="form-group">
+            <input class="form-control editdatepicker" name="dCreated" value="{$Detail.dCreated}" id="datepicker" type="text" placeholder="yyyy-mm-dd" data-options='{literal}{"dateFormat":"Y-m-d"}{/literal}'>
+          </div> -->
           <!-- Gambar:<br />
           <input type="file" name="vGambar"> -->
           {if $detailCategory.iPictureIcon == '1'}
@@ -232,6 +236,35 @@
         // $('#notify_modal').on('hidden.bs.modal', function () {
         //     location.reload();
         // });
+
+        $(document).ready(function(){
+            $(".editdatetimepicker").flatpickr({
+                'enableTime':true,
+                'dateFormat':"Y-m-d H:i:s"
+            });
+
+            $(".editdatepicker").flatpickr({
+                'dateFormat':"Y-m-d"
+            });
+
+            $(".selectpicker").select2({
+                dropdownParent: $("#add")
+            });
+
+            $(".dropzone").dropzone({
+              'url':'valid/url',
+              'maxFiles':'1',
+              'dictDefaultMessage':'Upload file gambar anda disini',
+              'addRemoveLinks':true,
+              'dictRemoveFile':'<span class="badge badge-danger"><i class="fas fa-trash-alt"></i></span>',
+              'acceptedFiles':'image/*',
+            });
+
+            tinymce.init({
+                selector: '.tinymce',
+                height: "350",
+            });
+        });
 
       </script>
       {/literal}

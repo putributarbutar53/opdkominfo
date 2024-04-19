@@ -380,6 +380,12 @@ $Detail_Sub.action_form_mail !=""}
 </section>
 {else}
 <section>
-  <div class="container">{$tContent}</div>
+  <div class="container">
+    <span class="text-gray"
+      ><i class="ti-calendar me-1 text-primary"></i
+      >&nbsp;{$Detail.dCreated|date_format:"%A, %e %B %Y"}</span
+    >
+    {$tContent}
+  </div>
 </section>
 {/if} {* $Detail.tContent *} {include file='footer.html'}
