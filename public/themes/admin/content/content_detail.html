@@ -1,149 +1,201 @@
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
-
   <head>
     {include file='header.html'}
     <!-- ===============================================-->
     <!--    Stylesheets-->
     <!-- ===============================================-->
-    <link href="assets/lib/flatpickr/flatpickr.min.css" rel="stylesheet">
+    <link href="assets/lib/flatpickr/flatpickr.min.css" rel="stylesheet" />
 
     <script src="assets/js/config.navbar-vertical.js"></script>
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-    <link href="assets/lib/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet">
-    <link href="assets/lib/prismjs/prism-okaidia.css" rel="stylesheet">
-    <link href="assets/lib/datatables-bs4/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <link href="assets/lib/datatables.net-responsive-bs4/responsive.bootstrap4.css" rel="stylesheet">
-    <link href="assets/lib/dropzone/dropzone.min.css" rel="stylesheet">
-    <link href="assets/lib/fancybox/jquery.fancybox.min.css" rel="stylesheet">
-    <link href="assets/css/theme.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      href="assets/lib/perfect-scrollbar/perfect-scrollbar.css"
+      rel="stylesheet"
+    />
+    <link href="assets/lib/prismjs/prism-okaidia.css" rel="stylesheet" />
+    <link
+      href="assets/lib/datatables-bs4/dataTables.bootstrap4.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="assets/lib/datatables.net-responsive-bs4/responsive.bootstrap4.css"
+      rel="stylesheet"
+    />
+    <link href="assets/lib/dropzone/dropzone.min.css" rel="stylesheet" />
+    <link href="assets/lib/fancybox/jquery.fancybox.min.css" rel="stylesheet" />
+    <link href="assets/css/theme.css" rel="stylesheet" />
   </head>
   <body>
-
     <!-- ===============================================-->
     <!--    Main Content-->
     <!-- ===============================================-->
     <main class="main" id="top">
-
       <div class="container-fluid" data-layout="container">
         {include file='left_menu.html'}
 
         <div class="content">
-          
           {include file='top_menu.html'}
 
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="{$admin_url}mycontent">News / Media</a></li>
-              <li class="breadcrumb-item"><a href="{$admin_url}mycontent/content?id={$detailCategory.id}">{$detailCategory.vCategory|no_value}</a></li>
-              <li class="breadcrumb-item active" aria-current="page">{$Detail.vTitle|no_value}</li>
+              <li class="breadcrumb-item">
+                <a href="{$admin_url}mycontent">News / Media</a>
+              </li>
+              <li class="breadcrumb-item">
+                <a href="{$admin_url}mycontent/content?id={$detailCategory.id}"
+                  >{$detailCategory.vCategory|no_value}</a
+                >
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                {$Detail.vTitle|no_value}
+              </li>
             </ol>
           </nav>
 
           <div class="card mb-3">
-            <div class="bg-holder d-none d-lg-block bg-card" style="background-image:url(assets/img/illustrations/corner-4.png);">
-            </div>
+            <div
+              class="bg-holder d-none d-lg-block bg-card"
+              style="
+                background-image: url(assets/img/illustrations/corner-4.png);
+              "
+            ></div>
             <!--/.bg-holder-->
             <div class="card-body">
-              <div class="row">                
+              <div class="row">
                 <div class="col-lg-8">
-                  <h3 class="mb-0">News / Media: <span class="text-info">{$detailCategory.vCategory|no_value}</span></h3>
+                  <h3 class="mb-0">
+                    News / Media:
+                    <span class="text-info"
+                      >{$detailCategory.vCategory|no_value}</span
+                    >
+                  </h3>
                 </div>
               </div>
             </div>
           </div>
           <div class="card mb-3">
             <div class="card-body">
+              <div class="card mb-3">
+                <div class="card-body bg-light border-top">
+                  <div class="row">
+                    <div class="col-lg col-xxl-5">
+                      <h2 class="font-weight-semi-bold ls mb-3">
+                        {$Detail.vTitle|no_value}
+                      </h2>
+                      <p class="h6">
+                        {$Detail.dPublishDate|date_format:"%A, %d %B %Y"}
+                      </p>
 
+                      {if $Detail.vGambar != ''}
+                      <p>
+                        <a
+                          href="{$base_url}{$dirContent}{$Detail.vGambar}"
+                          data-fancybox="gallery"
+                          data-caption="{$Detail.vTitle}"
+                          ><img
+                            src="{$base_url}{$dirContent}{$Detail.vGambar}"
+                            class="img-fluid"
+                            width="800"
+                        /></a>
+                      </p>
+                      {/if}
 
-    <div class="card mb-3">
-        <div class="card-body bg-light border-top">
-          <div class="row">
-            <div class="col-lg col-xxl-5">
-              <h2 class="font-weight-semi-bold ls mb-3">{$Detail.vTitle|no_value}</h2>
-              <p class="h6">{$Detail.dPublishDate|date_format:"%A, %d %B %Y"}</p>
-
-              {if $Detail.vGambar != ''}
-              <p><a href="{$base_url}{$dirContent}{$Detail.vGambar}" data-fancybox="gallery" data-caption="{$Detail.vTitle}"><img src="{$base_url}{$dirContent}{$Detail.vGambar}" class="img-fluid" width="800" /></a></p>
-              {/if}
-
-              <div class="row">
-                <div class="col">{$Detail.tDetail|no_value}</div>
+                      <div class="row">
+                        <div class="col">{$Detail.tDetail|no_value}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
+
+              {if $detailCategory.iModule == '1'} {include
+              file='content/content_module_add.html'}
+
+              <div
+                class="modal fade"
+                id="module_edit"
+                tabindex="-1"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog modal-lg">
+                  <div class="modal-content" id="module_editor"></div>
+                </div>
+              </div>
+
+              <span id="report_module"></span>
+
+              <div class="card mb-3">
+                <div class="card-body bg-light border-top">
+                  <div class="row">
+                    <div class="col-lg col-xxl-5">
+                      <h5 class="font-weight-semi-bold ls mb-3 text-uppercase">
+                        Module&nbsp;&nbsp;
+                        <button
+                          class="btn btn-warning btn-sm"
+                          type="button"
+                          onclick="javascript:addmodule();"
+                        >
+                          <i class="fas fa-plus-square"></i>&nbsp;Modul
+                        </button>
+                      </h5>
+                      <table
+                        id="table_modul"
+                        width="100%"
+                        class="table mb-0 table-striped table-dashboard data-table border-bottom border-200"
+                      >
+                        <thead class="bg-200">
+                          <tr>
+                            <th><b>Name</b></th>
+                            <th><b>Data</b></th>
+                            <th><b>Gambar</b></th>
+                            <th><b>#</b></th>
+                          </tr>
+                        </thead>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/if} {if $detailCategory.iComment == '1'}
+
+              <span id="report_comment"></span>
+
+              <div class="card mb-3">
+                <div class="card-body bg-light border-top">
+                  <div class="row">
+                    <div class="col-lg col-xxl-5">
+                      <h5 class="font-weight-semi-bold ls mb-3 text-uppercase">
+                        Komentar
+                      </h5>
+                      <table
+                        id="table_comment"
+                        width="100%"
+                        class="table mb-0 table-striped table-dashboard data-table border-bottom border-200"
+                      >
+                        <thead class="bg-200">
+                          <tr>
+                            <th><b>Status</b></th>
+                            <th><b>Nama</b></th>
+                            <th><b>Email</b></th>
+                            <th><b>Komentar</b></th>
+                            <th><b>Created</b></th>
+                            <th><b>IP</b></th>
+                            <th><b>#</b></th>
+                          </tr>
+                        </thead>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/if}
             </div>
-            
           </div>
-        </div>
-    </div>
-    
-{if $detailCategory.iModule == '1'}
-
-{include file='content/content_module_add.html'}
-
-<div class="modal fade" id="module_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content" id="module_editor"></div>
-  </div>
-</div>
-
-    <span id="report_module"></span>
-
-    <div class="card mb-3">
-      <div class="card-body bg-light border-top">
-        <div class="row">
-          <div class="col-lg col-xxl-5">
-
-  <h5 class="font-weight-semi-bold ls mb-3 text-uppercase">Module&nbsp;&nbsp;
-    <button class="btn btn-warning btn-sm" type="button" onclick="javascript:addmodule();"><i class="fas fa-plus-square"></i>&nbsp;Modul</button>
-  </h5>
-  <table id="table_modul" width="100%" class="table mb-0 table-striped table-dashboard data-table border-bottom border-200">
-    <thead class="bg-200">
-    <tr>
-      <th><b>Name</b></th>
-      <th><b>Data</b></th>
-      <th><b>Gambar</b></th>
-      <th><b>#</b></th>
-    </tr>
-    </thead>
-  </table>
-
-  </div></div></div></div>
-
-  {/if}
-
-  {if $detailCategory.iComment == '1'}
-
-  <span id="report_comment"></span>
-
-  <div class="card mb-3">
-    <div class="card-body bg-light border-top">
-      <div class="row">
-        <div class="col-lg col-xxl-5">
-
-  <h5 class="font-weight-semi-bold ls mb-3 text-uppercase">Komentar</h5>
-  <table id="table_comment" width="100%" class="table mb-0 table-striped table-dashboard data-table border-bottom border-200">
-    <thead class="bg-200">
-    <tr>
-      <th><b>Status</b></th>
-      <th><b>Nama</b></th>
-      <th><b>Email</b></th>
-      <th><b>Komentar</b></th>
-      <th><b>Created</b></th>
-      <th><b>IP</b></th>
-      <th><b>#</b></th>
-    </tr>
-    </thead>
-  </table>
-
-  </div></div></div></div>
-  {/if}
-
-            </div>
-          </div>
-
 
           {include file='footer.html'}
-
         </div>
       </div>
     </main>
@@ -164,7 +216,10 @@
     <script src="assets/lib/is_js/is.min.js"></script>
     <script src="assets/lib/lodash/lodash.min.js"></script>
     <script src="assets/lib/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:100,200,300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:100,200,300,400,500,600,700,800,900&amp;display=swap"
+      rel="stylesheet"
+    />
     <script src="assets/lib/prismjs/prism.js"></script>
     <script src="assets/lib/datatables/js/jquery.dataTables.min.js"></script>
     <script src="assets/lib/datatables-bs4/dataTables.bootstrap4.min.js"></script>
@@ -174,240 +229,235 @@
     <script src="assets/lib/dropzone/dropzone.min.js"></script>
     <script src="assets/lib/fancybox/jquery.fancybox.min.js"></script>
     <script src="assets/js/theme.js"></script>
-    
+
     <script type="text/javascript">
-
-$(document).ready(function(){
-  $('#table_modul').DataTable().columns.adjust();
-  $('#table_comment').DataTable().columns.adjust();
-  setTimeout(function () {
-    modulindex();
-    commentindex();
-  }, 100);
-});
-
-function modulindex()
-{
-  $('#table_modul').DataTable({
-    'processing':true,
-    'serverSide':true,
-    'scrollX': true,
-    'serverMethod':'post',
-    'searchDelay':'350',
-    'sWrapper':'falcon-data-table-wrapper',
-    'autoWidth': false,
-
-    'ajax':{
-      'url':'{/literal}{$admin_url}mycontent/showmodule/{$Detail.id}{literal}'
-    },
-    'columns':[
-      {data:'vName'},
-      {data:'vData'},
-      {data:'vPicture'},
-      {data:'navButton'},
-    ],
-    // 'dom':'Bfrtip',
-    // 'buttons':[
-    //   'copy','csv','excel','pdf','print'
-    // ],	
-    'language':
-      {'emptyTable': 'Belum ada data'},
-    'destroy':true,
-  });
-}
-
-function commentindex()
-{
-  $('#table_comment').DataTable({
-    'processing':true,
-    'serverSide':true,
-    'scrollX': true,
-    'serverMethod':'post',
-    'searchDelay':'350',
-    'sWrapper':'falcon-data-table-wrapper',
-    'autoWidth': false,
-
-    'ajax':{
-      'url':'{/literal}{$admin_url}mycontent/loadkomentar/{$Detail.id}{literal}'
-    },
-    'columns':[
-      {data:'iStatus'},
-      {data:'vName'},
-      {data:'vEmail'},
-      {data:'tComment'},
-      {data:'dPublishDate'},
-      {data:'vIP'},
-      {data:'navButton'},
-    ],
-    // 'dom':'Bfrtip',
-    // 'buttons':[
-    //   'copy','csv','excel','pdf','print'
-    // ],	
-    'language':
-      {'emptyTable': 'Belum ada data'},
-    'destroy':true,
-  });
-}
-
-var request;
-$("#module_submit").submit(function(event){
-
-  // Prevent default posting of form - put here to work in case of errors
-  event.preventDefault();
-  // Abort any pending request
-  if (request) {
-      request.abort();
-  }
-
-  var formData = new FormData(this);
-
-  // Fire off the request to /form.php
-  request = $.ajax({
-      url: "{/literal}{$admin_url}mycontent/submitmodule{literal}",
-      type: "post",
-      //data: serializedData,
-      data: formData,
-      cache: false, 
-      contentType: false, 
-      processData: false, 
-      //data: new FormData($inputs),
-      // xhr: function () {
-      //       var myXhr = $.ajaxSettings.xhr();
-      //       if (myXhr.upload) {
-      //         // For handling the progress of the upload
-      //         myXhr.upload.addEventListener('progress', function (e) {
-      //           if (e.lengthComputable) {
-      //             $('progress').attr({
-      //               value: e.loaded,
-      //               max: e.total,
-      //             });
-      //           }
-      //         }, false);
-      //       }
-      //       return myXhr;
-      //     }
-  });
-
-  // Callback handler that will be called on success
-  request.done(function (response, textStatus, jqXHR){
-      // Log a message to the console
-      console.log(response);
-      var obj = jQuery.parseJSON(response);
-      //alert(response);
-      if (obj.status=='success')
-      {
-        //$('#report_all').html(obj.message);
-        $("#report_module").html(obj.message);
-        $('#module_submit input[type="text"]').val('');
-        $('#module_submit input[type="file"]').val('');
-        $('#module_submit textarea').val('');
-
-        $('#module_add').modal('hide');
-        modulindex();
-      }
-      else
-        $('#report_module').html(obj.message);
-  });
-
-  // Callback handler that will be called on failure
-  request.fail(function (jqXHR, textStatus, errorThrown){
-      // Log the error to the console
-      console.error(
-          "The following error occurred: "+
-          textStatus, errorThrown
-      );
-      $('#report_module').html('Connection Failed');
-  });
-
-  // Callback handler that will be called regardless
-  // if the request failed or succeeded
-  request.always(function () {
-      // Reenable the inputs
-    // $inputs.prop("disabled", false);
-  });
-
-});
-
-function statuscomment(istatus,iddata)
-{
-$.get("{/literal}{$admin_url}mycontent/statuscomment{literal}?id="+iddata+"&status="+istatus, function(data, status){
-  var obj = jQuery.parseJSON(data);
-  if (obj.status=='success')
-  {
-    $('#report_comment').html(obj.message);
-    commentindex();
-  }
-});
-}
-
-function deletecomment(iddata)
-{
-  if (confirm('Komentar ini akan di hapus ?'))
-  {
-    $.get("{/literal}{$admin_url}mycontent/deletecomment{literal}?id="+iddata, function(data, status){
-        var obj = jQuery.parseJSON(data);
-        if (obj.status=='success')
-        {
-          $('#report_comment').html(obj.message);
+      $(document).ready(function () {
+        $("#table_modul").DataTable().columns.adjust();
+        $("#table_comment").DataTable().columns.adjust();
+        setTimeout(function () {
+          modulindex();
           commentindex();
+        }, 100);
+      });
+
+      function modulindex() {
+        $("#table_modul").DataTable({
+          processing: true,
+          serverSide: true,
+          scrollX: true,
+          serverMethod: "post",
+          searchDelay: "350",
+          sWrapper: "falcon-data-table-wrapper",
+          autoWidth: false,
+
+          ajax: {
+            url: "{/literal}{$admin_url}mycontent/showmodule/{$Detail.id}{literal}",
+          },
+          columns: [
+            { data: "vName" },
+            { data: "vData" },
+            { data: "vPicture" },
+            { data: "navButton" },
+          ],
+          // 'dom':'Bfrtip',
+          // 'buttons':[
+          //   'copy','csv','excel','pdf','print'
+          // ],
+          language: { emptyTable: "Belum ada data" },
+          destroy: true,
+        });
+      }
+
+      function commentindex() {
+        $("#table_comment").DataTable({
+          processing: true,
+          serverSide: true,
+          scrollX: true,
+          serverMethod: "post",
+          searchDelay: "350",
+          sWrapper: "falcon-data-table-wrapper",
+          autoWidth: false,
+
+          ajax: {
+            url: "{/literal}{$admin_url}mycontent/loadkomentar/{$Detail.id}{literal}",
+          },
+          columns: [
+            { data: "iStatus" },
+            { data: "vName" },
+            { data: "vEmail" },
+            { data: "tComment" },
+            { data: "dPublishDate" },
+            { data: "vIP" },
+            { data: "navButton" },
+          ],
+          // 'dom':'Bfrtip',
+          // 'buttons':[
+          //   'copy','csv','excel','pdf','print'
+          // ],
+          language: { emptyTable: "Belum ada data" },
+          destroy: true,
+        });
+      }
+
+      var request;
+      $("#module_submit").submit(function (event) {
+        // Prevent default posting of form - put here to work in case of errors
+        event.preventDefault();
+        // Abort any pending request
+        if (request) {
+          request.abort();
         }
-    });
-  }
-}
 
-function deletemodule(iddata)
-{
-  if (confirm('Modul ini akan di hapus ?'))
-  {
-    $.get("{/literal}{$admin_url}mycontent/deletemodule{literal}?id="+iddata, function(data, status){
+        var formData = new FormData(this);
 
-      var obj = jQuery.parseJSON(data);
-      if (obj.status=='success')
-      {
-        $('#report_module').html(obj.message);
-        $("#vpicture").html('');
-        $("#idmodule").val('');
-        modulindex();
+        // Fire off the request to /form.php
+        request = $.ajax({
+          url: "{/literal}{$admin_url}mycontent/submitmodule{literal}",
+          type: "post",
+          //data: serializedData,
+          data: formData,
+          cache: false,
+          contentType: false,
+          processData: false,
+          //data: new FormData($inputs),
+          // xhr: function () {
+          //       var myXhr = $.ajaxSettings.xhr();
+          //       if (myXhr.upload) {
+          //         // For handling the progress of the upload
+          //         myXhr.upload.addEventListener('progress', function (e) {
+          //           if (e.lengthComputable) {
+          //             $('progress').attr({
+          //               value: e.loaded,
+          //               max: e.total,
+          //             });
+          //           }
+          //         }, false);
+          //       }
+          //       return myXhr;
+          //     }
+        });
+
+        // Callback handler that will be called on success
+        request.done(function (response, textStatus, jqXHR) {
+          // Log a message to the console
+          console.log(response);
+          var obj = jQuery.parseJSON(response);
+          //alert(response);
+          if (obj.status == "success") {
+            //$('#report_all').html(obj.message);
+            $("#report_module").html(obj.message);
+            $('#module_submit input[type="text"]').val("");
+            $('#module_submit input[type="file"]').val("");
+            $("#module_submit textarea").val("");
+
+            $("#module_add").modal("hide");
+            modulindex();
+          } else $("#report_module").html(obj.message);
+        });
+
+        // Callback handler that will be called on failure
+        request.fail(function (jqXHR, textStatus, errorThrown) {
+          // Log the error to the console
+          console.error(
+            "The following error occurred: " + textStatus,
+            errorThrown
+          );
+          $("#report_module").html("Connection Failed");
+        });
+
+        // Callback handler that will be called regardless
+        // if the request failed or succeeded
+        request.always(function () {
+          // Reenable the inputs
+          // $inputs.prop("disabled", false);
+        });
+      });
+
+      function statuscomment(istatus, iddata) {
+        $.get(
+          "{/literal}{$admin_url}mycontent/statuscomment{literal}?id=" +
+            iddata +
+            "&status=" +
+            istatus,
+          function (data, status) {
+            var obj = jQuery.parseJSON(data);
+            if (obj.status == "success") {
+              $("#report_comment").html(obj.message);
+              commentindex();
+            }
+          }
+        );
       }
-    });
-    //alert('delete this id: '+iddata);
-  }
-}
 
-function deletemodulepic(iddata)
-{
-  if (confirm('Gambar ini akan di hapus ?'))
-  {
-    $.get("{/literal}{$admin_url}mycontent/deletemodulepic{literal}?idmodule="+iddata, function(data, status){
-
-      var obj = jQuery.parseJSON(data);
-      if (obj.status=='success')
-      {
-        $('#report_module').html(obj.message);
-        $("#vpicture").html('');
-        $("#idmodule").val('');
-        modulindex();
+      function deletecomment(iddata) {
+        if (confirm("Komentar ini akan di hapus ?")) {
+          $.get(
+            "{/literal}{$admin_url}mycontent/deletecomment{literal}?id=" +
+              iddata,
+            function (data, status) {
+              var obj = jQuery.parseJSON(data);
+              if (obj.status == "success") {
+                $("#report_comment").html(obj.message);
+                commentindex();
+              }
+            }
+          );
+        }
       }
-    });
-    //alert('delete this id: '+iddata);
-  }
-}
 
-function editmodule(iddata)
-{
-  $.get("{/literal}{$admin_url}mycontent/editmodule{literal}?idmodule="+iddata, function(data, status){
-    $("#module_editor").html(data);
-    $('#module_edit').modal('toggle');
-  });		
-}
+      function deletemodule(iddata) {
+        if (confirm("Modul ini akan di hapus ?")) {
+          $.get(
+            "{/literal}{$admin_url}mycontent/deletemodule{literal}?id=" +
+              iddata,
+            function (data, status) {
+              var obj = jQuery.parseJSON(data);
+              if (obj.status == "success") {
+                $("#report_module").html(obj.message);
+                $("#vpicture").html("");
+                $("#idmodule").val("");
+                modulindex();
+              }
+            }
+          );
+          //alert('delete this id: '+iddata);
+        }
+      }
 
-function addmodule()
-{
-  $('#module_add').modal('toggle');
-}
+      function deletemodulepic(iddata) {
+        if (confirm("Gambar ini akan di hapus ?")) {
+          $.get(
+            "{/literal}{$admin_url}mycontent/deletemodulepic{literal}?idmodule=" +
+              iddata,
+            function (data, status) {
+              var obj = jQuery.parseJSON(data);
+              if (obj.status == "success") {
+                $("#report_module").html(obj.message);
+                $("#vpicture").html("");
+                $("#idmodule").val("");
+                modulindex();
+              }
+            }
+          );
+          //alert('delete this id: '+iddata);
+        }
+      }
 
-</script>
-{/literal}
+      function editmodule(iddata) {
+        $.get(
+          "{/literal}{$admin_url}mycontent/editmodule{literal}?idmodule=" +
+            iddata,
+          function (data, status) {
+            $("#module_editor").html(data);
+            $("#module_edit").modal("toggle");
+          }
+        );
+      }
+
+      function addmodule() {
+        $("#module_add").modal("toggle");
+      }
+    </script>
+    {/literal}
   </body>
-
 </html>

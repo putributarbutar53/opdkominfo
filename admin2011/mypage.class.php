@@ -372,6 +372,7 @@ class mypage extends Core
 		$vURL = $_POST['vURL'];
 		$tContent = $this->Template->cleanURL($this->Db->real_escape_string($_POST['tContent']));
 		$idCategory = $_POST['idCategory'];
+		$nAdmin = $_POST['nAdmin'];
 		// $dCreated = date("Y-m-d");
 		$dCreated = ($_POST['dCreated']) ? $_POST['dCreated'] : date("d/m/y H:i");
 		$cURLTarget = $_POST['cURLTarget'];
@@ -394,6 +395,7 @@ class mypage extends Core
 						'vURL' => $vURL,
 						'tContent' => $tContent,
 						'idCategory' => $idCategory,
+						'nAdmin' => $nAdmin,
 						'dCreated' => $dCreated,
 						'cURLTarget' => $cURLTarget,
 						'lbPicture' => $lbPicture,
@@ -427,6 +429,7 @@ class mypage extends Core
 			case "update":
 				if ($vPageName != "") {
 					$idPage = $_POST['idPage'];
+					$nAdmin = $_POST['nAdmin'];
 					$tContent_status = $_POST['tContent_status'];
 					$detailPage = $this->Module->Page->detailPage($idPage);
 					$UpdateField = array(
@@ -476,6 +479,7 @@ class mypage extends Core
 				if ($vPageName != "") {
 					if ($this->Module->Page->addSubPage(array(
 						'vPageName' => $vPageName,
+						'nAdmin' => $nAdmin,
 						'iTopMenu' => $iTopMenu,
 						'vPermalink' => $vPermalink,
 						'vURL' => $vURL,

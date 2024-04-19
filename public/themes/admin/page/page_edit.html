@@ -34,6 +34,7 @@
         <form id="add_submit" method="post" enctype="multipart/form-data">
         <input type="hidden" name="action" value="update" />
         <input type="hidden" name="idPage" value="{$Detail.id}" />
+        <input type="hidden" name="nAdmin" value="{$DetailAdmin.vName}" />
 
           Page Name:<br />
           <input type="text" name="vPageName" value="{$Detail.vPageName}" class="form form-control form-50" size="40" />
