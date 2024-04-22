@@ -474,7 +474,7 @@ class mycontent extends Core
 		$idCategory = $_POST['idcategory'];
 		$nAdmin = $_POST['nAdmin'];
 		$vTitle = $this->Db->real_escape_string($_POST['vTitle']);
-		$dPublishDate = ($_POST['dPublishDate']) ? $_POST['dPublishDate'] : date("Y-m-d");
+		$dPublishDate = ($_POST['dPublishDate']) ? $_POST['dPublishDate'] : date("d/m/y H:i");
 		$vPermalink = ($_POST['vPermalink'] == "") ? preg_replace("# #", "-", strtolower(preg_replace("/[^a-zA-Z0-9\-\s]/", "", $vTitle))) : preg_replace("# #", "-", strtolower(preg_replace("/[^a-zA-Z0-9\-\s]/", "", $_POST['vPermalink'])));
 		$tDetail = $this->Db->real_escape_string($_POST['tDetail']);
 		$vGambar = $this->Pile->simpanImage($_FILES['vGambar'], "content_" . date("Yndhis") . rand(0, 9) . rand(0, 9) . rand(0, 9));
