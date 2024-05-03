@@ -275,7 +275,8 @@ $Detail_Sub.action_form_mail !=""}
 <section>
   <div class="container">
     <div class="row">
-      {section name=i loop=$listBerita step=1} {if $smarty.section.i.index < 2}
+      {section name=i loop=$listBerita step=1} {if $smarty.section.i.index < 2
+      && $listBerita[i].Item.iStatus == 1}
       <div class="col-12 col-lg-6 mb-6 mb-lg-0">
         <!-- Blog Card -->
         <div class="card border-0 bg-transparent">
@@ -305,29 +306,28 @@ $Detail_Sub.action_form_mail !=""}
             <ul class="list-inline mb-0">
               <li class="list-inline-item pe-4">
                 <a href="#" class="text-muted"
-                  ><i class="ti-comments me-1 text-primary"></i>
-                  {$listBerita[i].totalComment|number_format:2:",":"."}</a
+                  ><i class="ti-comments me-1 text-primary"></i
+                  >{$listBerita[i].totalComment|number_format:2:",":"."}</a
                 >
               </li>
               <li class="list-inline-item pe-4">
                 <a href="#" class="text-muted"
-                  ><i class="ti-eye me-1 text-primary"></i>
-                  {$listBerita[i].Eye|number_format:2:",":"."}</a
+                  ><i class="ti-eye me-1 text-primary"></i
+                  >{$listBerita[i].Eye|number_format:2:",":"."}</a
                 >
               </li>
               <li class="list-inline-item pe-4">
                 <a href="#" class="text-muted"
-                  ><i class="ti-user me-1 text-primary"></i>
-                  {$listBerita[i].Item.nAdmin}</a
+                  ><i class="ti-user me-1 text-primary"></i
+                  >{$listBerita[i].Item.nAdmin}</a
                 >
               </li>
             </ul>
           </div>
-          <div></div>
         </div>
         <!-- End Blog Card -->
       </div>
-      {else}
+      {elseif $listBerita[i].Item.iStatus == 1}
       <div class="col-12 col-lg-4 mb-6 mb-lg-0">
         <!-- Blog Card -->
         <div class="card border-0 bg-transparent">
@@ -357,30 +357,30 @@ $Detail_Sub.action_form_mail !=""}
             <ul class="list-inline mb-0">
               <li class="list-inline-item pe-4">
                 <a href="#" class="text-muted"
-                  ><i class="ti-comments me-1 text-primary"></i>
-                  {$listBerita[i].totalComment|number_format:2:",":"."}</a
+                  ><i class="ti-comments me-1 text-primary"></i
+                  >{$listBerita[i].totalComment|number_format:2:",":"."}</a
                 >
               </li>
               <li class="list-inline-item pe-4">
                 <a href="#" class="text-muted"
-                  ><i class="ti-eye me-1 text-primary"></i>
-                  {$listBerita[i].Eye|number_format:2:",":"."}</a
+                  ><i class="ti-eye me-1 text-primary"></i
+                  >{$listBerita[i].Eye|number_format:2:",":"."}</a
                 >
               </li>
               <li class="list-inline-item pe-4">
                 <a href="#" class="text-muted"
-                  ><i class="ti-user me-1 text-primary"></i>
-                  {$listBerita[i].Item.nAdmin}</a
+                  ><i class="ti-user me-1 text-primary"></i
+                  >{$listBerita[i].Item.nAdmin}</a
                 >
               </li>
             </ul>
           </div>
-          <div></div>
         </div>
         <!-- End Blog Card -->
       </div>
       {/if} {/section}
     </div>
+
     <div class="row mt-11">
       <div class="col-12">
         <nav aria-label="...">
