@@ -521,36 +521,41 @@
           // });
         }
 
-        $(document).ready(function () {
-        $(".editdatetimepicker").flatpickr({
-          enableTime: true,
-          dateFormat: "Y-m-d H:i",
-          minuteIncrement: 1
-        });
+        $(document).ready(function(){
+    // Dapatkan waktu saat ini
+    var now = new Date();
 
-        $(".editdatepicker").flatpickr({
-          dateFormat: "Y-m-d",
-        });
+    $(".editdatetimepicker").flatpickr({
+        enableTime: true,
+        dateFormat: "Y-m-d H:i",
+        minuteIncrement: 1,
+        defaultDate: now // Set waktu awal ke waktu saat ini
+    });
 
-        $(".selectpicker").select2({
-          dropdownParent: $("#add"),
-        });
+    $(".editdatepicker").flatpickr({
+        dateFormat: "Y-m-d",
+        defaultDate: now // Set tanggal awal ke tanggal saat ini
+    });
 
-        $(".dropzone").dropzone({
-          url: "valid/url",
-          maxFiles: "1",
-          dictDefaultMessage: "Upload file gambar anda disini",
-          addRemoveLinks: true,
-          dictRemoveFile:
-            '<span class="badge badge-danger"><i class="fas fa-trash-alt"></i></span>',
-          acceptedFiles: "image/*",
-        });
+    $(".selectpicker").select2({
+        dropdownParent: $("#add")
+    });
 
-        tinymce.init({
-          selector: ".tinymce",
-          height: "350",
-        });
-      });
+    $(".dropzone").dropzone({
+        url: 'valid/url',
+        maxFiles: '1',
+        dictDefaultMessage: 'Upload file gambar anda disini',
+        addRemoveLinks: true,
+        dictRemoveFile: '<span class="badge badge-danger"><i class="fas fa-trash-alt"></i></span>',
+        acceptedFiles: 'image/*',
+    });
+
+    tinymce.init({
+        selector: '.tinymce',
+        height: "350",
+    });
+});
+
 
 
       </script>

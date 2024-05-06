@@ -319,14 +319,19 @@
       // });
 
       $(document).ready(function () {
+        // Dapatkan waktu saat ini
+        var now = new Date();
+
         $(".editdatetimepicker").flatpickr({
           enableTime: true,
           dateFormat: "Y-m-d H:i",
           minuteIncrement: 1,
+          defaultDate: now, // Set waktu awal ke waktu saat ini
         });
 
         $(".editdatepicker").flatpickr({
           dateFormat: "Y-m-d",
+          defaultDate: now, // Set tanggal awal ke tanggal saat ini
         });
 
         $(".selectpicker").select2({
