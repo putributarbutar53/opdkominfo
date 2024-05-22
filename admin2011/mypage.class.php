@@ -75,6 +75,8 @@ class mypage extends Core
 		$iMeta  = ($_POST['iMeta'] == "yes") ? "1" : "0";
 		$iLiveEditor  = ($_POST['iLiveEditor'] == "yes") ? "1" : "0";
 		$iOpsi  = ($_POST['iOpsi'] == "yes") ? "1" : "0";
+		$iAttch  = ($_POST['iAttch'] == "yes") ? "1" : "0";
+		$iLink  = ($_POST['iLink'] == "yes") ? "1" : "0";
 
 		$vPermalink = ($_POST['vPermalink'] == "") ? preg_replace("# #", "-", strtolower(preg_replace("/[^a-zA-Z0-9\-\s]/", "", $vCategory))) : preg_replace("# #", "-", strtolower(preg_replace("/[^a-zA-Z0-9\-\s]/", "", $_POST['vPermalink'])));
 
@@ -94,6 +96,8 @@ class mypage extends Core
 						'iMeta' => $iMeta,
 						'iLiveEditor' => $iLiveEditor,
 						'iOpsi' => $iOpsi,
+						'iAttch' => $iAttch,
+						'iLink' => $iLink,
 						'vPermalink' => $vPermalink
 					))) {
 						$Return = array(
@@ -132,6 +136,8 @@ class mypage extends Core
 						'iMeta' => $iMeta,
 						'iLiveEditor' => $iLiveEditor,
 						'iOpsi' => $iOpsi,
+						'iAttch' => $iAttch,
+						'iLink' => $iLink,
 						'vPermalink' => $vPermalink
 					);
 
@@ -243,7 +249,6 @@ class mypage extends Core
 
 		echo json_encode($Return);
 	}
-
 	function add()
 	{
 		$idCategory = $_GET['idcategory'];
@@ -275,6 +280,8 @@ class mypage extends Core
 		$detailPage = $this->Module->Page->detailPage($this->Id);
 		$this->Template->assign("Detail", $detailPage);
 		$this->Template->assign("detailConf", $this->Module->Page->detailPageConf($detailPage['id']));
+		$this->Template->assign('listFile', json_decode($detailPage['attacment'], true));
+		$this->Template->assign('listLinkFile', json_decode($detailPage['linkFile'], true));
 		$getPage = $this->Template->ShowAdmin("page/page_edit.html");
 		$json_data = array('page' => $getPage);
 		echo json_encode($json_data);
@@ -325,7 +332,8 @@ class mypage extends Core
 		$iMeta  = ($_POST['iMeta'] == "yes") ? "1" : "0";
 		$iLiveEditor  = ($_POST['iLiveEditor'] == "yes") ? "1" : "0";
 		$iOpsi  = ($_POST['iOpsi'] == "yes") ? "1" : "0";
-
+		$iAttch  = ($_POST['iAttch'] == "yes") ? "1" : "0";
+		$iLink  = ($_POST['iLink'] == "yes") ? "1" : "0";
 		if ($idPage != "") {
 			$UpdateField = array(
 				'iAddPage' => $iAddPage,
@@ -337,7 +345,9 @@ class mypage extends Core
 				'iModule' => $iModule,
 				'iMeta' => $iMeta,
 				'iLiveEditor' => $iLiveEditor,
-				'iOpsi' => $iOpsi
+				'iOpsi' => $iOpsi,
+				'iAttch' => $iAttch,
+				'iLink' => $iLink
 			);
 
 			if ($this->Module->Page->updatePageConf($UpdateField, $idPage)) {
@@ -364,6 +374,20 @@ class mypage extends Core
 		echo json_encode($Return);
 	}
 
+	private function replaceGoogleDriveLink($url)
+	{
+		// Memeriksa apakah URL mengandung string yang menunjukkan bahwa itu adalah link Google Drive
+		if (strpos($url, 'drive.google.com') !== false) {
+			// Mengganti '/view' dengan '/preview'
+			$explode = explode("view", $url);
+
+			return $explode[0] . "preview";
+		} else {
+			// Jika URL bukan link Google Drive yang diharapkan, kembalikan URL asli
+			return $url;
+		}
+	}
+
 	function submit()
 	{
 		$vPageName = $_POST['vPageName'];
@@ -383,6 +407,38 @@ class mypage extends Core
 		$iShow = ($_POST['iShow'] == "") ? "1" : $_POST['iShow'];
 		$iUrutan = ($_POST['iUrutan']) ? $_POST['iUrutan'] : "0";
 
+		// echo json_encode($_FILES);
+		// die();
+		// $attacment = $this->Pile->saveFile($_FILES['attacment'], "attch" . date("Yndhis") . rand(0, 9) . rand(0, 9) . rand(0, 9));
+		$files = $_FILES['files'];
+		$gambar = array();
+		for ($i = 0; $i < count($files['name']); $i++) {
+			$type_array = explode('.', $files['name'][$i]);
+			$myfile[$i]  =  array(
+				'name' => $files['name'][$i],
+				'type' => $files['type'][$i],
+				'tmp_name' => $files['tmp_name'][$i],
+				'error' => $files['error'][$i],
+				'size' => $files['size'][$i]
+			);
+			$simpanFile = $this->Pile->saveFile($myfile[$i], "file_" . date('YmdHis') . rand(0, 9) . rand(0, 9) . rand(0, 9));
+			if ($simpanFile) {
+				$gambar[$i] = array(
+					'id' => $simpanFile,
+					'name' => $myfile[$i]['name'],
+					'file_size' => $myfile[$i]['size'],
+					'type' => end($type_array)
+				);
+			}
+		}
+		$attacment = json_encode($gambar);
+		$linkFileList = $_POST['linkFile'];
+		for ($i = 0; $i < count($linkFileList); $i++) {
+			if ($linkFileList[$i] != "") $linkFileFilter[] = $this->replaceGoogleDriveLink($linkFileList[$i]);
+		}
+		$linkFile = json_encode($linkFileFilter);
+		// print_r($linkFile);
+		// die();
 		$Action = $_POST['action'];
 
 		switch ($Action) {
@@ -403,6 +459,8 @@ class mypage extends Core
 						'vMetaDesc' => $vMetaDesc,
 						'vMetaKeyword' => $vMetaKeyword,
 						'iUrutan' => $iUrutan,
+						'attacment' => $attacment,
+						'linkFile' => $linkFile,
 						'iShow' => $iShow
 					), $idCategory)) {
 						$getLastID = $this->Module->Page->getLastPage();
@@ -412,6 +470,7 @@ class mypage extends Core
 							'data' => $getLastID['id']
 						);
 					} else {
+						// die();
 						$Return = array(
 							'status' => 'error',
 							'message' => $this->Template->showMessage('error', 'Ops! Ada error pada database'),
@@ -437,6 +496,7 @@ class mypage extends Core
 						'vPermalink' => $vPermalink,
 						'vURL' => $vURL,
 						'dCreated' => $dCreated,
+						'tContent' => $tContent,
 						'cURLTarget' => $cURLTarget,
 						'vMetaTitle' => $vMetaTitle,
 						'vMetaDesc' => $vMetaDesc,
@@ -445,6 +505,24 @@ class mypage extends Core
 						'iShow' => $iShow
 					);
 
+					if ($gambar[0]) {
+						$gambarL = json_decode($detailPage['attacment'], true);
+						if (is_array($gambarL))
+							$UpdateField['attacment'] = array_merge($gambar, $gambarL);
+						else
+							$UpdateField['attacment'] = $gambar;
+
+						$UpdateField['attacment'] = json_encode($UpdateField['attacment']);
+					}
+					if ($_POST['linkFile'][0]) {
+						$linkFileL = json_decode($detailPage['linkFile'], true);
+						if (is_array($linkFileL))
+							$UpdateField['linkFile'] = array_merge($linkFileFilter, $linkFileL);
+						else
+							$UpdateField['linkFile'] = $linkFileList;
+
+						$UpdateField['linkFile'] = json_encode($UpdateField['linkFile']);
+					}
 					if ($tContent_status == "1") {
 						$UpdateField = array_merge($UpdateField, array('tContent' => $tContent));
 					}
@@ -458,7 +536,8 @@ class mypage extends Core
 						$Return = array(
 							'status' => 'success',
 							'message' => 'Data page telah di perbaharui',
-							'data' => $idPage
+							'data' => $idPage,
+							'udpate' => $detailPage
 						);
 					} else {
 						$Return = array(
@@ -492,6 +571,8 @@ class mypage extends Core
 						'vMetaDesc' => $vMetaDesc,
 						'vMetaKeyword' => $vMetaKeyword,
 						'iUrutan' => $iUrutan,
+						'attacment' => $attacment,
+						'linkFile' => $linkFile,
 						'iShow' => $iShow
 					), $iTopMenu)) {
 						$Return = array(
@@ -742,6 +823,57 @@ class mypage extends Core
 			);
 		}
 
+		echo json_encode($Return);
+	}
+
+	function deletelink()
+	{
+		// $idlink = $_GET['link'];
+		$detail = $this->Module->Page->detailPage($this->Id);
+		$link = json_decode($detail['linkFile'], true);
+		// $this->Pile->deleteOldFile($idlink);
+		$key = array_search($_POST['link'], $link);
+		if ($key !== "") {
+			unset($link[$key]);
+		}
+		$resultLink = array_values($link);
+		if ($this->Module->Page->updatePage(array('linkFile' => json_encode($resultLink)), $this->Id)) {
+			$Return = array(
+				'status' => 'success',
+				'message' => $this->Template->showMessage('success', 'Link telah dihapus'),
+				'data' => ''
+			);
+		} else {
+			$Return = array(
+				'status' => 'error',
+				'message' => $this->Template->showMessage('error', 'Ops! Terjadi kesalahan'),
+				'data' => ''
+			);
+		}
+		echo json_encode($Return);
+	}
+	function deletefile()
+	{
+		$idLink = $_GET['file'];
+		$detail = $this->Module->Page->detailPage($this->Id);
+		$file = json_decode($detail['attacment'], true);
+		$this->Pile->deleteOldFile($idLink);
+		$key = array_search($_GET['file'], array_column($file, 'id'));
+		unset($file[$key]);
+		$resultFile = array_values($file);
+		if ($this->Module->Page->updatePage(array('attacment' => json_encode($resultFile)), $this->Id)) {
+			$Return = array(
+				'status' => 'success',
+				'message' => $this->Template->showMessage('success', 'File telah dihapus'),
+				'data' => ''
+			);
+		} else {
+			$Return = array(
+				'status' => 'error',
+				'message' => $this->Template->showMessage('error', 'Ops! Terjadi kesalahan'),
+				'data' => ''
+			);
+		}
 		echo json_encode($Return);
 	}
 }

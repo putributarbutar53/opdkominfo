@@ -46,17 +46,57 @@
             {if $detailConf.iEditor == '1'}
             <input type="hidden" id="no_editor" name="no_editor" value="no" />
             <div class="min-vh-50">
-            <textarea class="tinymce d-none" id="tContent" name="tContent">{$Detail.tContent}</textarea>
+            <textarea class="form form-control" id="tContent" name="tContent">{$Detail.tContent}</textarea>
             </div>
             {else}
             <input type="hidden" id="no_editor" name="no_editor" value="yes" />
-            <textarea class="form form-control" cols="80" rows="20" id="tContent" name="tContent">{$Detail.tContent}</textarea><br />
+            <textarea class="form form-control tinymce" cols="80" rows="20" id="tContent" name="tContent">{$Detail.tContent}</textarea><br />
             {/if}
             <input type="hidden" name="tContent_status" value="1" />
           {else}
             <input type="hidden" id="no_editor" name="no_editor" value="yes" />
           {/if}
+          {if $detailConf.iAttch == '1'}
+          Lampiran: <br />
+{section name=i loop=$listFile step=1}
+    {$listFile[i].name}<button class="btn btn-sm" type="button" onclick="hapusfile('{$listFile[i].id}','{$smarty.section.i.index}')"><span class="fas fa-trash-alt text-danger mt-n4"></span></button><br>
+    
+{/section}
 
+<div class="row">
+          <div class="col">
+            <ul id="ListEdit"></ul>
+          </div>
+        </div>
+<div class="custom-file">
+          <input
+            class="d-none"
+            id="file_edit"
+            name="files[]"
+            multiple
+            type="file"
+          />
+          <label class="btn btn-primary btn-sm" for="file_edit"
+            ><span class="fas fa-camera fs-1"></span> Upload file</label
+          >
+        </div><br>
+        {/if}
+        {if $detailConf.iLink == '1'}
+        {section name=i loop=$listLinkFile step=1}
+  <a href="{$listLinkFile[i]}" target="_blank">{$listLinkFile[i]}</a><button class="btn btn-sm" type="button" onclick="hapuslink('{$listLinkFile[i]}')"><span class="fas fa-trash-alt text-danger mt-n4"></span></button><br>
+{/section}
+            Link File : 
+            <button
+              class="btn btn-info btn-sm my-3"
+              type="button"
+              id="btn_add_form_link"
+              onclick="addform()"
+            >
+              <i class="fas fa-plus-square"></i> Link File
+            </button>
+            <br>
+            {/if}
+            
           Tanggal Publikasi:<br />
           <div class="form-group">
           <input
@@ -224,19 +264,111 @@
       <script src="assets/js/theme.js"></script>
 
       <script>
+      //   function hapusfile(iddata, keydata) {
+      //      $("#alert_modal").modal('toggle');
+      //     $("#click_yes").click(function()
+      //     {
+      //       $.get('{/literal}{$admin_url}mypage/deletefile?id={$Detail.id}&file={literal}' + iddata + '&key=' + keydata, function (data, status) {
+      //         var obj = jQuery.parseJSON(data);
+      //         $('#report_all').html(obj.message);              
+      //         location.reload();
+      //       });
+      //   });
+      // }
+      function hapusfile(iddata, keydata)
+        {
+          $("#alert_modal").modal('toggle');
+          let aa = 1;
+          $("#click_yes").click(function()
+          {
+            if(aa == 1) {
 
+              $.get('{/literal}{$admin_url}mypage/deletefile?id={$Detail.id}&file={literal}' + iddata + '&key=' + keydata, function(data, status){
+  
+                var obj = jQuery.parseJSON(data);
+                if (obj.status=='success')
+                {
+                  $('#report_all').html(obj.message);
+                  $("#alert_modal").modal('hide');
+                  editdata('{/literal}{$Detail.id}{literal}');
+              } else {
+                  $('#report_all').html(obj.message);
+              }
+              });
+              aa++;
+            }
+            //alert('delete this id: '+iddata);
+          });
+        }
+      function hapuslink(iddata)
+        {
+          $("#alert_modal").modal('toggle');
+          let angka = 1;
+          $("#click_yes").click(function()
+          {
+            if(angka == 1) {
+              $.post('{/literal}{$admin_url}mypage/deletelink?id={$Detail.id}{literal}' ,{link:iddata}, function(data, status){
+  
+                var obj = jQuery.parseJSON(data);
+                if (obj.status=='success')
+                {
+                  $('#report_all').html(obj.message);
+                  $("#alert_modal").modal('hide');
+                  editdata('{/literal}{$Detail.id}{literal}');
+              } else {
+                  $('#report_all').html(obj.message);
+              }
+              });
+              angka++;
+            }
+            //alert('delete this id: '+iddata);
+          });
+        }
+        function addform() {
+        $(
+          '<input type="text" name="linkFile[]" class="form-control mb-3" multiple placeholder="Link File">'
+        ).insertAfter("#btn_add_form_link");
+      }
         function addsubpage(iddata)
         {
           $('#sub_add').load('{/literal}{$admin_url}mypage/addsub?idpage={literal}'+iddata,function(){
             $('#addsub').modal({show:true});
           });
         }
+        
+        $(document).ready(function () {
+        if (window.File && window.FileReader) {
+          $("#file_edit").on("change", function (e) {
+            let number = 0;
+            if(number == 0) {
+ var files = e.target.files,
+              filesLength = files.length;
+            for (var i = 0; i < filesLength; i++) {
+              var fileName = files[i].name;
+              $(
+                "<li>" +
+                  fileName +
+                  " <i class='fas fa-times text-danger hapusGambar'></i></li>"
+              ).appendTo("#ListEdit");
+              $(".hapusGambar").click(function () {
+                $(this).parent().remove();
+              });
+            }
+            number++;
+            }
+            
+           
+          });
+        } else {
+          alert("Your browser doesn't support to File API");
+        }
+      });
 
         var request;
         $("#add_submit").submit(function(event){
             
-            var noEditor = $("#no_editor").val();
-            if (noEditor=='no')
+            // var noEditor = $("#no_editor").val();
+            // if (noEditor=='no')
               tinymce.triggerSave();
 
             // Prevent default posting of form - put here to work in case of errors
@@ -283,21 +415,25 @@
             request.done(function (response, textStatus, jqXHR){
                 // Log a message to the console
                 console.log(response);
-                var obj = jQuery.parseJSON(response);
-                //alert(response);
-                if (obj.status=='success')
-                {
-                  //$('#report_all').html(obj.message);
-                  $("#report_modal").html(obj.message);
-                  //$('#add_submit input[type="text"]').val('');
-                  //$('#add_submit input[type="file"]').val('');
-                  //$('#add_submit textarea').val('');
-                  editdata(obj.data);
-                  datapage();
-                  success_notify();
+                try {
+                  var obj = jQuery.parseJSON(response);
+                  //alert(response);
+                  if (obj.status=='success')
+                  {
+                    //$('#report_all').html(obj.message);
+                    $("#report_modal").html(obj.message);
+                    //$('#add_submit input[type="text"]').val('');
+                    //$('#add_submit input[type="file"]').val('');
+                    //$('#add_submit textarea').val('');
+                    editdata(obj.data);
+                    datapage();
+                    success_notify();
+                  }
+                  else
+                    $('#report').html(obj.message);
+                } catch (error) {
+                  alert(error)
                 }
-                else
-                  $('#report').html(obj.message);
             });
 
             // Callback handler that will be called on failure
@@ -325,6 +461,25 @@
           $("#click_yes").click(function()
           {
             $.get("{/literal}{$admin_url}mypage/deletephoto{literal}?idpage="+iddata, function(data, status){
+
+              var obj = jQuery.parseJSON(data);
+              if (obj.status=='success')
+              {
+                $('#report_all').html(obj.message);
+                $("#alert_modal").modal('hide');
+                // editdconata(iddata);
+                editdata('{/literal}{$Detail.id}{literal}');
+              }
+            });
+            //alert('delete this id: '+iddata);
+          });
+        }
+        function deletedatatest(iddata)
+        {
+          $("#alert_modal").modal('toggle');
+          $("#click_yes").click(function()
+          {
+            $.get("{/literal}{$admin_url}mypage/deletedata{literal}?idpage="+iddata, function(data, status){
 
               var obj = jQuery.parseJSON(data);
               if (obj.status=='success')

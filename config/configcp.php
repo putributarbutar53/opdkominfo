@@ -11,12 +11,12 @@ $config['db']['zone'] = "";
 $config['db']['host']    = "localhost";
 $config['db']['user']    = "root";
 $config['db']['pass']     = "";
-$config['db']['name']    = "db_kominfo";
+$config['db']['name']    = "opd_dinsos";
 
 //Base URL
-$config['main']['url'] = "http://" . $_SERVER['HTTP_HOST'] . "/opdkominfo/public/";
-$config['base']['url'] = "http://" . $_SERVER['HTTP_HOST'] . "/opdkominfo/public/";
-$config['file']['url']    = "http://" . $_SERVER['HTTP_HOST'] . "/opdkominfo/public/upload/";
+$config['main']['url'] = "http://" . $_SERVER['HTTP_HOST'] . "/opd_dinsos/public/";
+$config['base']['url'] = "http://" . $_SERVER['HTTP_HOST'] . "/opd_dinsos/public/";
+$config['file']['url']    = "http://" . $_SERVER['HTTP_HOST'] . "/opd_dinsos/public/upload/";
 
 //Index Page
 $config['index']['page'] = "index.php/";

@@ -114,6 +114,8 @@ class Db
 		$columns=array_keys($Data);
 		$values=array_values($Data);
 		$query="INSERT INTO ".$tableName." (".implode(',',$columns).") VALUES ('" . implode("', '", $values) . "')";
+		// echo $query ."\n";
+		// die();
 		//return $query;
 		return $this->sql_query($query);
 	}

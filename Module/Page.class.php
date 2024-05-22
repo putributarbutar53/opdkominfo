@@ -79,7 +79,9 @@ class Page extends Core
 				'iEditor' => $detailCategory['iEditor'],
 				'iModule' => $detailCategory['iModule'],
 				'iMeta' => $detailCategory['iMeta'],
-				'iLiveEditor' => $detailCategory['iLiveEditor']
+				'iLiveEditor' => $detailCategory['iLiveEditor'],
+				'iAttch' => $detailCategory['iAttch'],
+				'iLink' => $detailCategory['iLink']
 			));
 		}
 	}
@@ -99,7 +101,9 @@ class Page extends Core
 				'iEditor' => $detailConf['iEditor'],
 				'iModule' => $detailConf['iModule'],
 				'iMeta' => $detailConf['iMeta'],
-				'iLiveEditor' => $detailConf['iLiveEditor']
+				'iLiveEditor' => $detailConf['iLiveEditor'],
+				'iAttch' => $detailConf['iAttch'],
+				'iLink' => $detailConf['iLink']
 			));
 		}
 	}

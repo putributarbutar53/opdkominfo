@@ -110,7 +110,8 @@ class pages extends Core
 				$this->Template->assign('listBerita', $this->Module->Content->listAllPagination($start_from, $per_page));
 				$this->Template->assign('countPagination', $this->Module->Content->countPagination($page, $per_page));
 			}
-
+			$this->Template->assign('listFile', json_decode($Baca['attacment'], true));
+			$this->Template->assign('listLinkFile', json_decode($Baca['linkFile'], true));
 			$this->Template->assign('listPesan', $this->Module->Message->listPesan('3'));
 			echo $this->Template->Show("page.html", $Baca['vPermalink'] . ".html");
 		}

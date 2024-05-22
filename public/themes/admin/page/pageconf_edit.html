@@ -1,148 +1,173 @@
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
-
   <head>
-    <link href="assets/lib/flatpickr/flatpickr.min.css" rel="stylesheet">
+    <link href="assets/lib/flatpickr/flatpickr.min.css" rel="stylesheet" />
     <script src="assets/js/config.navbar-vertical.js"></script>
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-    <link href="assets/lib/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet">
-    <link href="assets/lib/prismjs/prism-okaidia.css" rel="stylesheet">
-    <link href="assets/css/theme.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      href="assets/lib/perfect-scrollbar/perfect-scrollbar.css"
+      rel="stylesheet"
+    />
+    <link href="assets/lib/prismjs/prism-okaidia.css" rel="stylesheet" />
+    <link href="assets/css/theme.css" rel="stylesheet" />
   </head>
 
   <body>
-
-<div class="modal-header">
-  <h5 class="modal-title" id="add">Page Conf: <span class="text-info">{$detailPage.vPageName|no_value}</span></h5>
-  <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
-</div>
-<div class="modal-body text-left">
-
-        <form id="pageconf_submit" method="post" enctype="multipart/form-data">
+    <div class="modal-header">
+      <h5 class="modal-title" id="add">
+        Page Conf:
+        <span class="text-info">{$detailPage.vPageName|no_value}</span>
+      </h5>
+      <button
+        class="close"
+        type="button"
+        data-dismiss="modal"
+        aria-label="Close"
+      >
+        <span class="font-weight-light" aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body text-left">
+      <form id="pageconf_submit" method="post" enctype="multipart/form-data">
         <input type="hidden" name="action" value="add" />
         <input type="hidden" name="idPage" value="{$detailPage.id}" />
 
-          <h6>Configuration Page:</h6>
-          <input type="checkbox" name="iAddPage" value="yes" {if $detailConf.iAddPage == '1'} checked{/if} />&nbsp;Add Page<br />
-          <input type="checkbox" name="iPictureIcon" value="yes" {if $detailConf.iPictureIcon == '1'} checked{/if} />&nbsp;Image<br />
-          <input type="checkbox" name="iContent" value="yes" {if $detailConf.iContent == '1'} checked{/if} />&nbsp;Content<br />
-          <input type="checkbox" name="iMenuURL" value="yes" {if $detailConf.iMenuURL == '1'} checked{/if} />&nbsp;URL<br />
-          <input type="checkbox" name="iLinkTarget" value="yes" {if $detailConf.iLinkTarget == '1'} checked{/if} />&nbsp;URL Target<br />
-          <input type="checkbox" name="iEditor" value="yes" {if $detailConf.iEditor == '1'} checked{/if} />&nbsp;Rich Editor<br />
-          <input type="checkbox" name="iModule" value="yes" {if $detailConf.iModule == '1'} checked{/if} />&nbsp;Module<br />
-          <input type="checkbox" name="iMeta" value="yes" {if $detailConf.iMeta == '1'} checked{/if} />&nbsp;Meta<br />
-          <input type="checkbox" name="iLiveEditor" value="yes" {if $detailConf.iLiveEditor == '1'} checked{/if} />&nbsp;Live Editor<br />
-          <input type="checkbox" name="iOpsi" value="yes" {if $detailConf.iOpsi == '1'} checked{/if} />&nbsp;Opsi Tambahan<br /><br />
+        <h6>Configuration Page:</h6>
+        <input type="checkbox" name="iAddPage" value="yes" {if
+        $detailConf.iAddPage == '1'} checked{/if} />&nbsp;Add Page<br />
+        <input type="checkbox" name="iPictureIcon" value="yes" {if
+        $detailConf.iPictureIcon == '1'} checked{/if} />&nbsp;Image<br />
+        <input type="checkbox" name="iContent" value="yes" {if
+        $detailConf.iContent == '1'} checked{/if} />&nbsp;Content<br />
+        <input type="checkbox" name="iMenuURL" value="yes" {if
+        $detailConf.iMenuURL == '1'} checked{/if} />&nbsp;URL<br />
+        <input type="checkbox" name="iLinkTarget" value="yes" {if
+        $detailConf.iLinkTarget == '1'} checked{/if} />&nbsp;URL Target<br />
+        <input type="checkbox" name="iEditor" value="yes" {if
+        $detailConf.iEditor == '1'} checked{/if} />&nbsp;Rich Editor<br />
+        <input type="checkbox" name="iModule" value="yes" {if
+        $detailConf.iModule == '1'} checked{/if} />&nbsp;Module<br />
+        <input type="checkbox" name="iMeta" value="yes" {if $detailConf.iMeta ==
+        '1'} checked{/if} />&nbsp;Meta<br />
+        <input type="checkbox" name="iLiveEditor" value="yes" {if
+        $detailConf.iLiveEditor == '1'} checked{/if} />&nbsp;Live Editor<br />
+        <input type="checkbox" name="iOpsi" value="yes" {if $detailConf.iOpsi ==
+        '1'} checked{/if} />&nbsp;Opsi Tambahan<br />
+        <input type="checkbox" name="iAttch" value="yes" {if $detailConf.iAttch
+        == '1'} checked{/if} />&nbsp;Lampiran<br />
+        <input type="checkbox" name="iLink" value="yes" {if $detailConf.iLink ==
+        '1'} checked{/if} />&nbsp;Link File<br /><br />
 
-          <span id="report"></span>
+        <span id="report"></span>
 
-          <input type="submit" name="submit" value="Update Page" class="btn btn-primary" />
-        </form>
-      </div>
+        <input
+          type="submit"
+          name="submit"
+          value="Update Page"
+          class="btn btn-primary"
+        />
+      </form>
+    </div>
 
-      {literal}
+    {literal}
 
-      <script src="assets/js/jquery.min.js"></script>
-      <script src="assets/js/popper.min.js"></script>
-      <script src="assets/js/bootstrap.min.js"></script>
-      <script src="assets/lib/@fortawesome/all.min.js"></script>
-      <script src="assets/lib/stickyfilljs/stickyfill.min.js"></script>
-      <script src="assets/lib/sticky-kit/sticky-kit.min.js"></script>
-      <script src="assets/lib/is_js/is.min.js"></script>
-      <script src="assets/lib/lodash/lodash.min.js"></script>
-      <script src="assets/lib/perfect-scrollbar/perfect-scrollbar.js"></script>
-      <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:100,200,300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
-      <script src="assets/lib/prismjs/prism.js"></script>
-      <script src="assets/lib/flatpickr/flatpickr.min.js"></script>
-      <script src="assets/js/theme.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/lib/@fortawesome/all.min.js"></script>
+    <script src="assets/lib/stickyfilljs/stickyfill.min.js"></script>
+    <script src="assets/lib/sticky-kit/sticky-kit.min.js"></script>
+    <script src="assets/lib/is_js/is.min.js"></script>
+    <script src="assets/lib/lodash/lodash.min.js"></script>
+    <script src="assets/lib/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:100,200,300,400,500,600,700,800,900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script src="assets/lib/prismjs/prism.js"></script>
+    <script src="assets/lib/flatpickr/flatpickr.min.js"></script>
+    <script src="assets/js/theme.js"></script>
 
-      <script>
+    <script>
+      var request;
+      $("#pageconf_submit").submit(function (event) {
+        // Prevent default posting of form - put here to work in case of errors
+        event.preventDefault();
+        // Abort any pending request
+        if (request) {
+          request.abort();
+        }
+        // setup some local variables
+        var $form = $(this);
 
-        var request;
-        $("#pageconf_submit").submit(function(event){
-                
-              // Prevent default posting of form - put here to work in case of errors
-              event.preventDefault();
-              // Abort any pending request
-              if (request) {
-                  request.abort();
-              }
-              // setup some local variables
-              var $form = $(this);
+        // Let's select and cache all the fields
+        var $inputs = $form.find("input, select, button, textarea, file");
 
-              // Let's select and cache all the fields
-              var $inputs = $form.find("input, select, button, textarea, file");
+        // Serialize the data in the form
+        var serializedData = $form.serialize();
 
-              // Serialize the data in the form
-              var serializedData = $form.serialize();
+        // Let's disable the inputs for the duration of the Ajax request.
+        // Note: we disable elements AFTER the form data has been serialized.
+        // Disabled form elements will not be serialized.
+        $inputs.prop("disabled", true);
 
-              // Let's disable the inputs for the duration of the Ajax request.
-              // Note: we disable elements AFTER the form data has been serialized.
-              // Disabled form elements will not be serialized.
-              $inputs.prop("disabled", true);
-
-              // Fire off the request to /form.php
-              request = $.ajax({
-                  url: "{/literal}{$admin_url}mypage/updateconf{literal}",
-                  type: "post",
-                  data: serializedData
-              });
-
-              // Callback handler that will be called on success
-              request.done(function (response, textStatus, jqXHR){
-                  // Log a message to the console
-                  console.log("Hooray, it worked!");
-                  var obj = jQuery.parseJSON(response);
-                  //alert(obj.data);
-                  if (obj.status=='success')
-                  {
-                    $('#report_all').html(obj.message);
-                    $('#editconf').modal('hide');
-                    $('#pageconf_submit input[type="checkbox"]').val('');
-                    editdata(obj.data);
-                  }
-                  else
-                    $('#report').html(obj.message);
-              });
-
-              // Callback handler that will be called on failure
-              request.fail(function (jqXHR, textStatus, errorThrown){
-                  // Log the error to the console
-                  console.error(
-                      "The following error occurred: "+
-                      textStatus, errorThrown
-                  );
-                  $('#report').html('Connection Failed');
-              });
-
-              // Callback handler that will be called regardless
-              // if the request failed or succeeded
-              request.always(function () {
-                  // Reenable the inputs
-                  $inputs.prop("disabled", false);
-              });
+        // Fire off the request to /form.php
+        request = $.ajax({
+          url: "{/literal}{$admin_url}mypage/updateconf{literal}",
+          type: "post",
+          data: serializedData,
         });
 
-        $('#editconf').on('hidden.bs.modal', function () {
-            $('#report').html('');
+        // Callback handler that will be called on success
+        request.done(function (response, textStatus, jqXHR) {
+          // Log a message to the console
+          console.log("Hooray, it worked!");
+          var obj = jQuery.parseJSON(response);
+          //alert(obj.data);
+          if (obj.status == "success") {
+            $("#report_all").html(obj.message);
+            $("#editconf").modal("hide");
+            $('#pageconf_submit input[type="checkbox"]').val("");
+            editdata(obj.data);
+          } else $("#report").html(obj.message);
         });
 
-        // function success_notify()
-        // {
-        //   $("#notify_modal").modal('toggle');
-        //   $("#notify_yes").click(function()
-        //   {
-        //     location.reload();
-        //     //alert('delete this id: '+iddata);
-        //   });
-        // }
+        // Callback handler that will be called on failure
+        request.fail(function (jqXHR, textStatus, errorThrown) {
+          // Log the error to the console
+          console.error(
+            "The following error occurred: " + textStatus,
+            errorThrown
+          );
+          $("#report").html("Connection Failed");
+        });
 
-        // $('#notify_modal').on('hidden.bs.modal', function () {
-        //     location.reload();
-        // });
+        // Callback handler that will be called regardless
+        // if the request failed or succeeded
+        request.always(function () {
+          // Reenable the inputs
+          $inputs.prop("disabled", false);
+        });
+      });
 
-      </script>
-      {/literal}
+      $("#editconf").on("hidden.bs.modal", function () {
+        $("#report").html("");
+      });
 
-    </body>
-    </html>
+      // function success_notify()
+      // {
+      //   $("#notify_modal").modal('toggle');
+      //   $("#notify_yes").click(function()
+      //   {
+      //     location.reload();
+      //     //alert('delete this id: '+iddata);
+      //   });
+      // }
+
+      // $('#notify_modal').on('hidden.bs.modal', function () {
+      //     location.reload();
+      // });
+    </script>
+    {/literal}
+  </body>
+</html>

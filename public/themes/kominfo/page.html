@@ -1,11 +1,10 @@
-{include file='header.html'} {include file='topmenu.html'}
-
+{include file='header.html'} 
 <section class="position-relative">
   <div id="particles-js"></div>
   <div class="container">
     <div class="row text-center">
       <div class="col">
-        <h1 class="font-weight-bold">{$TITLE}</h1>
+        <h1 class="font-weight-bold" style="color: black">{$TITLE}</h1>
         <h3 class="font-weight-bold">{$Detail.vPageName}</h3>
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb justify-content-center bg-transparent p-0 m-0">
@@ -47,10 +46,7 @@ $Detail_Sub.action_form_mail !=""}
             <circle cx="12" cy="10" r="3"></circle>
           </svg>
           <h4 class="mt-5">Address:</h4>
-          <span class="text-dark"
-            >Jl. Tarutung KM. 2 Soposurung, Balige, Kabupaten Toba, Sumatera
-            Utara.</span
-          >
+          <span class="text-dark">{$OPTIONAL.FOOTER.module.alamat}</span>
         </div>
       </div>
       <div class="col-lg-4 col-md-6">
@@ -73,7 +69,9 @@ $Detail_Sub.action_form_mail !=""}
             <polyline points="22,6 12,13 2,6"></polyline>
           </svg>
           <h4 class="mt-5">Email Us</h4>
-          <a href="mailto:kominfo@tobakab.go.id"> kominfo@tobakab.go.id</a>
+          <a href="mailto:{$OPTIONAL.KONTAK.module.email}">
+            {$OPTIONAL.KONTAK.module.email}</a
+          >
         </div>
       </div>
       <div class="col-lg-4 col-md-6">
@@ -95,13 +93,15 @@ $Detail_Sub.action_form_mail !=""}
             ></path>
           </svg>
           <h4 class="mt-5">Phone Number</h4>
-          <a href="tel:+638116337084">+62 811 6337 084</a>
+          <a href="tel:{$OPTIONAL.KONTAK.module.no_telp}"
+            >{$OPTIONAL.KONTAK.module.no_telp}</a
+          >
         </div>
       </div>
     </div>
     <br />
     <iframe
-      src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d996.6318418262849!2d99.05082427099501!3d2.3272967820497366!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sid!2sid!4v1710302498094!5m2!1sid!2sid"
+      src="{$OPTIONAL.KONTAK.module.link_maps}"
       width="600"
       height="450"
       style="
@@ -410,6 +410,67 @@ $Detail_Sub.action_form_mail !=""}
     </div>
 
     {$tContent}
+    {if $listLinkFile[0] != ''}
+<div class="row border-top my-3">
+  <div class="col"><b>Link File</b></div>
+</div>
+
+<div class="list-group mt-0 mb-3">
+  {section name=i loop=$listLinkFile step=1}
+    {assign var="fileType" value=""}
+    {if strpos($listLinkFile[i], 'drive.google.com') !== false}
+        {assign var="fileType" value="google_drive"}
+    {elseif strpos($listLinkFile[i], 'docs.google.com') !== false}
+        {assign var="fileType" value="google_docs"}
+    {elseif strpos($listLinkFile[i], 'sheets.google.com') !== false}
+        {assign var="fileType" value="google_sheets"}
+    {/if}
+    
+    {if $fileType == 'google_drive' || $fileType == 'google_docs' || $fileType == 'google_sheets'}
+        <iframe src="{$listLinkFile[i]}" style="width: 100%; height: 700px;" frameborder="0"></iframe>
+    {else}
+        <a href="{$listLinkFile[i]}" class="list-group-item list-group-item-action text-primary" target="_blank">{$listLinkFile[i]}</a>
+    {/if}
+  {/section}
+  <!-- Add more links as needed -->
+</div>
+{/if}
+
+    <br>
+    {if $listFile|@count > 0}
+    <h4>Lampiran</h4>
+    <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">File</th>
+      <th scope="col">Nama</th>
+    </tr>
+  </thead>
+  <tbody>
+    {section name=i loop=$listFile step=1}
+    <tr>
+      <th scope="row">{$smarty.section.i.index+1}</th>
+      <td>
+        <a {if $listFile[i].type == 'png' || $listFile[i].type == 'jpeg' || $listFile[i].type == 'jpg' || $listFile[i].type == 'gif'}href="{$base_url}{$pageDir}{$listFile[i].id}" data-fancybox="gallery" data-caption="{$listFile[i].name}" {else} href="{$base_url}{$pageDir}{$listFile[i].id}" target="_blank" {/if}>
+          <img src="{if $listFile[i].type == 'png' || $listFile[i].type == 'jpeg' || $listFile[i].type == 'jpg' || $listFile[i].type == 'gif'}{$base_url}{$pageDir}{$listFile[i].id}{else}{$base_url}themes/kominfo/asset/img/docs.png{/if}" class="rounded" alt="" style="width: 60px; height: 60px; object-fit: cover;">
+        </a>
+      </td>
+      <td><a href="{$base_url}{$pageDir}{$listFile[i].id}" target="_blank">{$listFile[i].name}</a><br>
+       {if $listFile[i].type == 'pdf'}
+          <iframe src="{$base_url}{$pageDir}{$listFile[i].id}" style="width: 100%; height: 300px;" frameborder="0"></iframe>
+        {elseif $listFile[i].type == 'png' || $listFile[i].type == 'PNG' || $listFile[i].type == 'jpeg' || $listFile[i].type == 'JPEG' || $listFile[i].type == 'jpg' || $listFile[i].type == 'JPG' || $listFile[i].type == 'gif'}
+        
+          <img src="{$base_url}{$pageDir}{$listFile[i].id}" class="rounded" alt="" style="width: 100%; height: 300px; object-fit: cover;">
+        {else}
+          <img src="{$base_url}themes/kominfo/asset/img/docs.png" class="rounded" alt="" style="width: 100%; height: 300px; object-fit: cover;">
+        {/if}</td>
+    </tr>
+    {/section}
+  </tbody>
+</table>
+{/if}
+
   </div>
 </section>
 {/if} {* $Detail.tContent *} {include file='footer.html'}

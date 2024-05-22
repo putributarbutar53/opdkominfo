@@ -10,6 +10,7 @@
     />
     <link href="assets/lib/prismjs/prism-okaidia.css" rel="stylesheet" />
     <link href="assets/lib/dropzone/dropzone.min.css" rel="stylesheet" />
+    <link href="assets/lib/select2/select2.min.css" rel="stylesheet" />
     <link href="assets/css/theme.css" rel="stylesheet" />
   </head>
 
@@ -53,21 +54,52 @@
         {if $detailPageConf.iEditor == '1'}
         <div class="min-vh-50">
           <textarea
-            class="tinymce d-none"
+            class="form form-control tinymce"
             id="tContent"
             name="tContent"
           ></textarea>
         </div>
         {else}
         <textarea
-          class="form form-control"
+          class="form form-control tinymce"
           cols="80"
           rows="5"
           id="tContent"
           name="tContent"
         ></textarea
         ><br />
-        {/if} {/if} Tanggal Publikasi:<br />
+
+        {/if} {/if} {if $detailPageConf.iAttch == '1'} Lampiran: <br />
+        <!-- <input type="file" name="attacment" id="files_add" /><br /><br /> -->
+        <div class="row">
+          <div class="col">
+            <ul id="Listfile"></ul>
+          </div>
+        </div>
+        <!-- Input file yang disembunyikan -->
+        <!-- Input file -->
+        <div class="custom-file">
+          <input
+            class="d-none"
+            id="file_add"
+            name="files[]"
+            multiple
+            type="file"
+          />
+          <label class="btn btn-primary btn-sm" for="file_add"
+            ><span class="fas fa-camera fs-1"></span> Upload file</label
+          >
+        </div>
+        {/if} {if $detailPageConf.iLink == '1'} Link File :
+        <button
+          class="btn btn-info btn-sm my-3"
+          type="button"
+          id="btn_addsub_form"
+          onclick="addsubform()"
+        >
+          <i class="fas fa-plus-square"></i> Link File</button
+        ><br />
+        {/if} Tanggal Publikasi:<br />
         <div class="form-group">
           <input
             class="form-control editdatetimepicker"
@@ -214,13 +246,42 @@
     <script src="assets/lib/flatpickr/flatpickr.min.js"></script>
     <script src="assets/lib/dropzone/dropzone.min.js"></script>
     <script src="assets/lib/tinymce/tinymce.min.js"></script>
+    <script src="assets/lib/select2/select2.min.js"></script>
     <script src="assets/js/theme.js"></script>
 
     <script>
+      function addsubform() {
+        $(
+          '<input type="text" name="linkFile[]" class="form-control mb-3" multiple placeholder="Link File">'
+        ).insertAfter("#btn_addsub_form");
+      }
+      $(document).ready(function () {
+        if (window.File && window.FileReader) {
+          $("#file_add").on("change", function (e) {
+            var files = e.target.files,
+              filesLength = files.length;
+            for (var i = 0; i < filesLength; i++) {
+              var fileName = files[i].name;
+              $(
+                "<li>" +
+                  fileName +
+                  " <i class='fas fa-times text-danger hapusGambar'></i></li>"
+              ).appendTo("#a");
+              $(".hapusGambar").click(function () {
+                $(this).parent().remove();
+              });
+            }
+          });
+        } else {
+          alert("Your browser doesn't support to File API");
+        }
+      });
+
       var request;
       $("#addsub_submit").submit(function (event) {
-        var noEditor = $("#no_editor").val();
-        if (noEditor == "no") tinymce.triggerSave();
+        // var noEditor = $("#no_editor").val();
+        // if (noEditor == "no")
+        tinymce.triggerSave();
 
         // Prevent default posting of form - put here to work in case of errors
         event.preventDefault();
@@ -230,7 +291,7 @@
         }
 
         var formData = new FormData(this);
-
+        console.log(formData);
         var noPic = $("#no_picture").val();
         if (noPic == "no")
           formData.append(
@@ -276,7 +337,7 @@
             $("#report_all").html(obj.message);
             $("#addsub").modal("hide");
             $('#addsub_submit input[type="text"]').val("");
-            $('#addsub_submit input[type="file"]').val("");
+            // $('#addsub_submit input[type="file"]').val("");
             $("#addsub_submit textarea").val("");
             datapage();
           } else $("#report").html(obj.message);

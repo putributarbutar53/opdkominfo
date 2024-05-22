@@ -39,6 +39,41 @@
             {/if}
             <input type="hidden" name="tContent_status" value="1" />
           {/if}
+          {if $detailCategory.iAttch == '1'}
+          Lampiran:<br />
+          <div class="row">
+          <div class="col">
+            <ul id="ListAttch"></ul>
+          </div>
+        </div>
+        <!-- Input file yang disembunyikan -->
+        <!-- Input file -->
+        <div class="custom-file">
+          <input
+            class="d-none"
+            id="file_add"
+            name="files[]"
+            multiple
+            type="file"
+          />
+          <label class="btn btn-primary btn-sm" for="file_add"
+            ><span class="fas fa-camera fs-1"></span> Upload file</label
+          >
+        </div>
+          <br />
+          {/if}
+          {if $detailCategory.iLink == '1'}
+Link File :
+        <button
+          class="btn btn-info btn-sm my-3"
+          type="button"
+          id="btn_add_form"
+          onclick="addform()"
+        >
+          <i class="fas fa-plus-square"></i> Link File</button
+        ><br />
+          {/if}
+          
 
           <!-- Tanggal Publikasi:<br />
           <div class="form-group">
@@ -128,11 +163,38 @@
       <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:100,200,300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
       <script src="assets/lib/prismjs/prism.js"></script>
       <script src="assets/lib/flatpickr/flatpickr.min.js"></script>
-      <script src="assets/lib/dropzone/dropzone.min.js"></script>
+      <script src="assets/lib/dropzone/dropzone.min.js"></script>    
+      <script src="assets/lib/select2/select2.min.js"></script>
       <script src="assets/lib/tinymce/tinymce.min.js"></script>
       <script src="assets/js/theme.js"></script>
 
       <script>
+         function addform() {
+        $(
+          '<input type="text" name="linkFile[]" class="form-control mb-3" multiple placeholder="Link File">'
+        ).insertAfter("#btn_add_form");
+      }
+        $(document).ready(function () {
+    if (window.File && window.FileReader) { // Mengganti window.ListAttch menjadi window.FileReader
+        $("#file_add").on("change", function (e) {
+            var files = e.target.files,
+                filesLength = files.length;
+            for (var i = 0; i < filesLength; i++) {
+                var fileName = files[i].name;
+                $(
+                    "<li>" +
+                    fileName +
+                    " <i class='fas fa-times text-danger hapusGambar'></i></li>"
+                ).appendTo("#ListAttch"); // Mengganti #Listfile menjadi #ListAttch
+                $(".hapusGambar").click(function () {
+                    $(this).parent().remove();
+                });
+            }
+        });
+    } else {
+        alert("Your browser doesn't support to File API");
+    }
+});
 
         var request;
         $("#add_submit").submit(function(event){
@@ -254,9 +316,9 @@
         defaultDate: now // Set tanggal awal ke tanggal saat ini
     });
 
-    $(".selectpicker").select2({
-        dropdownParent: $("#add")
-    });
+    // $(".selectpicker").select2({
+    //     dropdownParent: $("#add")
+    // });
 
     $(".dropzone").dropzone({
         url: 'valid/url',
