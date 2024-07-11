@@ -50,17 +50,9 @@
             <div class="card-body bg-light">
               <div class="row">
                 <div class="col-lg-4">
-                  <form
-                    id="file_submit"
-                    method="post"
-                    enctype="multipart/form-data"
-                  >
+                  <form id="file_submit" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="dir" id="dir_file" />
-                    <input
-                      type="hidden"
-                      name="MAX_FILE_SIZE"
-                      value="{$maxFileSize}"
-                    />
+                    <input type="hidden" name="MAX_FILE_SIZE" value="{$maxFileSize}" />
                     <h5>Upload File</h5>
                     <p>
                       <input
@@ -70,17 +62,9 @@
                         id="uFile"
                         size="40"
                       /><br />
-                      <input
-                        type="submit"
-                        value="UPLOAD"
-                        class="btn btn-info"
-                      />
+                      <input type="submit" value="UPLOAD" class="btn btn-info" />
                     </p>
-                    <div
-                      class="progress"
-                      id="progress_bar"
-                      style="visibility: hidden"
-                    >
+                    <div class="progress" id="progress_bar" style="visibility: hidden">
                       <div
                         id="uploadProgressBar"
                         class="progress-bar progress-bar-striped progress-bar-animated"
@@ -94,7 +78,7 @@
                     <span id="loaded_n_total" style="visibility: hidden"></span>
                   </form>
                 </div>
-
+          
                 <div class="col-lg-4">
                   <form id="directory_submit">
                     <input type="hidden" name="dir" id="dir_folder" />
@@ -120,7 +104,7 @@
               </div>
             </div>
           </div>
-
+          
           <span id="file_content"></span>
 
           {include file='modal-lg.html'} {include file='footer.html'}
@@ -155,8 +139,7 @@
     <script type="text/javascript">
       function getfilemanager(iddata) {
         $.post(
-          "{/literal}{$admin_url}myfile/getfilemanager?dir={literal}" + iddata,
-          { dir: iddata },
+          "{/literal}{$admin_url}myfile/getfilemanager?dir={literal}" + iddata,{dir: iddata},
           function (data, status) {
             var obj = jQuery.parseJSON(data);
             $("#file_content").html(obj.content);
@@ -173,8 +156,7 @@
             "{/literal}{$admin_url}myfile/deletefile{literal}?fname=" +
               thefile +
               "&dir=" +
-              thefolder,
-            { dir: thefolder },
+              thefolder,{dir:thefolder},
             function (data, status) {
               var obj = jQuery.parseJSON(data);
               if (obj.status == "success") {
@@ -195,8 +177,7 @@
             "{/literal}{$admin_url}myfile/deletefolder{literal}?fname=" +
               thefile +
               "&dir=" +
-              thefolder,
-            { dir: thefolder },
+              thefolder,{dir:thefolder},
             function (data, status) {
               var obj = jQuery.parseJSON(data);
               if (obj.status == "success") {
@@ -213,166 +194,156 @@
       $(document).ready(function () {
         getfilemanager("");
       });
+      
+  function uploadProgressHandler(event) {
+    $("#loaded_n_total").html(
+      "Uploaded " + event.loaded + " bytes of " + event.total
+    );
+    var percent = (event.loaded / event.total) * 100;
+    var progress = Math.round(percent);
+    $("#uploadProgressBar").html(progress + "%");
+    $("#uploadProgressBar").css("width", progress + "%");
+    $("#status").html(progress + "% uploaded... please wait");
+  }
 
-      function uploadProgressHandler(event) {
-        $("#loaded_n_total").html(
-          "Uploaded " + event.loaded + " bytes of " + event.total
-        );
-        var percent = (event.loaded / event.total) * 100;
-        var progress = Math.round(percent);
-        $("#uploadProgressBar").html(progress + "%");
-        $("#uploadProgressBar").css("width", progress + "%");
-        $("#status").html(progress + "% uploaded... please wait");
-      }
+  function loadHandler(event) {
+    $("#status").html(event.target.responseText);
+    $("#uploadProgressBar").css("width", "0%");
+  }
 
-      function loadHandler(event) {
-        $("#status").html(event.target.responseText);
-        $("#uploadProgressBar").css("width", "0%");
-      }
+  function errorHandler(event) {
+    $("#status").html("Upload Failed");
+  }
 
-      function errorHandler(event) {
-        $("#status").html("Upload Failed");
-      }
+  function abortHandler(event) {
+    $("#status").html("Upload Aborted");
+  }
 
-      function abortHandler(event) {
-        $("#status").html("Upload Aborted");
-      }
+  var request;
+  $("#file_submit").submit(function (event) {
+    var nama_folder = $('#dir_file').val();
+    if ($("#uFile").get(0).files.length !== 0) {
+      $("#progress_bar").css("visibility", "visible");
+      $("#loaded_n_total").css("visibility", "visible");
+    }
 
-      var request;
-      $("#file_submit").submit(function (event) {
-        var nama_folder = $("#dir_file").val();
-        if ($("#uFile").get(0).files.length !== 0) {
-          $("#progress_bar").css("visibility", "visible");
-          $("#loaded_n_total").css("visibility", "visible");
-        }
+    // Prevent default posting of form - put here to work in case of errors
+    event.preventDefault();
+    // Abort any pending request
+    if (request) {
+      request.abort();
+    }
 
-        // Prevent default posting of form - put here to work in case of errors
-        event.preventDefault();
-        // Abort any pending request
-        if (request) {
-          request.abort();
-        }
+    var formData = new FormData(this);
 
-        var formData = new FormData(this);
+    // Fire off the request to /form.php
+    request = $.ajax({
+      url: "{/literal}{$admin_url}myfile/uploadfile{literal}",
+      type: "post",
+      //data: serializedData,
+      data: formData,
+      cache: false,
+      contentType: false,
+      processData: false,
+      xhr: function () {
+        var xhr = new window.XMLHttpRequest();
+        xhr.upload.addEventListener("progress", uploadProgressHandler, false);
+        xhr.addEventListener("load", loadHandler, false);
+        xhr.addEventListener("error", errorHandler, false);
+        xhr.addEventListener("abort", abortHandler, false);
+        return xhr;
+      },
+    });
 
-        // Fire off the request to /form.php
-        request = $.ajax({
-          url: "{/literal}{$admin_url}myfile/uploadfile{literal}",
-          type: "post",
-          //data: serializedData,
-          data: formData,
-          cache: false,
-          contentType: false,
-          processData: false,
-          xhr: function () {
-            var xhr = new window.XMLHttpRequest();
-            xhr.upload.addEventListener(
-              "progress",
-              uploadProgressHandler,
-              false
-            );
-            xhr.addEventListener("load", loadHandler, false);
-            xhr.addEventListener("error", errorHandler, false);
-            xhr.addEventListener("abort", abortHandler, false);
-            return xhr;
-          },
-        });
+    // Callback handler that will be called on success
+    request.done(function (response, textStatus, jqXHR) {
+      // Log a message to the console
+      // console.log(response);
+      var obj = jQuery.parseJSON(response);
+      //alert(response);
+      if (obj.status == "success") {
+        //$('#report_all').html(obj.message);
+        $("#report_all").html(obj.message);
+        
+        $('#file_submit input[type="file"]').val("");
+        getfilemanager(nama_folder);
+      } else $("#report_all").html(obj.message);
+      $("#progress_bar").css("visibility", "hidden");
+      $("#loaded_n_total").css("visibility", "hidden");
+    });
 
-        // Callback handler that will be called on success
-        request.done(function (response, textStatus, jqXHR) {
-          // Log a message to the console
-          // console.log(response);
-          var obj = jQuery.parseJSON(response);
-          //alert(response);
-          if (obj.status == "success") {
-            //$('#report_all').html(obj.message);
-            $("#report_all").html(obj.message);
+    // Callback handler that will be called on failure
+    request.fail(function (jqXHR, textStatus, errorThrown) {
+      // Log the error to the console
+      console.error("The following error occurred: " + textStatus, errorThrown);
+      $("#report_all").html("Connection Failed");
+    });
 
-            $('#file_submit input[type="file"]').val("");
-            getfilemanager(nama_folder);
-          } else $("#report_all").html(obj.message);
-          $("#progress_bar").css("visibility", "hidden");
-          $("#loaded_n_total").css("visibility", "hidden");
-        });
+    // Callback handler that will be called regardless
+    // if the request failed or succeeded
+    request.always(function () {
+      // Reenable the inputs
+      // $inputs.prop("disabled", false);
+    });
+  });
 
-        // Callback handler that will be called on failure
-        request.fail(function (jqXHR, textStatus, errorThrown) {
-          // Log the error to the console
-          console.error(
-            "The following error occurred: " + textStatus,
-            errorThrown
-          );
-          $("#report_all").html("Connection Failed");
-        });
+  var request;
+  $("#directory_submit").submit(function (event) {
+    var nama_folder = $('#dir_file').val();
+    // Prevent default posting of form - put here to work in case of errors
+    event.preventDefault();
+    // Abort any pending request
+    if (request) {
+      request.abort();
+    }
+    // setup some local variables
+    var $form = $(this);
 
-        // Callback handler that will be called regardless
-        // if the request failed or succeeded
-        request.always(function () {
-          // Reenable the inputs
-          // $inputs.prop("disabled", false);
-        });
-      });
+    // Let's select and cache all the fields
+    var $inputs = $form.find("input, select, button, textarea");
 
-      var request;
-      $("#directory_submit").submit(function (event) {
-        var nama_folder = $("#dir_file").val();
-        // Prevent default posting of form - put here to work in case of errors
-        event.preventDefault();
-        // Abort any pending request
-        if (request) {
-          request.abort();
-        }
-        // setup some local variables
-        var $form = $(this);
+    // Serialize the data in the form
+    var serializedData = $form.serialize();
 
-        // Let's select and cache all the fields
-        var $inputs = $form.find("input, select, button, textarea");
+    // Let's disable the inputs for the duration of the Ajax request.
+    // Note: we disable elements AFTER the form data has been serialized.
+    // Disabled form elements will not be serialized.
+    //$inputs.prop("disabled", true);
 
-        // Serialize the data in the form
-        var serializedData = $form.serialize();
+    // Fire off the request to /form.php
+    request = $.ajax({
+      url: "{/literal}{$admin_url}myfile/createdir{literal}",
+      type: "post",
+      data: serializedData,
+    });
 
-        // Let's disable the inputs for the duration of the Ajax request.
-        // Note: we disable elements AFTER the form data has been serialized.
-        // Disabled form elements will not be serialized.
-        //$inputs.prop("disabled", true);
+    // Callback handler that will be called on success
+    request.done(function (response, textStatus, jqXHR) {
+      // Log a message to the console
+      // console.log("Hooray, it worked!");
+      var obj = jQuery.parseJSON(response);
+      //alert(obj.data);
+      if (obj.status == "success") {
+        $("#report_all").html(obj.message);
+        $('#directory_submit input[type="text"]').val("");
+        getfilemanager(nama_folder);
+      } else $("#report_all").html(obj.message);
+    });
 
-        // Fire off the request to /form.php
-        request = $.ajax({
-          url: "{/literal}{$admin_url}myfile/createdir{literal}",
-          type: "post",
-          data: serializedData,
-        });
+    // Callback handler that will be called on failure
+    request.fail(function (jqXHR, textStatus, errorThrown) {
+      // Log the error to the console
+      console.error("The following error occurred: " + textStatus, errorThrown);
+      $("#report_all").html("Connection Failed");
+    });
 
-        // Callback handler that will be called on success
-        request.done(function (response, textStatus, jqXHR) {
-          // Log a message to the console
-          // console.log("Hooray, it worked!");
-          var obj = jQuery.parseJSON(response);
-          //alert(obj.data);
-          if (obj.status == "success") {
-            $("#report_all").html(obj.message);
-            $('#directory_submit input[type="text"]').val("");
-            getfilemanager(nama_folder);
-          } else $("#report_all").html(obj.message);
-        });
-
-        // Callback handler that will be called on failure
-        request.fail(function (jqXHR, textStatus, errorThrown) {
-          // Log the error to the console
-          console.error(
-            "The following error occurred: " + textStatus,
-            errorThrown
-          );
-          $("#report_all").html("Connection Failed");
-        });
-
-        // Callback handler that will be called regardless
-        // if the request failed or succeeded
-        request.always(function () {
-          // Reenable the inputs
-          $inputs.prop("disabled", false);
-        });
-      });
+    // Callback handler that will be called regardless
+    // if the request failed or succeeded
+    request.always(function () {
+      // Reenable the inputs
+      $inputs.prop("disabled", false);
+    });
+  });
     </script>
     {/literal}
   </body>
