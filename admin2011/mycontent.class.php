@@ -242,7 +242,10 @@ class mycontent extends Core
 
 	function edit()
 	{
+		$detailContent = $this->Module->Content->detailContent($this->Id);
 		$this->Template->assign("Detail", $this->Module->Content->detailContent($this->Id));
+		$this->Template->assign('listFile', json_decode($detailContent['attacment'], true));
+		$this->Template->assign('listLink', json_decode($detailContent['File'], true));
 		echo $this->Template->ShowAdmin("content/content_edit.html");
 	}
 
@@ -468,6 +471,19 @@ class mycontent extends Core
 
 		echo json_encode($response);
 	}
+	private function replaceGoogleDriveLink($url)
+	{
+		// Memeriksa apakah URL mengandung string yang menunjukkan bahwa itu adalah link Google Drive
+		if (strpos($url, 'drive.google.com') !== false) {
+			// Mengganti '/view' dengan '/preview'
+			$explode = explode("view", $url);
+
+			return $explode[0] . "preview";
+		} else {
+			// Jika URL bukan link Google Drive yang diharapkan, kembalikan URL asli
+			return $url;
+		}
+	}
 
 	function submit()
 	{
@@ -483,6 +499,33 @@ class mycontent extends Core
 		$vMetaDesc = $_POST['vMetaDesc'];
 		$vMetaKeyword = $_POST['vMetaKeyword'];
 		$iStatus = $_POST['iStatus'];
+		$attch = $_FILES['attch'];
+		$gambar = array();
+		for ($i = 0; $i < count($attch['name']); $i++) {
+			$type_array = explode('.', $attch['name'][$i]);
+			$myfile[$i]  =  array(
+				'name' => $attch['name'][$i],
+				'type' => $attch['type'][$i],
+				'tmp_name' => $attch['tmp_name'][$i],
+				'error' => $attch['error'][$i],
+				'size' => $attch['size'][$i]
+			);
+			$simpanFile = $this->Pile->saveFile($myfile[$i], "file_" . date('YmdHis') . rand(0, 9) . rand(0, 9) . rand(0, 9));
+			if ($simpanFile) {
+				$gambar[$i] = array(
+					'id' => $simpanFile,
+					'name' => $myfile[$i]['name'],
+					'file_size' => $myfile[$i]['size'],
+					'type' => end($type_array)
+				);
+			}
+		}
+		$attacment = json_encode($gambar);
+		$linkFileContent = $_POST['File'];
+		for ($i = 0; $i < count($linkFileContent); $i++) {
+			if ($linkFileContent[$i] != "") $FileFilter[] = $this->replaceGoogleDriveLink($linkFileContent[$i]);
+		}
+		$File = json_encode($FileFilter);
 
 		$Action = $_POST['action'];
 
@@ -501,7 +544,9 @@ class mycontent extends Core
 						'vMetaTitle' => $vMetaTitle,
 						'vMetaDesc' => $vMetaDesc,
 						'vMetaKeyword' => $vMetaKeyword,
-						'iStatus' => $iStatus
+						'iStatus' => $iStatus,
+						'attacment' => $attacment,
+						'File' => $File
 					))) {
 						$Return = array(
 							'status' => 'success',
@@ -538,7 +583,24 @@ class mycontent extends Core
 						'vMetaKeyword' => $vMetaKeyword,
 						'iStatus' => $iStatus
 					);
+					if ($gambar[0]) {
+						$gambarL = json_decode($detailContent['attacment'], true);
+						if (is_array($gambarL))
+							$UpdateField['attacment'] = array_merge($gambar, $gambarL);
+						else
+							$UpdateField['attacment'] = $gambar;
 
+						$UpdateField['attacment'] = json_encode($UpdateField['attacment']);
+					}
+					if ($_POST['File'][0]) {
+						$FileL = json_decode($detailContent['File'], true);
+						if (is_array($FileL))
+							$UpdateField['File'] = array_merge($FileFilter, $FileL);
+						else
+							$UpdateField['File'] = $linkFileContent;
+
+						$UpdateField['File'] = json_encode($UpdateField['File']);
+					}
 					if ($vGambar != "") {
 						$this->Pile->deleteOldFile($detailContent['vGambar']);
 						$UpdateField = array_merge($UpdateField, array('vGambar' => $vGambar));
@@ -756,6 +818,56 @@ class mycontent extends Core
 			);
 		}
 
+		echo json_encode($Return);
+	}
+	function deletefile()
+	{
+		$idLamp = $_GET['file'];
+		$detail = $this->Module->Content->detailContent($this->Id);
+		$file = json_decode($detail['attacment'], true);
+		$this->Pile->deleteOldFile($idLamp);
+		$key = array_search($_GET['file'], array_column($file, 'id'));
+		unset($file[$key]);
+		$resultFile = array_values($file);
+		if ($this->Module->Content->updateContent(array('attacment' => json_encode($resultFile)), $this->Id)) {
+			$Return = array(
+				'status' => 'success',
+				'message' => $this->Template->showMessage('success', 'File telah dihapus'),
+				'data' => ''
+			);
+		} else {
+			$Return = array(
+				'status' => 'error',
+				'message' => $this->Template->showMessage('error', 'Ops! Terjadi kesalahan'),
+				'data' => ''
+			);
+		}
+		echo json_encode($Return);
+	}
+	function deletelink()
+	{
+		// $idlink = $_GET['link'];
+		$detail = $this->Module->Content->detailContent($this->Id);
+		$link = json_decode($detail['File'], true);
+		// $this->Pile->deleteOldFile($idlink);
+		$key = array_search($_POST['link'], $link);
+		if ($key !== "") {
+			unset($link[$key]);
+		}
+		$resultLink = array_values($link);
+		if ($this->Module->Content->updateContent(array('File' => json_encode($resultLink)), $this->Id)) {
+			$Return = array(
+				'status' => 'success',
+				'message' => $this->Template->showMessage('success', 'Link telah dihapus'),
+				'data' => ''
+			);
+		} else {
+			$Return = array(
+				'status' => 'error',
+				'message' => $this->Template->showMessage('error', 'Ops! Terjadi kesalahan'),
+				'data' => ''
+			);
+		}
 		echo json_encode($Return);
 	}
 }

@@ -418,23 +418,27 @@ $Detail_Sub.action_form_mail !=""}
 <div class="list-group mt-0 mb-3">
   {section name=i loop=$listLinkFile step=1}
     {assign var="fileType" value=""}
+    {assign var="embedLink" value=$listLinkFile[i]}
+    
     {if strpos($listLinkFile[i], 'drive.google.com') !== false}
         {assign var="fileType" value="google_drive"}
     {elseif strpos($listLinkFile[i], 'docs.google.com') !== false}
         {assign var="fileType" value="google_docs"}
+        {assign var="embedLink" value=$listLinkFile[i]|replace:'edit':'preview'}
     {elseif strpos($listLinkFile[i], 'sheets.google.com') !== false}
         {assign var="fileType" value="google_sheets"}
+        {assign var="embedLink" value=$listLinkFile[i]|replace:'edit':'htmlview'}
     {/if}
     
     {if $fileType == 'google_drive' || $fileType == 'google_docs' || $fileType == 'google_sheets'}
-        <iframe src="{$listLinkFile[i]}" style="width: 100%; height: 700px;" frameborder="0"></iframe>
+        <iframe src="{$embedLink}?embedded=true" style="width: 100%; height: 700px;" frameborder="0"></iframe>
     {else}
         <a href="{$listLinkFile[i]}" class="list-group-item list-group-item-action text-primary" target="_blank">{$listLinkFile[i]}</a>
     {/if}
   {/section}
-  <!-- Add more links as needed -->
 </div>
 {/if}
+
 
     <br>
     {if $listFile|@count > 0}

@@ -16,7 +16,7 @@ class index extends Core
 		$this->Template->assign("Id", $this->Id);
 	}
 
-function main()
+	function main()
 	{
 		if ($this->Submit) {
 			switch ($this->Action) {
