@@ -26,7 +26,6 @@
 {include file='marquee.html'} {include file='search-box.html'} {if
 $Detail_Sub.action_form_mail !=""}
 <section>
-  
   <div class="container">
     <div class="row text-center">
       <div class="col-lg-4 col-md-12">
@@ -47,7 +46,10 @@ $Detail_Sub.action_form_mail !=""}
             <circle cx="12" cy="10" r="3"></circle>
           </svg>
           <h4 class="mt-5">Address:</h4>
-          <span class="text-dark">{$OPTIONAL.FOOTER.module.alamat}</span>
+          <span class="text-dark"
+            >Jl. Tarutung KM. 2 Soposurung, Balige, Kabupaten Toba, Sumatera
+            Utara.</span
+          >
         </div>
       </div>
       <div class="col-lg-4 col-md-6">
@@ -70,9 +72,7 @@ $Detail_Sub.action_form_mail !=""}
             <polyline points="22,6 12,13 2,6"></polyline>
           </svg>
           <h4 class="mt-5">Email Us</h4>
-          <a href="mailto:{$OPTIONAL.KONTAK.module.email}">
-            {$OPTIONAL.KONTAK.module.email}</a
-          >
+          <a href="mailto:kominfo@tobakab.go.id"> kominfo@tobakab.go.id</a>
         </div>
       </div>
       <div class="col-lg-4 col-md-6">
@@ -94,15 +94,13 @@ $Detail_Sub.action_form_mail !=""}
             ></path>
           </svg>
           <h4 class="mt-5">Phone Number</h4>
-          <a href="tel:{$OPTIONAL.KONTAK.module.no_telp}"
-            >{$OPTIONAL.KONTAK.module.no_telp}</a
-          >
+          <a href="tel:+638116337084">+62 811 6337 084</a>
         </div>
       </div>
     </div>
     <br />
     <iframe
-      src="{$OPTIONAL.KONTAK.module.link_maps}"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3986.5150673775506!2d99.04834887410311!3d2.331642457635649!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x302e04f35abf4553%3A0x3d45fb57eebf885f!2sKantor%20Bupati%20Kabupaten%20Toba!5e0!3m2!1sid!2sid!4v1684828798962!5m2!1sid!2sid"
       width="600"
       height="450"
       style="
