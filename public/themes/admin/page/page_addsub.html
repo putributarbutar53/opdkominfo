@@ -259,22 +259,24 @@
         if (window.File && window.FileReader) {
           $("#file_add").on("change", function (e) {
             let number = 0;
-            if (number == 0) {
-              var files = e.target.files,
-                filesLength = files.length;
-              for (var i = 0; i < filesLength; i++) {
-                var fileName = files[i].name;
-                $(
-                  "<li>" +
-                    fileName +
-                    " <i class='fas fa-times text-danger hapusGambar'></i></li>"
-                ).appendTo("#Listfile");
-                $(".hapusGambar").click(function () {
-                  $(this).parent().remove();
-                });
-              }
-              number++;
+            if(number == 0) {
+ var files = e.target.files,
+              filesLength = files.length;
+            for (var i = 0; i < filesLength; i++) {
+              var fileName = files[i].name;
+              $(
+                "<li>" +
+                  fileName +
+                  " <i class='fas fa-times text-danger hapusGambar'></i></li>"
+              ).appendTo("#Listfile");
+              $(".hapusGambar").click(function () {
+                $(this).parent().remove();
+              });
             }
+            number++;
+            }
+            
+           
           });
         } else {
           alert("Your browser doesn't support to File API");
