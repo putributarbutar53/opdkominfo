@@ -179,7 +179,7 @@ class myfile extends Core
 	function main_old()
 	{
 		$uploadDir = $this->Config['upload']['dir'] . "/";
-		$MainURL = $this->['base']['url'] . $this->Config['index']['page'] . $this->Config['base']['admin'] . "/myfile";
+		$MainURL = $this->Config['base']['url'] . $this->Config['index']['page'] . $this->Config['base']['admin'] . "/myfile";
 		$Dir_ = ($_POST['dir']) ? $_POST['dir'] : "";
 
 		$this->Dir = ($Dir_) ? $uploadDir . $Dir_ . "/" : $uploadDir;
