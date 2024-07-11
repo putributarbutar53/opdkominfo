@@ -17,7 +17,37 @@
           <div class="form-group">
             <input class="form-control editdatetimepicker" name="dPublishDate" value="{$Detail.dPublishDate}" id="datetimepicker" type="text" placeholder="yyyy-mm-dd H:i" data-options='{literal}{"dateFormat":"d/m/y H:i"}{/literal}'>
           </div>
+
+          Lampiran:<br />
+          <div class="row">
+          <div class="col">
+            <ul id="lampiran"></ul>
+          </div>
+        </div>
+        <!-- Input file yang disembunyikan -->
+        <!-- Input file -->
+        <div class="custom-file">
+          <input
+            class="d-none"
+            id="lamp_add"
+            name="attch[]"
+            multiple
+            type="file"
+          />
+          <label class="btn btn-primary btn-sm" for="lamp_add"
+            ><span class="fas fa-camera fs-1"></span> Upload file</label
+          >
+        </div>
           <br />
+          Link File :
+        <button
+          class="btn btn-info btn-sm my-3"
+          type="button"
+          id="btn_link"
+          onclick="addContent()"
+        >
+          <i class="fas fa-plus-square"></i> Link File</button
+        ><br />
 
           Detail:<br />
           <textarea class="form form-control tinymce" cols="80" rows="10" id="tDetail" name="tDetail">{$Detail.tDetail}</textarea>
@@ -75,6 +105,32 @@
 
       {literal}
       <script>
+        function addContent() {
+        $(
+          '<input type="text" name="File[]" class="form-control mb-3" multiple placeholder="Link File">'
+        ).insertAfter("#btn_link");
+      }
+        $(document).ready(function () {
+    if (window.File && window.FileReader) { // Mengganti window.lampiran menjadi window.FileReader
+        $("#lamp_add").on("change", function (e) {
+            var files = e.target.files,
+                filesLength = files.length;
+            for (var i = 0; i < filesLength; i++) {
+                var fileName = files[i].name;
+                $(
+                    "<li>" +
+                    fileName +
+                    " <i class='fas fa-times text-danger hapusGambar'></i></li>"
+                ).appendTo("#lampiran"); // Mengganti #Listfile menjadi #lampiran
+                $(".hapusGambar").click(function () {
+                    $(this).parent().remove();
+                });
+            }
+        });
+    } else {
+        alert("Your browser doesn't support to File API");
+    }
+});
 
         var request;
         $("#add_submit").submit(function(event){

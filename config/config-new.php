@@ -11,12 +11,12 @@ $config['db']['zone'] = "";
 $config['db']['host']    = "localhost";
 $config['db']['user']    = "root";
 $config['db']['pass']     = "";
-$config['db']['name']    = "db_politeknik";
+$config['db']['name']    = "db_opdkominfo";
 
 //Base URL
-$config['main']['url'] = "http://" . $_SERVER['HTTP_HOST'] . "/new_companypro_jquery/public/";
-$config['base']['url'] = "http://" . $_SERVER['HTTP_HOST'] . "/new_companypro_jquery/public/";
-$config['file']['url']    = "http://" . $_SERVER['HTTP_HOST'] . "/new_companypro_jquery/public/upload/";
+$config['main']['url'] = "http://" . $_SERVER['HTTP_HOST'] . "/opdkominfo/public/";
+$config['base']['url'] = "http://" . $_SERVER['HTTP_HOST'] . "/opdkominfo/public/";
+$config['file']['url']    = "http://" . $_SERVER['HTTP_HOST'] . "/opdkominfo/public/upload/";
 
 //Index Page
 $config['index']['page'] = "index.php/";
@@ -25,8 +25,8 @@ $config['index']['page'] = "index.php/";
 $config['default']['domain'] = "localhost";
 
 //Themes
-$config['main']['themes'] = "themes/beranda/";
-$config['mobile']['themes'] = "themes/beranda/";
+$config['main']['themes'] = "themes/kominfo/";
+$config['mobile']['themes'] = "themes/kominfo/";
 $config['admin']['themes'] = "themes/admin/";
 
 //Compile Dir

@@ -17,7 +17,46 @@
     <div class="form-group">
       <input class="form-control editdatetimepicker" name="dPublishDate" value="{$Detail.dPublishDate}" id="datetimepicker" type="text" placeholder="yyyy-mm-dd H:i" data-options='{literal}{"dateFormat":"d/m/y H:i"}{/literal}'>
     </div>
-    <br />
+
+    Lampiran: <br />
+{section name=i loop=$listFile step=1}
+    {$listFile[i].name}<button class="btn btn-sm" type="button" onclick="hapuslamp('{$listFile[i].id}','{$smarty.section.i.index}')"><span class="fas fa-trash-alt text-danger mt-n4"></span></button><br>
+    
+{/section}
+
+<div class="row">
+          <div class="col">
+            <ul id="LampEdit"></ul>
+          </div>
+        </div>
+<div class="custom-file">
+          <input
+            class="d-none"
+            id="lamp_edit"
+            name="attch[]"
+            multiple
+            type="file"
+          />
+          <label class="btn btn-primary btn-sm" for="lamp_edit"
+            ><span class="fas fa-camera fs-1"></span> Upload file</label
+          >
+        </div><br>
+          Link File :
+        <button
+          class="btn btn-info btn-sm my-3"
+          type="button"
+          id="btn_edit_link"
+          onclick="editContent()"
+        >
+          <i class="fas fa-plus-square"></i> Link File</button
+        >
+        <br>
+        {section name=i loop=$listLink step=1}
+  <a href="{$listLink[i]}" target="_blank">{$listLink[i]}</a><button class="btn btn-sm" type="button" onclick="deletelink('{$listLink[i]}')"><span class="fas fa-trash-alt text-danger mt-n4"></span></button><br>
+{/section}
+<br />
+
+    
 
     Detail:<br />
     <textarea class="form form-control tinymce" cols="80" rows="10" id="tDetail" name="tDetail">{$Detail.tDetail}</textarea>
@@ -77,6 +116,89 @@
   {literal}
 
   <script>
+    function editContent() {
+        $(
+          '<input type="text" name="File[]" class="form-control mb-3" multiple placeholder="Link File">'
+        ).insertAfter("#btn_edit_link");
+      }
+    function hapuslamp(iddata, keydata)
+        {
+          $("#alert_modal").modal('toggle');
+          let aa = 1;
+          $("#click_yes").click(function()
+          {
+            if(aa == 1) {
+
+              $.get('{/literal}{$admin_url}mycontent/deletefile?id={$Detail.id}&file={literal}' + iddata + '&key=' + keydata, function(data, status){
+  
+                var obj = jQuery.parseJSON(data);
+                if (obj.status=='success')
+                {
+                  $('#report_all').html(obj.message);
+                  $("#alert_modal").modal('hide');
+                  editdata('{/literal}{$Detail.id}{literal}');
+              } else {
+                  $('#report_all').html(obj.message);
+              }
+              });
+              aa++;
+            }
+            //alert('delete this id: '+iddata);
+          });
+        }
+
+        function deletelink(iddata)
+        {
+          $("#alert_modal").modal('toggle');
+          let angka = 1;
+          $("#click_yes").click(function()
+          {
+            if(angka == 1) {
+              $.post('{/literal}{$admin_url}mycontent/deletelink?id={$Detail.id}{literal}' ,{link:iddata}, function(data, status){
+  
+                var obj = jQuery.parseJSON(data);
+                if (obj.status=='success')
+                {
+                  $('#report_all').html(obj.message);
+                  $("#alert_modal").modal('hide');
+                  editdata('{/literal}{$Detail.id}{literal}');
+              } else {
+                  $('#report_all').html(obj.message);
+              }
+              });
+              angka++;
+            }
+            //alert('delete this id: '+iddata);
+          });
+        }
+
+    $(document).ready(function () {
+        if (window.File && window.FileReader) {
+          $("#lamp_edit").on("change", function (e) {
+            let number = 0;
+            if(number == 0) {
+ var files = e.target.files,
+              filesLength = files.length;
+            for (var i = 0; i < filesLength; i++) {
+              var fileName = files[i].name;
+              $(
+                "<li>" +
+                  fileName +
+                  " <i class='fas fa-times text-danger hapusGambar'></i></li>"
+              ).appendTo("#LampEdit");
+              $(".hapusGambar").click(function () {
+                $(this).parent().remove();
+              });
+            }
+            number++;
+            }
+            
+           
+          });
+        } else {
+          alert("Your browser doesn't support to File API");
+        }
+      });
 
       var request;
       $("#edit_submit").submit(function(event){
