@@ -5,16 +5,11 @@
         <!--menu start-->
         <div class="col">
           <nav class="navbar navbar-expand-lg navbar-light">
-            <a
-              class="navbar-brand logo text-dark h6 mb-0"
-              href="{$base_url}"
-              style="font-size: 0.8rem; margin-left: -50px"
-            >
+            <a class="navbar-brand logo text-dark h6 mb-0" href="{$base_url}">
               DISKOMINFO<br /><span class="text-primary fw-bold"
                 >KABUPATEN TOBA</span
               >
             </a>
-
             <button
               class="navbar-toggler"
               type="button"
@@ -26,11 +21,11 @@
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav ms-auto" style="font-size: 0.8rem">
+              <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                  <a class="nav-link" href="{$base_url}{$index_page}">
-                    Beranda
-                  </a>
+                  <a class="nav-link" href="{$base_url}{$index_page}"
+                    >Beranda</a
+                  >
                 </li>
                 {PLUGIN NAME='LIST_PAGEALL' VAR1='TOPMENU'
                 VAR3='topmenu_list.html'}
