@@ -1,31 +1,27 @@
-{include file='header.html'}
-{include file='topmenu.html'}
+{include file='header.html'} {include file='topmenu.html'}
 
 <div id="page-title" class="page-title page-title-style-background">
-    <div class="container">
-        <div class="h-100 d-flex align-items-center">
-            <div class="mb-2">
-                <span data-animate="fadeInUp" class="text-white">{$TITLE}</span>
-                <h1 class="mb-0 text-white" data-animate="fadeInDown">{$Detail.vPageName}</h1>
-                
-                
-            </div>
-        </div>
+  <div class="container">
+    <div class="h-100 d-flex align-items-center">
+      <div class="mb-2">
+        <span data-animate="fadeInUp" class="text-white">{$TITLE}</span>
+        <h1 class="mb-0 text-white" data-animate="fadeInDown">
+          {$Detail.vPageName}
+        </h1>
+      </div>
     </div>
+  </div>
 </div>
 
-{include file='marquee.html'}
-            
-{include file='search-box.html'}
+{include file='marquee.html'} {include file='search-box.html'}
 
 <div id="wrapper-content" class="wrapper-content">
-    <div class="container">
+  <div class="container">
     <div class="page-container">
-        <div class="tab-content">
+      <div class="tab-content">
+        {$Detail.tContent}
+        <br />
 
-        {$Detail.tContent}                      
-            <br />
-            
         <div class="blog-tags mt-3">
           <div class="row align-items-center">
             <div class="col-md-6">
@@ -33,29 +29,41 @@
                 <ul class="list-inline">
                   <li class="list-inline-item">Share Di Social Media Anda:</li>
                   <li class="list-inline-item mr-5">
-                    <a target="_blank" title="Twitter"
-                      href="https://twitter.com/intent/tweet?text={$Detail.vPageName}%20%3A%20{$base_url}{$index_page}{$detailCategory.vPermalink}/{$Detail.vPermalink}.html">
+                    <a
+                      target="_blank"
+                      title="Twitter"
+                      href="https://twitter.com/intent/tweet?text={$Detail.vPageName}%20%3A%20{$base_url}{$index_page}{$detailCategory.vPermalink}/{$Detail.vPermalink}.html"
+                    >
                       <i class="fab fa-twitter"> </i>
                       <span>Twitter</span>
                     </a>
                   </li>
                   <li class="list-inline-item mr-5">
-                    <a target="_blank" title="Facebook"
-                      href="https://www.facebook.com/sharer/sharer.php?u={$base_url}{$index_page}{$detailCategory.vPermalink}/{$Detail.vPermalink}.html">
+                    <a
+                      target="_blank"
+                      title="Facebook"
+                      href="https://www.facebook.com/sharer/sharer.php?u={$base_url}{$index_page}{$detailCategory.vPermalink}/{$Detail.vPermalink}.html"
+                    >
                       <i class="fab fa-facebook-f"> </i>
                       <span>Facebook</span>
                     </a>
                   </li>
                   <li class="list-inline-item mr-5">
-                    <a target="_blank" title="Whatsapp"
-                      href="https://api.whatsapp.com/send?text={$Detail.vPageName}%20{$base_url}{$index_page}{$detailCategory.vPermalink}/{$Detail.vPermalink}.html">
+                    <a
+                      target="_blank"
+                      title="Whatsapp"
+                      href="https://api.whatsapp.com/send?text={$Detail.vPageName}%20{$base_url}{$index_page}{$detailCategory.vPermalink}/{$Detail.vPermalink}.html"
+                    >
                       <i class="fab fa-whatsapp-square"></i>
                       <span>Whatsapp</span>
                     </a>
                   </li>
                   <li class="list-inline-item mr-5">
-                    <a target="_blank" title="Linkedin"
-                      href="https://www.linkedin.com/shareArticle?mini=true&url={$base_url}{$index_page}{$detailCategory.vPermalink}/{$Detail.vPermalink}.html&title={$Detail.vPageName}&summary=&source=">
+                    <a
+                      target="_blank"
+                      title="Linkedin"
+                      href="https://www.linkedin.com/shareArticle?mini=true&url={$base_url}{$index_page}{$detailCategory.vPermalink}/{$Detail.vPermalink}.html&title={$Detail.vPageName}&summary=&source="
+                    >
                       <i class="fab fa-linkedin"></i>
                       <span>Linkedin</span>
                     </a>
@@ -65,9 +73,9 @@
             </div>
           </div>
         </div>
-        </div>
+      </div>
     </div>
-    </div>
-    </div>
- 
+  </div>
+</div>
+
 {include file='footer.html'}

@@ -75,69 +75,97 @@
                   </li>
                 </ul>
                 {$Detail.tDetail}
-                <br>
+                <br />
                 {if $listLink[0] != ''}
-<div class="row border-top my-3">
-  <div class="col"><b>Link File</b></div>
-</div>
+                <div class="row border-top my-3">
+                  <div class="col"><b>File</b></div>
+                </div>
 
-<div class="list-group mt-0 mb-3">
-  {section name=i loop=$listLink step=1}
-    {assign var="fileType" value=""}
-    {assign var="embedLink" value=$listLink[i]}
-    {if strpos($listLink[i], 'drive.google.com') !== false}
-        {assign var="fileType" value="google_drive"}
-    {elseif strpos($listLink[i], 'docs.google.com') !== false}
-        {assign var="fileType" value="google_docs"}
-        {assign var="embedLink" value=$listLink[i]|replace:'edit':'preview'}
-    {elseif strpos($listLink[i], 'sheets.google.com') !== false}
-        {assign var="fileType" value="google_sheets"}
-        {assign var="embedLink" value=$listLink[i]|replace:'edit':'htmlview'}
-    {/if}
-    
-    {if $fileType == 'google_drive' || $fileType == 'google_docs' || $fileType == 'google_sheets'}
-        <iframe src="{$embedLink}?embedded=true" style="width: 100%; height: 700px;" frameborder="0"></iframe>
-    {else}
-        <a href="{$listLink[i]}" class="list-group-item list-group-item-action text-primary" target="_blank">{$listLink[i]}</a>
-    {/if}
-  {/section}
-  <!-- Add more links as needed -->
-</div>
-{/if}
-
-    {if $listFile|@count > 0}
-    <h4>Lampiran</h4>
-    <table class="table">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">File</th>
-      <th scope="col">Nama</th>
-    </tr>
-  </thead>
-  <tbody>
-    {section name=i loop=$listFile step=1}
-    <tr>
-      <th scope="row">{$smarty.section.i.index+1}</th>
-      <td>
+                <div class="list-group mt-0 mb-3">
+                  {section name=i loop=$listLink step=1} {assign var="fileType"
+                  value=""} {assign var="embedLink" value=$listLink[i]} {if
+                  strpos($listLink[i], 'drive.google.com') !== false} {assign
+                  var="fileType" value="google_drive"} {elseif
+                  strpos($listLink[i], 'docs.google.com') !== false} {assign
+                  var="fileType" value="google_docs"} {assign var="embedLink"
+                  value=$listLink[i]|replace:'edit':'preview'} {elseif
+                  strpos($listLink[i], 'sheets.google.com') !== false} {assign
+                  var="fileType" value="google_sheets"} {assign var="embedLink"
+                  value=$listLink[i]|replace:'edit':'htmlview'} {/if} {if
+                  $fileType == 'google_drive' || $fileType == 'google_docs' ||
+                  $fileType == 'google_sheets'}
+                  <iframe
+                    src="{$embedLink}?embedded=true"
+                    style="width: 100%; height: 700px"
+                    frameborder="0"
+                  ></iframe>
+                  {else}
+                  <a
+                    href="{$listLink[i]}"
+                    class="list-group-item list-group-item-action text-primary"
+                    target="_blank"
+                    >{$listLink[i]}</a
+                  >
+                  {/if} {/section}
+                  <!-- Add more links as needed -->
+                </div>
+                {/if} {if $listFile|@count > 0}
+                <h4>Lampiran</h4>
+                <table class="table">
+                  <thead class="thead-dark">
+                    <tr>
+                      <!-- <th scope="col">#</th>
+      <th scope="col">File</th> -->
+                      <th scope="col"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {section name=i loop=$listFile step=1}
+                    <tr>
+                      <!-- <th scope="row">{$smarty.section.i.index+1}</th> -->
+                      <!-- <td>
         <a {if $listFile[i].type == 'png' || $listFile[i].type == 'jpeg' || $listFile[i].type == 'jpg' || $listFile[i].type == 'gif'}href="{$base_url}{$contentDir}{$listFile[i].id}" data-fancybox="gallery" data-caption="{$listFile[i].name}" {else} href="{$base_url}{$contentDir}{$listFile[i].id}" target="_blank" {/if}>
           <img src="{if $listFile[i].type == 'png' || $listFile[i].type == 'jpeg' || $listFile[i].type == 'jpg' || $listFile[i].type == 'gif'}{$base_url}{$contentDir}{$listFile[i].id}{else}{$base_url}themes/kominfo/asset/img/docs.png{/if}" class="rounded" alt="" style="width: 60px; height: 60px; object-fit: cover;">
         </a>
-      </td>
-      <td><a href="{$base_url}{$contentDir}{$listFile[i].id}" target="_blank">{$listFile[i].name}</a><br>
-       {if $listFile[i].type == 'pdf'}
-          <iframe src="{$base_url}{$contentDir}{$listFile[i].id}" style="width: 100%; height: 300px;" frameborder="0"></iframe>
-        {elseif $listFile[i].type == 'png' || $listFile[i].type == 'PNG' || $listFile[i].type == 'jpeg' || $listFile[i].type == 'JPEG' || $listFile[i].type == 'jpg' || $listFile[i].type == 'JPG' || $listFile[i].type == 'gif'}
-        
-          <img src="{$base_url}{$contentDir}{$listFile[i].id}" class="rounded" alt="" style="width: 100%; height: 300px; object-fit: cover;">
-        {else}
-          <img src="{$base_url}themes/kominfo/asset/img/docs.png" class="rounded" alt="" style="width: 100%; height: 300px; object-fit: cover;">
-        {/if}</td>
-    </tr>
-    {/section}
-  </tbody>
-</table>
-{/if}
+      </td> -->
+                      <td>
+                        <!-- <a
+                          href="{$base_url}{$contentDir}{$listFile[i].id}"
+                          target="_blank"
+                          >{$listFile[i].name}</a
+                        ><br /> -->
+                        {if $listFile[i].type == 'pdf'}
+                        <iframe
+                          src="{$base_url}{$contentDir}{$listFile[i].id}"
+                          style="width: 100%; height: 500px"
+                          frameborder="0"
+                        ></iframe>
+                        {elseif $listFile[i].type == 'png' || $listFile[i].type
+                        == 'PNG' || $listFile[i].type == 'jpeg' ||
+                        $listFile[i].type == 'JPEG' || $listFile[i].type ==
+                        'jpg' || $listFile[i].type == 'JPG' || $listFile[i].type
+                        == 'gif'}
+
+                        <img
+                          src="{$base_url}{$contentDir}{$listFile[i].id}"
+                          class="rounded"
+                          alt=""
+                          style="width: 100%; height: 300px; object-fit: cover"
+                        />
+                        {else}
+                        <img
+                          src="{$base_url}themes/kominfo/asset/img/docs.png"
+                          class="rounded"
+                          alt=""
+                          style="width: 100%; height: 300px; object-fit: cover"
+                        />
+                        {/if}
+                      </td>
+                    </tr>
+                    {/section}
+                  </tbody>
+                </table>
+                {/if}
                 <div class="row">
                   <div class="col">
                     {$listModule.video.vData} {$listModule.maps.vData}
