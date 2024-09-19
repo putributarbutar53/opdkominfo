@@ -394,7 +394,8 @@ class mypage extends Core
 		$iTopMenu = ($_POST['iTopMenu']) ? $_POST['iTopMenu'] : "0";
 		$vPermalink = ($_POST['vPermalink'] == "") ? preg_replace("# #", "-", strtolower(preg_replace("/[^a-zA-Z0-9\-\s]/", "", $vPageName))) : preg_replace("# #", "-", strtolower(preg_replace("/[^a-zA-Z0-9\-\s]/", "", $_POST['vPermalink'])));
 		$vURL = $_POST['vURL'];
-		$tContent = $this->Template->cleanURL($this->Db->real_escape_string($_POST['tContent']));
+		// $tContent = $this->Template->cleanURL($this->Db->real_escape_string($_POST['tContent']));
+		$tContent = $this->Db->real_escape_string($_POST['tContent']);
 		$idCategory = $_POST['idCategory'];
 		$nAdmin = $_POST['nAdmin'];
 		// $dCreated = date("Y-m-d");
