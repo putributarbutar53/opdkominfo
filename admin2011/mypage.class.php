@@ -663,7 +663,8 @@ class mypage extends Core
 	{
 		$idContent = $_POST['idContent'];
 		$vName = $this->Db->real_escape_string($_POST['vName']);
-		$vData = $this->Template->cleanURL($this->Db->real_escape_string($_POST['vData']));
+		// $vData = $this->Template->cleanURL($this->Db->real_escape_string($_POST['vData']));
+		$vData = $this->Db->real_escape_string($_POST['vData']);
 		$vPicture = $this->Pile->simpanImage($_FILES['vPicture'], "pm_" . date("Yndhis") . rand(0, 9) . rand(0, 9) . rand(0, 9));
 		$vModule = "page";
 		$idModule = $_POST['idModule'];
