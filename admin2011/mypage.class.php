@@ -394,7 +394,6 @@ class mypage extends Core
 		$iTopMenu = ($_POST['iTopMenu']) ? $_POST['iTopMenu'] : "0";
 		$vPermalink = ($_POST['vPermalink'] == "") ? preg_replace("# #", "-", strtolower(preg_replace("/[^a-zA-Z0-9\-\s]/", "", $vPageName))) : preg_replace("# #", "-", strtolower(preg_replace("/[^a-zA-Z0-9\-\s]/", "", $_POST['vPermalink'])));
 		$vURL = $_POST['vURL'];
-		// $tContent = $this->Template->cleanURL($this->Db->real_escape_string($_POST['tContent']));
 		$tContent = $this->Db->real_escape_string($_POST['tContent']);
 		$idCategory = $_POST['idCategory'];
 		$nAdmin = $_POST['nAdmin'];
@@ -663,7 +662,6 @@ class mypage extends Core
 	{
 		$idContent = $_POST['idContent'];
 		$vName = $this->Db->real_escape_string($_POST['vName']);
-		// $vData = $this->Template->cleanURL($this->Db->real_escape_string($_POST['vData']));
 		$vData = $this->Db->real_escape_string($_POST['vData']);
 		$vPicture = $this->Pile->simpanImage($_FILES['vPicture'], "pm_" . date("Yndhis") . rand(0, 9) . rand(0, 9) . rand(0, 9));
 		$vModule = "page";
