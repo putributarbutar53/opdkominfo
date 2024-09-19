@@ -248,15 +248,6 @@ class Template extends Smarty
 		return $Output;
 	}
 
-	// function cleanURL($String)
-	// {
-	// 	global $config;
-	// 	$theThemes = $config['admin']['themes'];
-	// 	$theURL = $config['base']['url'];
-	// 	$Output = str_replace(array($theURL,$theThemes),'../../',$String);
-
-	// 	return $Output;
-	// }
 
 	function ShowTemplatePlugin($resource_name, $cache_id = null, $compile_id = null)
 	{
