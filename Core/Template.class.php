@@ -248,7 +248,6 @@ class Template extends Smarty
 		return $Output;
 	}
 
-
 	function ShowTemplatePlugin($resource_name, $cache_id = null, $compile_id = null)
 	{
 		//Assign Error Template
@@ -324,6 +323,16 @@ class Template extends Smarty
 		// $Output = preg_replace("#i~m~a~g~e~s/#","images/",$Output);
 		// $Output = preg_replace("#c~s~s/#","css/",$Output);
 		// $Output = preg_replace("#j~s/#","js/",$Output);
+
+		return $Output;
+	}
+
+	function cleanURL($String)
+	{
+		global $config;
+		$theThemes = $config['admin']['themes'];
+		$theURL = $config['base']['url'];
+		$Output = str_replace(array($theURL, $theThemes), '../', $String);
 
 		return $Output;
 	}
