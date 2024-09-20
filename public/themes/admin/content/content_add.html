@@ -215,6 +215,26 @@
         $('#add').on('hidden.bs.modal', function () {
             $('#report').html('');
         });
+        tinymce.init({
+        selector: "textarea.tinymce",
+        plugins: "link image code",
+        menubar: false,
+        branding: false,
+        toolbar:
+          "formatselect | bold italic link | alignleft aligncenter alignright alignjustify | bullist numlist | image | undo redo",
+        statusbar: false,
+        relative_urls: true,
+        remove_script_host: true,
+        convert_urls: true,
+        document_base_url: "{/literal}{$base_url}{literal}",
+
+        urlconverter_callback: function (url, node, on_save, name) {
+          if (url.startsWith("{/literal}{$base_url}{literal}")) {
+            url = url.replace("{/literal}{$base_url}{literal}", "../");
+          }
+          return url;
+        },
+      });
 
         function success_notify()
         {

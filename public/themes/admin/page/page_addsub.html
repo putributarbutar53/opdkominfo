@@ -110,7 +110,7 @@
             placeholder="yyyy-mm-dd : H:i"
             data-options='{literal}{"dateFormat":"d/m/y H:i"}{/literal}'
           />
-        </div> 
+        </div>
 
         <!-- Gambar:<br />
           <input type="file" name="vGambar"> -->
@@ -369,6 +369,27 @@
         $("#report").html("");
       });
 
+      tinymce.init({
+        selector: "textarea.tinymce",
+        plugins: "link image code",
+        menubar: false,
+        branding: false,
+        toolbar:
+          "formatselect | bold italic link | alignleft aligncenter alignright alignjustify | bullist numlist | image | undo redo",
+        statusbar: false,
+        relative_urls: true,
+        remove_script_host: true,
+        convert_urls: true,
+        document_base_url: "{/literal}{$base_url}{literal}",
+
+        urlconverter_callback: function (url, node, on_save, name) {
+          if (url.startsWith("{/literal}{$base_url}{literal}")) {
+            url = url.replace("{/literal}{$base_url}{literal}", "../");
+          }
+          return url;
+        },
+      });
+
       // function success_notify()
       // {
       //   $("#notify_modal").modal('toggle');
@@ -422,4 +443,3 @@
     {/literal}
   </body>
 </html>
-

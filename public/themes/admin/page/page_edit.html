@@ -46,7 +46,7 @@
             {if $detailConf.iEditor == '1'}
             <input type="hidden" id="no_editor" name="no_editor" value="no" />
             <div class="min-vh-50">
-            <textarea class="form form-control" id="tContent" name="tContent">{$Detail.tContent}</textarea>
+            <textarea class="form form-control tinymce" id="tContent" name="tContent">{$Detail.tContent}</textarea>
             </div>
             {else}
             <input type="hidden" id="no_editor" name="no_editor" value="yes" />
@@ -264,17 +264,6 @@
       <script src="assets/js/theme.js"></script>
 
       <script>
-      //   function hapusfile(iddata, keydata) {
-      //      $("#alert_modal").modal('toggle');
-      //     $("#click_yes").click(function()
-      //     {
-      //       $.get('{/literal}{$admin_url}mypage/deletefile?id={$Detail.id}&file={literal}' + iddata + '&key=' + keydata, function (data, status) {
-      //         var obj = jQuery.parseJSON(data);
-      //         $('#report_all').html(obj.message);              
-      //         location.reload();
-      //       });
-      //   });
-      // }
       function hapusfile(iddata, keydata)
         {
           $("#alert_modal").modal('toggle');
@@ -497,6 +486,25 @@
             $('#report').html('');
         });
 
+        tinymce.init({
+    selector: 'textarea.tinymce', 
+    plugins: 'link image code', 
+    menubar: false, 
+    branding: false, 
+    toolbar: 'formatselect | bold italic link | alignleft aligncenter alignright alignjustify | bullist numlist | image | undo redo', 
+    statusbar: false, 
+    relative_urls: true, 
+    remove_script_host: true, 
+    convert_urls: true, 
+    document_base_url: '{/literal}{$base_url}{literal}', 
+    
+    urlconverter_callback: function(url, node, on_save, name) {
+        if (url.startsWith('{/literal}{$base_url}{literal}')) {
+            url = url.replace('{/literal}{$base_url}{literal}', '../');
+        }
+        return url;
+    }
+});
         function datamodule()
         {
           $('#table_modul').DataTable({
@@ -704,15 +712,7 @@
         dictRemoveFile: '<span class="badge badge-danger"><i class="fas fa-trash-alt"></i></span>',
         acceptedFiles: 'image/*',
     });
-
-    tinymce.init({
-        selector: '.tinymce',
-        height: "350",
-    });
-});
-
-
-
+      });
       </script>
       {/literal}
 
